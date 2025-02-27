@@ -16,28 +16,9 @@ x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
 T = sp.Function('T')(t)
 # Define Martices and Vectors
 #DAXF
+D = sp.Matrix([x1.diff(t), x2.diff(t), x1.diff(t, t), x2.diff(t, t)])
+
+A = sp.Matrix([[0, 0, 1, 0],[0, 0, 0, 1],[-k1*r1**2/j1, k1*r1*r2/j1, -c1*r1**2/j1,c1*r1*r2/j1],[k1*r1*r2/j2, (k1*r2**2 - k2*l**2)/j2, c1*r1*r2/j2, (c1*r2**2 - c2*l**2)/j2]])
 
 
-# Define external forces (non-homogeneous part)
-F1, F2 = sp.Function('F1')(t), sp.Function('F2')(t)
-
-# Define second-order equations
-eq1 = sp.Eq(m1 * x1.diff(t, t) + c1 * x1.diff(t) + k1 * x1, F1)
-eq2 = sp.Eq(m2 * x2.diff(t, t) + c2 * x2.diff(t) + k2 * x2, F2)
-
-# Convert to first-order system
-v1, v2 = sp.Function('v1')(t), sp.Function('v2')(t)  # Define velocity variables
-
-eq1_first = sp.Eq(x1.diff(t), v1)
-eq2_first = sp.Eq(x2.diff(t), v2)
-
-eq3_first = sp.Eq(v1.diff(t), (F1 - c1 * v1 - k1 * x1) / m1)
-eq4_first = sp.Eq(v2.diff(t), (F2 - c2 * v2 - k2 * x2) / m2)
-
-# Solve the system
-sol = sp.dsolve([eq1_first, eq2_first, eq3_first, eq4_first])
-
-# Display solutions
-for s in sol:
-    print(s)
-
+print(D)
