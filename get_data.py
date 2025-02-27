@@ -38,14 +38,14 @@ def extract_relevant_data(input_file, output_file, runs=12):
                 run_path = f'run{i}/aircraft/{dataset}'
                 
                 if run_path in src:
-                    data = src[run_path][4000:11000]  # Extract subset of data
+                    data = src[run_path][4000:11001]  # Extract subset of data
                     dest.create_dataset(f'run{i}/aircraft/{dataset}', data=data)
                 else:
                     print(f"Warning: {run_path} not found in source file.")
             
             servo_path = f'run{i}/servo/delta_e_t'
             if servo_path in src:
-                data = src[servo_path][4000:11000]  # Extract subset of data
+                data = src[servo_path][4000:11001]  # Extract subset of data
                 dest.create_dataset(servo_path, data=data)
             else:
                 print(f"Warning: {servo_path} not found in source file.")
