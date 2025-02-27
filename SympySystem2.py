@@ -24,14 +24,15 @@ X = sp.Matrix([x1, x2, x1.diff(t), x2.diff(t)])
 
 F = sp.Matrix([0, 0, T/j1, 0])
 
-#Define Equation:
+# Define the System
+system = sp.simplify(A * X + F - D)
 
-eq1 = sp.Eq(A*X + F, D)
+# Extract Equations
+eqs = [sp.Eq(system[i], 0) for i in range(system.shape[0])]
 
-#Solve
+# Solve the System
+sol = [sp.dsolve(eq) for eq in eqs]
 
-sol = sp.dsolve(eq1)
-
-#Print Sol
-
-print(sol)
+# Print Solutions
+for s in sol:
+    print(s)
