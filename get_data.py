@@ -36,12 +36,13 @@ def extract_relevant_data(input_file, output_file, runs=12):
                     dest.copy(src[run_path], f'run{i}/aircraft/{dataset}')
                 else:
                     print(f"Warning: {run_path} not found in source file.")
-            run_path = f'run{i}/servo/delta_e_t'
-            if run_path in src:
-                # Create the same hierarchy in the new file
-                dest.copy(src[run_path], f'run{i}/servo/delta_e_t')             
+            
+            servo_path = f'run{i}/servo/delta_e_t'
+            if servo_path in src:
+                dest.copy(src[servo_path], servo_path)
             else:
-                print(f"Warning: {run_path} not found in source file.")
+                print(f"Warning: {servo_path} not found in source file.")
+
 # Example usage
 input_hdf5 = '/Users/lennarthubbers/Desktop/processed-20250217_151129.hdf5'  # Replace with your actual input file
 output_hdf5 = 'filtered_data.hdf5'  # Replace with your desired output file
