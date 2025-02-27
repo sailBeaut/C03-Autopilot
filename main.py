@@ -1,4 +1,5 @@
 import sympy as sp
+import h5py
 
 # Define time variable
 t = sp.symbols('t')
