@@ -1,13 +1,22 @@
 import sympy as sp
 
-# Define variables
+# Define variables 
 t = sp.symbols('t')
+r1 = sp.symbols('r1')
+r2 = sp.symbols('r2')
+k1 = sp.symbols('k1')
+k2 = sp.symbols('k2')
+c1 = sp.symbols('c1')
+c2 = sp.symbols('c2')
+j1 = sp.symbols('j1')
+j2 = sp.symbols('j2')
+l  = sp.symbols('l')
+#x1 = theta 1 and x2 = theta 2
 x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
+T = sp.Function('T')(t)
+# Define Martices and Vectors
+#DAXF
 
-# Define system parameters
-m1, m2 = sp.symbols('m1 m2')  # Masses
-c1, c2 = sp.symbols('c1 c2')  # Damping
-k1, k2 = sp.symbols('k1 k2')  # Stiffness
 
 # Define external forces (non-homogeneous part)
 F1, F2 = sp.Function('F1')(t), sp.Function('F2')(t)
