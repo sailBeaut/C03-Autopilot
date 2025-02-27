@@ -36,7 +36,7 @@ def extract_relevant_data(input_file, output_file, runs=12):
                     dest.copy(src[run_path], f'run{i}/aircraft/{dataset}')
                 else:
                     print(f"Warning: {run_path} not found in source file.")
-
+            run_path = f'run{i}/servo/delta_e_t'
             if run_path in src:
                 # Create the same hierarchy in the new file
                 dest.copy(src[run_path], f'run{i}/servo/delta_e_t')             
