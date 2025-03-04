@@ -1,4 +1,4 @@
-import simpy as sp
+import sympy as sp
 import h5py
 
 # Define time variable
