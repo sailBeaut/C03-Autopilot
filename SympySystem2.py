@@ -42,3 +42,6 @@ for s in sol:
 '''
 
 eigenvalues, eigenvectors = np.linalg.eig(A)
+
+print("Eigenvalues:", eigenvalues)
+print("Eigenvectors:\n", eigenvectors)
