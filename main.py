@@ -1,7 +1,8 @@
 import sympy as sp
 import h5py
-from check_data import dat_array
+from check_data import dat_array, print_struc
 
+print_struc()
 print(dat_array("run1/aircraft/IservoAil"))
 
 # Define time variable
