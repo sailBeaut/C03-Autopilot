@@ -1,5 +1,6 @@
+import numpy as np
 import sympy as sp
-
+    
 # Define variables 
 t = sp.symbols('t')
 r1 = sp.symbols('r1')
@@ -24,6 +25,8 @@ X = sp.Matrix([x1, x2, x1.diff(t), x2.diff(t)])
 
 F = sp.Matrix([0, 0, T/j1, 0])
 
+
+'''
 # Define the System
 system = sp.simplify(A * X + F - D)
 
@@ -36,3 +39,6 @@ sol = [sp.dsolve(eq) for eq in eqs]
 # Print Solutions
 for s in sol:
 	print(s)
+'''
+
+eigenvalues, eigenvectors = np.linalg.eig(A)
