@@ -19,7 +19,7 @@ T = sp.Function('T')(t)
 #DAXF
 D = sp.Matrix([x1.diff(t), x2.diff(t), x1.diff(t, t), x2.diff(t, t)])
 
-A = sp.Matrix([[0, 0, 1, 0],[0, 0, 0, 1],[-k1*r1**2/j1, k1*r1*r2/j1, -c1*r1**2/j1,c1*r1*r2/j1],[k1*r1*r2/j2, (k1*r2**2 - k2*l**2)/j2, c1*r1*r2/j2, (c1*r2**2 - c2*l**2)/j2]])
+A = np.array([[0, 0, 1, 0],[0, 0, 0, 1],[-k1*r1**2/j1, k1*r1*r2/j1, -c1*r1**2/j1,c1*r1*r2/j1],[k1*r1*r2/j2, (k1*r2**2 - k2*l**2)/j2, c1*r1*r2/j2, (c1*r2**2 - c2*l**2)/j2]])
 
 X = sp.Matrix([x1, x2, x1.diff(t), x2.diff(t)])
 
