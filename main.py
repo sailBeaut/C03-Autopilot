@@ -8,17 +8,25 @@ print(dat_array("run1/aircraft/IservoAil"))
 # Define time variable
 t = sp.symbols('t')
 
+
 # Define state vector and input
-x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
-u = sp.Function('u')(t)
+delta_e_dot, delta_e = sp.Function('d_e_d')(t), sp.Function('d_e')(t)
+i = sp.Function('i')(t)
+
+# Define variables for system matrix
+c1 = 1 # Damping coefficient
+k1 = 1 # Spring constant
+kg = 1 # Gain of the system
+Ie = 1 # Moment of inertia of the elevator
+
 
 # Define system matrices
-A = sp.Matrix([[0, 1], [-2, -3]])  # Example 2x2 system matrix
-B = sp.Matrix([[0], [1]])		  # Example input matrix
-X = sp.Matrix([x1, x2])			# State vector
+A = sp.Matrix([[-(c1/Ie), -(k1/Ie)], [1, 0]])  # Example 2x2 system matrix
+B = sp.Matrix([[kg/Ie], [0]])		  # Example input matrix
+X = sp.Matrix([delta_e_dot, delta_e])			# State vector
 
 # Define state-space equation
-eqs = X.diff(t) - (A * X + B * u)
+eqs = X.diff(t) - (A * X + B *i)
 
 # Solve the system using dsolve
 sol = sp.dsolve(eqs)
