@@ -20,5 +20,19 @@ D = sp.Matrix([x1.diff(t), x2.diff(t), x1.diff(t, t), x2.diff(t, t)])
 
 A = sp.Matrix([[0, 0, 1, 0],[0, 0, 0, 1],[-k1*r1**2/j1, k1*r1*r2/j1, -c1*r1**2/j1,c1*r1*r2/j1],[k1*r1*r2/j2, (k1*r2**2 - k2*l**2)/j2, c1*r1*r2/j2, (c1*r2**2 - c2*l**2)/j2]])
 
+X = sp.Matrix([x1, x2, x1.diff(t), x2.diff(t)])
 
-print(D)
+F = sp.Matrix([0, 0, T/j1, 0])
+
+# Define the System
+system = sp.simplify(A * X + F - D)
+
+# Extract Equations
+eqs = [sp.Eq(system[i], 0) for i in range(system.shape[0])]
+
+# Solve the System
+sol = [sp.dsolve(eq) for eq in eqs]
+
+# Print Solutions
+for s in sol:
+    print(s)
