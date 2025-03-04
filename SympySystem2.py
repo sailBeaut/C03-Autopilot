@@ -35,4 +35,4 @@ sol = [sp.dsolve(eq) for eq in eqs]
 
 # Print Solutions
 for s in sol:
-    print(s)
+	print(s)
