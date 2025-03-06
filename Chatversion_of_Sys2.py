@@ -53,7 +53,7 @@ C_num = np.array(C.subs(subs_dict)).astype(np.float64)
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([IservoAil[t]*kg, 0])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, 0]) # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
