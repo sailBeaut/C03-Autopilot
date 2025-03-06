@@ -31,10 +31,11 @@ for i in range(7001):
     
     # Compute xdot = A * x + B * u
     xdot = A @ x + B @ u
+    print(xdot)
     x = x + xdot * dt  # Euler integration step
 
     # Store angle (first element of x)
-    xlist.append(x[0])
+    xlist.append(x[1])
 
     if i % 1000 == 0:
         print(f"Step {i}: x = {x}")
