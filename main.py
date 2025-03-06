@@ -44,6 +44,7 @@ for i in range(7001):
 	xlist.append(xinst)
 
 plt.plot(np.linspace(0,7000,7001), xlist, color="r")
+plt.plot(np.linspace(0,7000,7001), DeltaAil, color="b")
 plt.show()
 
 # Simplify and compute the result
