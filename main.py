@@ -20,7 +20,7 @@ Ie = 1.0  # moment of inertia TUNING PARAMETER
 A = sp.Matrix([[-(c1/Ie), -(k1/Ie)], [1, 0]])
 B = sp.Matrix([[kg/Ie], [0]])
 x = sp.Matrix([[DeltaAil_dot], [DeltaAil]])
-u = sp.Matrix([[IservoAil], [0]])
+u = sp.Matrix([[IservoAil]])
 
 def state_equation():
     xdot = A * x + B * u
