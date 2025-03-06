@@ -1,3 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import numpy as np
 import sympy as sp
     
@@ -39,7 +60,7 @@ def f(Y, t, M, C, K, F):
     
     return np.hstack((dxdt, dvdt))
 
-def runge_kutta4(Y0, t, M, C, K, F):
+def runge_kutta4(Y0, t, M, C, K, F): 
     h = t[1] - t[0]
     Y = np.zeros((len(t), len(Y0)))
     Y[0, :] = Y0
