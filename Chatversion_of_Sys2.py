@@ -1,7 +1,14 @@
-import numpy as np
+import h5py
 import sympy as sp
+from check_data import dat_array, print_struc
+import numpy as np
 import matplotlib.pyplot as plt
-#Elevator
+
+DeltaAil = dat_array("run1/aircraft/DeltaAil")
+IservoAil = dat_array("run1/aircraft/IservoAil")
+for i in range(7001):
+	u_val = sp.Matrix([[IservoAil[i]]])
+#Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
 j1, j2 = sp.symbols('j1 j2')  # Masses
 k1, k2 = sp.symbols('k1 k2')  # Stiffness values
@@ -36,7 +43,7 @@ Y = sp.Matrix.vstack(x, v)
 dYdt = sp.Matrix.vstack(dxdt, dvdt)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1E1, k2: 1E1, c1: 1E5, c2: 1E5, r1: 2.52E-2, r2: 7.9E-2, l: 0.5}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1E5, k2: 1E5, c1: 1E1, c2: 1E1, r1: 2.52E-2, r2: 7.9E-2, l: 0.5}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -45,7 +52,7 @@ C_num = np.array(C.subs(subs_dict)).astype(np.float64)
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.sin(t), 0])  # Numerical force
+    F_num = u_val  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -70,7 +77,7 @@ def runge_kutta4(f, Y0, t):
     return Y
 
 # Time settings
-t_values = np.linspace(0, 7, 1000)  # Time from 0 to 7 sec
+t_values = np.linspace(0,7000,7001)  # Time from 0 to 7 sec
 Y0 = [0, 0, 0, 0]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
 # Solve using RK4
