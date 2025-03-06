@@ -8,7 +8,7 @@ DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 for i in range(7001):
     u_val1 = sp.Matrix([[IservoAil[i]]])
-	u_val2 = np.array([[IservoAil[i]]])
+	u_val2 = IservoAil[i]
     
 #Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
