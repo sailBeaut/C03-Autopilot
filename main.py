@@ -1,11 +1,9 @@
 import h5py
 import sympy as sp
+from check_data import dat_array, print_struc
 
-with h5py.File("filtered_data.hdf5", "r") as f:
-    DeltaAil = list(f["run1/aircraft/DeltaAil"])  # Fetch as list (length = 7001)
-    IservoAil = list(f["run1/aircraft/IservoAil"])  # Fetch as list (length = 7001)
-    # print("Data:", data)
-
+DeltaAil = dat_array("run1/aircraft/DeltaAil")
+IservoAil = dat_array("run1/aircraft/IservoAil")
 
 # Define symbolic variables
 DeltaAil = sp.Symbol("DeltaAil")
