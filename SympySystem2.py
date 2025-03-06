@@ -37,6 +37,7 @@ F = np.array([1, 0])  # External force
 '''
 
 # Define variables
+t = sp.symbols('t')
 n = 2  # 2-DOF system 
 r1 = sp.symbols('r1')
 r2 = sp.symbols('r2')
@@ -48,9 +49,9 @@ j1 = sp.symbols('j1')
 j2 = sp.symbols('j2')
 l  = sp.symbols('l')
 #x1 = theta 1 and x2 = theta 2
-'''x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
-T = sp.Function('T')(t)'''
-
+'''x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)'''
+T = sp.Function('T')(t)
+'''
 #Given Values of variables
 j1 = 5.4E-5 #kgm^2
 r1 = 2.52E-2 #m
@@ -60,26 +61,25 @@ k1 = 10000 #N/M
 k2 = 10000 #N/M
 c1 = 10 #Ns/m
 c2 = 10 #Ns/m
-
+'''
 
 #Define Matrices
 M = sp.Matrix([[j1, 0],[ 0, j2]]) #Mass matrix
-C = sp.Matrix([[0.1, 0], [0, 0.2]])  # Damping matrix
-K = sp.Matrix([[50, -10], [-10, 20]])  # Stiffness matrix
-F = sp.Matrix([1, 0])  # External force
+C = sp.Matrix([[c1*r1**2, -c1*r1*r2], [-c1*r1*r2, c2*l**2 - c1*r2**2]])  # Damping matrix
+K = sp.Matrix([[k1*r1**2, -k1*r1*r2], [-k1*r1*r2, k2*l**2-k1*r2**2]])  # Stiffness matrix
+F = sp.Matrix([T, 0])  # External force
 #Calculations
-t = np.linspace(0, 7, 1000)  # Time vector
+t_array = np.linspace(0, 7, 1000)  # Time vector
 Y0 = np.zeros(2 * n)  # Initial conditions (zero displacement & velocity)
 
-Y = runge_kutta4(Y0, t, M, C, K, F)
+Y = runge_kutta4(Y0, t_array, M, C, K, F)
 
-
-print(t)
-
+print(Y)
+'''
 # Extract displacements and velocities
 x1 = Y[:, 0]  # Displacement of DOF 1
 x2 = Y[:, 1]  # Displacement of DOF 2
-
+'''
 '''
 plt.plot(t, x1)
 plt.legend()
