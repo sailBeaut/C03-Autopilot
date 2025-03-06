@@ -39,7 +39,7 @@ for i in range(7001):
 
     if i % 1000 == 0:
         print(f"Step {i}: x = {x}")
-error = sum(abs(xlist-DeltaAil))
+error = sum((xlist-DeltaAil)**2)
 # Plot results
 plt.plot(np.linspace(0, 7000, 7001), xlist, color="r", label="Computed")
 plt.plot(np.linspace(0, 7000, 7001), DeltaAil, color="b", label="Actual")
