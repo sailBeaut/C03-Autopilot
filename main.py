@@ -9,9 +9,9 @@ DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 
 # Parametric constants
-c1 = 1.0  # damper constant TUNING PARAMETER
-k1 = 5.0  # spring constant TUNING PARAMETER
-kg = 0.4  # gain SET PARAMETER
+c1 = 2.2  # damper constant TUNING PARAMETER
+k1 = 8.0  # spring constant TUNING PARAMETER
+kg = -0.45  # gain SET PARAMETER
 Ie = 0.05  # moment of inertia TUNING PARAMETER
 
 # Define symbolic matrices
@@ -21,7 +21,7 @@ B = sp.Matrix([[kg/Ie],
                [0]])
 
 # Initial conditions
-x = sp.Matrix([[0], [0]])  # Initial state (angle and velocity)
+x = sp.Matrix([[0], [0.013]])  # Initial state (angle and velocity)
 xlist = []
 
 # Time integration loop
@@ -31,7 +31,7 @@ for i in range(7001):
     
     # Compute xdot = A * x + B * u
     xdot = A @ x + B @ u
-    print(xdot)
+    #print(xdot)
     x = x + xdot * dt  # Euler integration step
 
     # Store angle (first element of x)
@@ -39,9 +39,10 @@ for i in range(7001):
 
     if i % 1000 == 0:
         print(f"Step {i}: x = {x}")
-
+error = sum(abs(xlist-DeltaAil))
 # Plot results
 plt.plot(np.linspace(0, 7000, 7001), xlist, color="r", label="Computed")
 plt.plot(np.linspace(0, 7000, 7001), DeltaAil, color="b", label="Actual")
 plt.legend()
+print(error)
 plt.show()
