@@ -48,8 +48,8 @@ j1 = sp.symbols('j1')
 j2 = sp.symbols('j2')
 l  = sp.symbols('l')
 #x1 = theta 1 and x2 = theta 2
-x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
-T = sp.Function('T')(t)
+'''x1, x2 = sp.Function('x1')(t), sp.Function('x2')(t)
+T = sp.Function('T')(t)'''
 
 #Given Values of variables
 j1 = 5.4E-5 #kgm^2
@@ -63,8 +63,10 @@ c2 = 10 #Ns/m
 
 
 #Define Matrices
-M = sp.Matrix([[j1, 0],[ 0, j2]])
-
+M = sp.Matrix([[j1, 0],[ 0, j2]]) #Mass matrix
+C = sp.Matrix([[0.1, 0], [0, 0.2]])  # Damping matrix
+K = sp.Matrix([[50, -10], [-10, 20]])  # Stiffness matrix
+F = sp.Matrix([1, 0])  # External force
 #Calculations
 t = np.linspace(0, 7, 1000)  # Time vector
 Y0 = np.zeros(2 * n)  # Initial conditions (zero displacement & velocity)
@@ -72,7 +74,7 @@ Y0 = np.zeros(2 * n)  # Initial conditions (zero displacement & velocity)
 Y = runge_kutta4(Y0, t, M, C, K, F)
 
 
-
+print(t)
 
 # Extract displacements and velocities
 x1 = Y[:, 0]  # Displacement of DOF 1
