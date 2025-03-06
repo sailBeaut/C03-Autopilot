@@ -87,6 +87,7 @@ Y_sol = runge_kutta4(system, Y0, t_values)
 # Step 4: Plot results
 plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
 plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+plt.plot(t_values, IservoAil)
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
 plt.title("MDOF System Response (RK4)")
