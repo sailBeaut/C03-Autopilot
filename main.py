@@ -1,6 +1,9 @@
 import h5py
 import sympy as sp
 from check_data import dat_array, print_struc
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
@@ -20,18 +23,28 @@ u = sp.MatrixSymbol('u', 1, 1)  # Scalar input as a 1x1 matrix
 
 A_val = sp.Matrix([[-(c1/Ie), -(k1/Ie)], [1, 0]])
 B_val = sp.Matrix([[kg/Ie], [0]])
-x_val = sp.Matrix([[0], [DeltaAil[0]]])
+x_val = sp.Matrix([[DeltaAil[0]], [0]])
 
 
 xdot = A @ x + B @ u
+xinst = 0
+xlist = []
+vinst = 0
 
-for i in range(len(DeltaAil)):
+for i in range(7001):
 	u_val = sp.Matrix([[IservoAil[i]]])
-	if i !=0:
-		x_val = sp.Matrix([[xdot_result[0]], [DeltaAil[i]]])
+	if i !=0: 
+		x_val = sp.Matrix([[DeltaAil[i]], [vinst]])
 	xdot_evaluated = xdot.subs({A: A_val, B: B_val, x: x_val, u: u_val})
 	xdot_result = xdot_evaluated.doit()
-print(xdot_result)
+	if i%100==0:
+		print(i)
+	xinst += xdot_result[1]*0.001
+	vinst += xdot_result[0]*0.001
+	xlist.append(xinst)
+
+plt.plot(np.linspace(0,7000,7001), xlist, color="r")
+plt.show()
 
 # Simplify and compute the result
 
