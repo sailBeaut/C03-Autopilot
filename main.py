@@ -13,10 +13,10 @@ DeltaAil_dot = sp.Symbol("DeltaAil_dot")
 IservoAil = sp.Symbol("IservoAil")
 
 # Parametric constants
-c1 = 1.0  # damper constant
-k1 = 1.0  # spring constant
-kg = 1.0  # gain
-Ie = 1.0  # moment of inertia
+c1 = 1.0  # damper constant TUNING PARAMETER
+k1 = 1.0  # spring constant TUNING PARAMETER
+kg = 1.0  # gain SET PARAMETER
+Ie = 1.0  # moment of inertia TUNING PARAMETER
 
 # State equation
 A = sp.Matrix([[-(c1/Ie), -(k1/Ie)], [1, 0]])
