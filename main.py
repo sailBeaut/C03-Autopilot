@@ -23,4 +23,4 @@ x = sp.Matrix([[DeltaAil_dot], [DeltaAil]])
 u = sp.Matrix([[IservoAil]])
 
 def state_equation():
-    xdot = A * x + B * u
+    xdot = A @ x + B @ u
