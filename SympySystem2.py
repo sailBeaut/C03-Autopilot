@@ -70,6 +70,8 @@ Y = runge_kutta4(Y0, t, M, C, K, F)
 x1 = Y[:, 0]  # Displacement of DOF 1
 x2 = Y[:, 1]  # Displacement of DOF 2
 
+
+print(x1)
 '''
 # Define the System
 system = sp.simplify(A * X + F - D)
