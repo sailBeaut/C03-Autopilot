@@ -1,42 +1,27 @@
-import numpy as np
-import matplotlib.pyplot as plt
+def runge_kutta(f, y0, t0, tf, h):
+    n = int((tf - t0) / h)
+    t = t0
+    y = y0
+    for i in range(n):
+        k1 = h * f(t, y)
+        k2 = h * f(t + h / 2, y + k1 / 2)
+        k3 = h * f(t + h / 2, y + k2 / 2)
+        k4 = h * f(t + h, y + k3)
+        y += (k1 + 2 * k2 + 2 * k3 + k4) / 6
+        t += h
+    return y
 
-# Define the ODE: dy/dx = f(x, y)
-def f(x, y):
-    return -2 * x * y  # Example: dy/dx = -2xy
+# Example usage:
+# Define the differential equation dy/dt = f(t, y)
+def f(t, y):
+    return t - y
 
-# Runge-Kutta 4th order method
-def runge_kutta_4(f, x0, y0, x_end, h):
-    x_values = np.arange(x0, x_end + h, h)  # Array of x values
-    y_values = np.zeros(len(x_values))  # Array to store y values
-    y_values[0] = y0  # Initial condition
+# Initial conditions
+y0 = 1
+t0 = 0
+tf = 2
+h = 0.1
 
-    for i in range(1, len(x_values)):
-        x_n = x_values[i - 1]
-        y_n = y_values[i - 1]
-
-        k1 = h * f(x_n, y_n)
-        k2 = h * f(x_n + h / 2, y_n + k1 / 2)
-        k3 = h * f(x_n + h / 2, y_n + k2 / 2)
-        k4 = h * f(x_n + h, y_n + k3)
-
-        y_values[i] = y_n + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-
-    return x_values, y_values
-
-# Parameters
-x0, y0 = 0, 1  # Initial condition y(0) = 1
-x_end = 2  # Solve from x=0 to x=2
-h = 0.1  # Step size
-
-# Solve ODE
-x_vals, y_vals = runge_kutta_4(f, x0, y0, x_end, h)
-
-# Plot the results
-plt.plot(x_vals, y_vals, 'b-', label="RK4 Approximation")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("Runge-Kutta Method (RK4) for dy/dx = -2xy")
-plt.legend()
-plt.grid()
-plt.show()
+# Solve the differential equation
+result = runge_kutta(f, y0, t0, tf, h)
+print("The solution at t =", tf, "is y =", result)
