@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
-for i in range(7001):
-	u_val = sp.Matrix([[IservoAil[i]]])
+for j in range(7001):
+	u_val = sp.Matrix([[IservoAil[j]]])
 #Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
 j1, j2 = sp.symbols('j1 j2')  # Masses
