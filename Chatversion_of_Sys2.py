@@ -36,7 +36,7 @@ Y = sp.Matrix.vstack(x, v)
 dYdt = sp.Matrix.vstack(dxdt, dvdt)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 1E-5, k1: 1E1, k2: 1E1, c1: 1E5, c2: 1E5, r1: 2.52E-2, r2: 1E-2, l: 1}
+subs_dict = {j1: 5.4E-5, j2: 1E-5, k1: 1E1, k2: 1E1, c1: 1E5, c2: 1E5, r1: 2.52E-2, r2: 10E-2, l: 1}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
