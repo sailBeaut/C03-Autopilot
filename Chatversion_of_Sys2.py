@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
-for j in range(7001):
-	u_val = sp.Matrix([[IservoAil[j]]])
+for i in range(7001):
+    u_val1 = sp.Matrix([[IservoAil[i]]])
+	u_val2 = np.array([[IservoAil[i]]])
+    
 #Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
 j1, j2 = sp.symbols('j1 j2')  # Masses
@@ -24,7 +26,7 @@ C = sp.Matrix([[c1*r1**2, -c1*r1*r2], [-c1*r1*r2, c2*l**2 - c1*r2**2]])  # Dampi
 K = sp.Matrix([[k1*r1**2, -k1*r1*r2], [-k1*r1*r2, k2*l**2-k1*r2**2]])  # Stiffness matrix
 
 # Define force vector (external forces)
-F = sp.Matrix([sp.sin(t), 0])  # Example force applied to first DOF
+F = u_val1  # Example force applied to first DOF
 #Assume input Torque is sinus function
 
 # Compute M inverse
@@ -52,7 +54,7 @@ C_num = np.array(C.subs(subs_dict)).astype(np.float64)
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = u_val  # Numerical force
+    F_num = u_val2  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
