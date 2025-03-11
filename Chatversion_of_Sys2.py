@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 #Gain
-k_g = 2.0
+k_g = -0.5
     
 #Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
@@ -101,7 +101,7 @@ print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value)
 
 # Step 4: Plot results
-plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
+#plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
 plt.plot(t_values, Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
