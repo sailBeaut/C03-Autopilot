@@ -3,11 +3,13 @@ import sympy as sp
 from check_data import dat_array, print_struc
 import numpy as np
 import matplotlib.pyplot as plt
+from Testkernels import current_smoothed_ma
 
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
+DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 # Gain
-k_g = 2.0
+k_g = -0.45
 
 # Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
@@ -65,7 +67,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, 0])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, current_smoothed_ma) * k_g, 0])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -102,8 +104,55 @@ print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
 # Step 4: Plot results
-plt.plot(t_values, Y_sol[:, 0] * (180 * np.pi), label="x1 (DOF 1)")
-plt.plot(t_values, Y_sol[:, 1] * (180 * np.pi), label="x2 (DOF 2)")
+#plt.plot(t_values, Y_sol[:, 0] * (180 * np.pi), label="x1 (DOF 1)")
+plt.subplot(2, 2, 1)
+plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+plt.plot(t_values, DeltaAil, label="DeltaAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 2")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 2, 2)
+plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 2")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 2, 3)
+plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 1")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+
+plt.subplot(2, 2, 4)
+plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 1")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+
+
+
+
+
+
+
+
+
+plt.show()
+
+
+plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
+plt.plot(t_values, Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
 plt.title("MDOF System Response (RK4)")
