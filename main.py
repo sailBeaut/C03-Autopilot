@@ -7,11 +7,11 @@ DeltaAil = dat_array("run8/aircraft/DeltaAil")
 IservoAil = dat_array("run8/aircraft/IservoAil")
 
 # Parametric constants (adjusted for better accuracy)
-c1 = 2.65   # Damper constant (TUNING PARAMETER)
-k1 = 7.41   # Spring constant (TUNING PARAMETER)
+c1 = 2.62   # Damper constant (TUNING PARAMETER)
+k1 = 7.56   # Spring constant (TUNING PARAMETER)
 kg = 0.4    # Gain (SET PARAMETER)
-Ie = 0.45   # Moment of inertia (TUNING PARAMETER)
-c2 = 0.00089
+Ie = 0.435   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.00089 # Damper constant (TUNING PARAMETER)
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]])
