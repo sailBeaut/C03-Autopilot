@@ -98,7 +98,7 @@ Y0 = [0, 0, 0, 0]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 Y_sol = runge_kutta4(system, Y0, t_values)
 
 print(t_values)
-eigenvalues()
+eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value)
 
 # Step 4: Plot results
 plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
