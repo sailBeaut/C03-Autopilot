@@ -9,11 +9,11 @@ DeltaAil = dat_array("run8/aircraft/DeltaAil")
 IservoAil = dat_array("run8/aircraft/IservoAil")
 
 # Parametric constants
-c1 = 3  # damper constant TUNING PARAMETER
-k1 = 7  # spring constant TUNING PARAMETER
+c1 = 2.65  # damper constant TUNING PARAMETER
+k1 = 7.41  # spring constant TUNING PARAMETER
 kg = 0.4  # gain SET PARAMETER
 Ie = 0.45  # moment of inertia TUNING PARAMETER
-c2 = 0.001
+c2 = 0.00089
 
 # Define symbolic matrices
 A = sp.Matrix([[-(c1/Ie), -(k1/Ie)], 
