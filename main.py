@@ -16,7 +16,7 @@ Ie = 0.4  # moment of inertia TUNING PARAMETER
 
 # Define symbolic matrices
 A = sp.Matrix([[-(c1/Ie), -(k1/Ie)], 
-               [1, 0]])
+               [1, 0]]/Ie)
 B = sp.Matrix([[-kg], 
                [0]])
 
