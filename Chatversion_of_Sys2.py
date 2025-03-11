@@ -49,6 +49,19 @@ M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
 
+# Calculate eigenvalues
+j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value = subs_dict[j1], subs_dict[j2], subs_dict[k1], subs_dict[k2], subs_dict[c1], subs_dict[c2], subs_dict[r1], subs_dict[r2], subs_dict[l]
+
+def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value):
+    j1, j2, k1, k2, c1, c2, r1, r2, l = j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value
+    A = np.array([[0, 0, 1, 0],[0, 0, 0, 1],[-k1*r1**2/j1, k1*r1*r2/j1, -c1*r1**2/j1,c1*r1*r2/j1],[k1*r1*r2/j2, (k1*r2**2 - k2*l**2)/j2, c1*r1*r2/j2, (c1*r2**2 - c2*l**2)/j2]])
+
+    # Calculate the eigenvalues
+    eigenvalues = np.linalg.eigvals(A)
+
+    # Print the eigenvalues
+    print("Eigenvalues of the matrix are:", eigenvalues)
+
 # Convert system equations to NumPy function
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
@@ -85,6 +98,7 @@ Y0 = [0, 0, 0, 0]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 Y_sol = runge_kutta4(system, Y0, t_values)
 
 print(t_values)
+eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value, l_value)
 
 # Step 4: Plot results
 #plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
