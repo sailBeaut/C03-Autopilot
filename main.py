@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load data
-DeltaAil = dat_array("run1/aircraft/DeltaAil")
-IservoAil = dat_array("run1/aircraft/IservoAil")
+DeltaAil = dat_array("run8/aircraft/DeltaAil")
+IservoAil = dat_array("run8/aircraft/IservoAil")
 
 # Parametric constants
 c1 = 3.0  # damper constant TUNING PARAMETER
