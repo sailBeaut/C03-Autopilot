@@ -3,15 +3,16 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-DeltaAil = dat_array("run3/aircraft/DeltaAil")
-IservoAil = dat_array("run3/aircraft/IservoAil")
+run_nr = 3
+DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
+IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
 # Parametric constants (adjusted for better accuracy)
-c1 = 4.75   # Damper constant (TUNING PARAMETER)
-k1 = 6.5   # Spring constant (TUNING PARAMETER)
+c1 = 4.20   # Damper constant (TUNING PARAMETER)
+k1 = 6.79   # Spring constant (TUNING PARAMETER)
 kg = 0.4    # Gain (SET PARAMETER)
 Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
-c2 = 0.001101 # Damper constant (TUNING PARAMETER)
+c2 = 0.001159 # Damper constant (TUNING PARAMETER)
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]])
@@ -26,7 +27,7 @@ xlist = []
 dt = 0.001  # Time step
 for i in range(7001):
     u = np.array([[IservoAil[i]]])  # Control input
-    v = np.array([[78]])  # External force
+    v = np.array([[(dat_array("run" + str(run_nr) + "/aircraft/VTrue"))[i]]])  # External force
     
     # Compute xdot = A * x + B * u + C * v
     xdot = A @ x + B @ u + C @ v
@@ -59,11 +60,11 @@ plt.legend()
 plt.title("Computed vs. Actual Delta Ail")
 plt.show()
 
-# Plot absolute error over time
-plt.figure(figsize=(10, 5))
-plt.plot(time_steps, absolute_error, color="g", label="Absolute Error")
-plt.xlabel("Time Steps")
-plt.ylabel("Absolute Error")
-plt.legend()
-plt.title("Absolute Error Over Time")
-plt.show()
+# # Plot absolute error over time
+# plt.figure(figsize=(10, 5))
+# plt.plot(time_steps, absolute_error, color="g", label="Absolute Error")
+# plt.xlabel("Time Steps")
+# plt.ylabel("Absolute Error")
+# plt.legend()
+# plt.title("Absolute Error Over Time")
+# plt.show()
