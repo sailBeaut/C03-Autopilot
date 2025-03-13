@@ -1,4 +1,3 @@
-
 # Run8 [86]: (95%)
 # Parametric constants (adjusted for better accuracy)
 c1 = 2.55   # Damper constant (TUNING PARAMETER)
