@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-DeltaAil = dat_array("run3/aircraft/DeltaAil")
-IservoAil = dat_array("run3/aircraft/IservoAil")
+run_nr = 3
+DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
+IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
 # Parametric constants (adjusted for better accuracy)
 c1 = 4.2   # Damper constant (TUNING PARAMETER)
@@ -26,7 +27,7 @@ xlist = []
 dt = 0.001  # Time step
 for i in range(7001):
     u = np.array([[IservoAil[i]]])  # Control input
-    v = np.array([[78]])  # External force
+    v = np.array([[np.mean(dat_array("run" + str(run_nr) + "/aircraft/VTrue"))]])  # External force
     
     # Compute xdot = A * x + B * u + C * v
     xdot = A @ x + B @ u + C @ v
