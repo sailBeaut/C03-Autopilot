@@ -20,7 +20,7 @@ B = np.array([[-kg/Ie], [0]])
 C = np.array([[c2/Ie], [0]])
 
 # Initial state [angle, velocity]
-x = np.array([[0], [0.012]])
+x = np.array([[0], [IservoAil[0]]])
 xlist = []
 
 # Time integration loop
