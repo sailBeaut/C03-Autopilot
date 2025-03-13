@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-run_nr = 3
+run_nr = 11
 DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
 IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
@@ -20,7 +20,7 @@ B = np.array([[-kg/Ie], [0]])
 C = np.array([[c2/Ie], [0]])
 
 # Initial state [angle, velocity]
-x = np.array([[0], [IservoAil[0]]])
+x = np.array([[0], [DeltaAil[0]]])
 xlist = []
 
 # Time integration loop
