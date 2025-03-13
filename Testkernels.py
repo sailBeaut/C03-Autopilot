@@ -15,7 +15,7 @@ kde = gaussian_kde(current, bw_method=0.1)
 current_smoothed_kde = kde(current)  # Smoothed KDE values
 
 # Step 3: Moving Average Smoothing (Alternative)
-window_size = 50  # Adjust the window for more or less smoothing
+window_size = 25  # Adjust the window for more or less smoothing
 current_smoothed_ma = np.convolve(current, np.ones(window_size) / window_size, mode='same')
 
 # Step 4: Plot the Results
