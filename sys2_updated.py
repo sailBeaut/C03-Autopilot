@@ -103,12 +103,6 @@ Y_sol = runge_kutta4(system, Y0, t_values)
 print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
-#Step 4: Calculate Error
-def error(Model, Measured):
-    return np.mean(np.abs(Model - Measured))
-
-error_DOF1 = error(Y_sol[:, 0], DeltaDrumAil)
-error_DOF2 = error(Y_sol[:, 1], DeltaAil)
 
 # Step 5: Plot results
 plt.subplot(2, 4, 1)
@@ -121,12 +115,14 @@ plt.legend()
 plt.grid()
 
 plt.subplot(2, 4, 2)
-plt.plot(t_values, error_DOF2, label="x2 (DOF 2)")
+percentage_error_dof2 = np.abs((-Y_sol[:, 1] - DeltaAil) / DeltaAil) * 100
+plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
-plt.ylabel("Error of DOF 2")
+plt.ylabel("Percentage Error of DOF 2 (%)")
 plt.title("Error")
 plt.legend()
 plt.grid()
+
 
 plt.subplot(2, 4, 3)
 plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
@@ -154,9 +150,10 @@ plt.legend()
 plt.grid()
 
 plt.subplot(2, 4, 6)
-plt.plot(t_values, error_DOF1, label="x1 (DOF 1)")
+percentage_error_dof1 = np.abs((Y_sol[:, 0] - DeltaDrumAil) / DeltaDrumAil) * 100
+plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
 plt.xlabel("Time (s)")
-plt.ylabel("Error of DOF 1")
+plt.ylabel("Percentage Error of DOF 1 (%)")
 plt.title("Error")
 plt.legend()
 plt.grid()
@@ -196,3 +193,16 @@ plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
 plt.show()
+
+absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
+absolute_error2 = np.abs(Y_sol[:, 1] - DeltaAil)
+
+# Compute accuracy as percentage
+error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
+accuracy1 = (1 - error_norm1) * 100
+error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(DeltaAil)
+accuracy2 = (1 - error_norm2) * 100
+
+# Print accuracy
+print(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
+print(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
