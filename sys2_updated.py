@@ -186,7 +186,7 @@ plt.show()
 
 
 plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
-plt.plot(t_values, Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
+plt.plot(t_values, -Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
 plt.title("MDOF System Response (RK4)")
@@ -195,7 +195,7 @@ plt.grid()
 plt.show()
 
 absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
-absolute_error2 = np.abs(Y_sol[:, 1] - DeltaAil)
+absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
 # Compute accuracy as percentage
 error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
