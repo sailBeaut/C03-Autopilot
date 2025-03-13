@@ -5,9 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Testkernels import current_smoothed_ma
 
-DeltaAil = dat_array("run1/aircraft/DeltaAil")
-DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
-IservoAil = dat_array("run1/aircraft/IservoAil")
+DeltaAil = dat_array("run3/aircraft/DeltaAil")
+DeltaDrumAil = dat_array("run3/aircraft/DeltaDrumAil")
+IservoAil = dat_array("run3/aircraft/IservoAil")
 # Gain
 k_g = 0.22
 
@@ -41,7 +41,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1000, k2: 5000, c1: 2, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 20, c1: 250, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -67,7 +67,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, current_smoothed_ma) * k_g, 0])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, 0])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -103,10 +103,16 @@ Y_sol = runge_kutta4(system, Y0, t_values)
 print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
-# Step 4: Plot results
-#plt.plot(t_values, Y_sol[:, 0] * (180 * np.pi), label="x1 (DOF 1)")
-plt.subplot(2, 2, 1)
-plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+#Step 4: Calculate Error
+def error(Model, Measured):
+    return np.mean(np.abs(Model - Measured))
+
+error_DOF1 = error(Y_sol[:, 0], DeltaDrumAil)
+error_DOF2 = error(Y_sol[:, 1], DeltaAil)
+
+# Step 5: Plot results
+plt.subplot(2, 4, 1)
+plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.plot(t_values, DeltaAil, label="DeltaAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
@@ -114,7 +120,15 @@ plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
 
-plt.subplot(2, 2, 2)
+plt.subplot(2, 4, 2)
+plt.plot(t_values, error_DOF2, label="x2 (DOF 2)")
+plt.xlabel("Time (s)")
+plt.ylabel("Error of DOF 2")
+plt.title("Error")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 3)
 plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
@@ -122,7 +136,32 @@ plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
 
-plt.subplot(2, 2, 3)
+plt.subplot(2, 4, 4)
+plt.plot(t_values, DeltaAil, label="DeltaAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 2")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 5)
+plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 1")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 6)
+plt.plot(t_values, error_DOF1, label="x1 (DOF 1)")
+plt.xlabel("Time (s)")
+plt.ylabel("Error of DOF 1")
+plt.title("Error")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 7)
 plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
@@ -131,15 +170,13 @@ plt.legend()
 plt.grid()
 
 
-plt.subplot(2, 2, 4)
+plt.subplot(2, 4, 8)
 plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
 plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
-
-
 
 
 
