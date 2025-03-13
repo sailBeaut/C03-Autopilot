@@ -123,7 +123,7 @@ plt.legend()
 plt.grid()
 
 plt.subplot(2, 2, 3)
-plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+plt.plot(t_values, -Y_sol[:, 0], label="x1 (DOF 1)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
 plt.title("MDOF System Response (RK4)")
