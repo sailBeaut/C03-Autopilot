@@ -9,7 +9,7 @@ DeltaAil = dat_array("run1/aircraft/DeltaAil")
 DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 # Gain
-k_g = -0.45
+k_g = 0.22
 
 # Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
@@ -41,7 +41,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1E5, k2: 0.5E5, c1: 2E2, c2: 1E2, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1000, k2: 5000, c1: 2, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -115,7 +115,7 @@ plt.legend()
 plt.grid()
 
 plt.subplot(2, 2, 2)
-plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
 plt.title("MDOF System Response (RK4)")
@@ -123,7 +123,7 @@ plt.legend()
 plt.grid()
 
 plt.subplot(2, 2, 3)
-plt.plot(t_values, -Y_sol[:, 0], label="x1 (DOF 1)")
+plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
 plt.title("MDOF System Response (RK4)")
