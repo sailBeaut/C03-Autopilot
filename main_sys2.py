@@ -9,12 +9,12 @@ from Functions_for_sys2 import model2_aileron
 
 k1_numvalue = 400000 
 k2_numvalue = 10.6 
-c1_numvalue = 300
+c1_numvalue = 350
 c2_numvalue = 4.5
 k_g = 0.22
-a_velo = 1.225E-6
+a_velo = 0.000001225	
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
 run1_acc1, run1_acc2 = model2_aileron(1, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
