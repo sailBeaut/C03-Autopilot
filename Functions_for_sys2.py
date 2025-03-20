@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Testkernels import current_smoothed_ma
 
-def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs):
+def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots):
     # Load data
     DeltaAil = dat_array(f"run{run}/aircraft/DeltaAil")
     DeltaDrumAil = dat_array(f"run{run}/aircraft/DeltaDrumAil")
@@ -118,78 +118,78 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     print(f"Model Accuracy of DOF2 of run{run}: {accuracy2:.2f}%")
 
 
+    if showmainplots == True:
+        # Step 6: Plot results
+        plt.subplot(2, 4, 1)
+        plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
+        plt.plot(t_values, DeltaAil, label="DeltaAil")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 2")
+        plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
+        plt.legend()
+        plt.grid()
 
-    # Step 6: Plot results
-    plt.subplot(2, 4, 1)
-    plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
-    plt.plot(t_values, DeltaAil, label="DeltaAil")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 2")
-    plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
-    plt.legend()
-    plt.grid()
-
-    plt.subplot(2, 4, 2)
-    percentage_error_dof2 = np.abs((-Y_sol[:, 1] - DeltaAil) / DeltaAil) * 100
-    plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Percentage Error of DOF 2 (%)")
-    plt.title("Error")
-    plt.legend()
-    plt.grid()
-
-
-    plt.subplot(2, 4, 3)
-    plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 2")
-    plt.title(f"run{run}")
-    plt.legend()
-    plt.grid()
-
-    plt.subplot(2, 4, 4)
-    plt.plot(t_values, DeltaAil, label="DeltaAil")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 2")
-    plt.title("MDOF System Response (RK4)")
-    plt.legend()
-    plt.grid()
-
-    plt.subplot(2, 4, 5)
-    plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
-    plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 1")
-    plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
-    plt.legend()
-    plt.grid()
-
-    plt.subplot(2, 4, 6)
-    percentage_error_dof1 = np.abs((Y_sol[:, 0] - DeltaDrumAil) / DeltaDrumAil) * 100
-    plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Percentage Error of DOF 1 (%)")
-    plt.title("Error")
-    plt.legend()
-    plt.grid()
-
-    plt.subplot(2, 4, 7)
-    plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 1")
-    plt.title("MDOF System Response (RK4)")
-    plt.legend()
-    plt.grid()
+        plt.subplot(2, 4, 2)
+        percentage_error_dof2 = np.abs((-Y_sol[:, 1] - DeltaAil) / DeltaAil) * 100
+        plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Percentage Error of DOF 2 (%)")
+        plt.title("Error")
+        plt.legend()
+        plt.grid()
 
 
-    plt.subplot(2, 4, 8)
-    plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of DOF 1")
-    plt.title("MDOF System Response (RK4)")
-    plt.legend()
-    plt.grid()
-    plt.show()
+        plt.subplot(2, 4, 3)
+        plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 2")
+        plt.title(f"run{run}")
+        plt.legend()
+        plt.grid()
+
+        plt.subplot(2, 4, 4)
+        plt.plot(t_values, DeltaAil, label="DeltaAil")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 2")
+        plt.title("MDOF System Response (RK4)")
+        plt.legend()
+        plt.grid()
+
+        plt.subplot(2, 4, 5)
+        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+        plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 1")
+        plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
+        plt.legend()
+        plt.grid()
+
+        plt.subplot(2, 4, 6)
+        percentage_error_dof1 = np.abs((Y_sol[:, 0] - DeltaDrumAil) / DeltaDrumAil) * 100
+        plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Percentage Error of DOF 1 (%)")
+        plt.title("Error")
+        plt.legend()
+        plt.grid()
+
+        plt.subplot(2, 4, 7)
+        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 1")
+        plt.title("MDOF System Response (RK4)")
+        plt.legend()
+        plt.grid()
+
+
+        plt.subplot(2, 4, 8)
+        plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of DOF 1")
+        plt.title("MDOF System Response (RK4)")
+        plt.legend()
+        plt.grid()
+        plt.show()
 
     if extragraphs == True:
         plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
