@@ -1,11 +1,11 @@
-import h5py
+
 import sympy as sp
-from check_data import dat_array, print_struc
+from check_data import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
-from Testkernels import current_smoothed_ma
 
-def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots):
+
+def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     DeltaAil = dat_array(f"run{run}/aircraft/DeltaAil")
     DeltaDrumAil = dat_array(f"run{run}/aircraft/DeltaDrumAil")
@@ -100,8 +100,8 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     # Solve using RK4
     Y_sol = runge_kutta4(system, Y0, t_values)
 
-    print(t_values)
-    eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
+    if printeigenvalues == True:
+        eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
     absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
