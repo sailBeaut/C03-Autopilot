@@ -103,14 +103,29 @@ Y_sol = runge_kutta4(system, Y0, t_values)
 print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
+#Step 5: Calc Accuracy
+absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
+absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
-# Step 5: Plot results
+# Compute accuracy as percentage
+error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
+accuracy1 = (1 - error_norm1) * 100
+error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(DeltaAil)
+accuracy2 = (1 - error_norm2) * 100
+
+# Print accuracy
+print(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
+print(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
+
+
+
+# Step 6: Plot results
 plt.subplot(2, 4, 1)
 plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.plot(t_values, DeltaAil, label="DeltaAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
-plt.title("MDOF System Response (RK4)")
+plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
 plt.legend()
 plt.grid()
 
@@ -145,7 +160,7 @@ plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
 plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
-plt.title("MDOF System Response (RK4)")
+plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
 plt.legend()
 plt.grid()
 
@@ -194,15 +209,4 @@ plt.legend()
 plt.grid()
 plt.show()
 
-absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
-absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
-# Compute accuracy as percentage
-error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
-accuracy1 = (1 - error_norm1) * 100
-error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(DeltaAil)
-accuracy2 = (1 - error_norm2) * 100
-
-# Print accuracy
-print(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
-print(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
