@@ -24,4 +24,3 @@ run9_acc1, run9_acc2 = model2_aileron(9, k_g, k1_numvalue, k2_numvalue, c1_numva
 run10_acc1, run10_acc2 = model2_aileron(10, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 run11_acc1, run11_acc2 = model2_aileron(11, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
-plot_histogram(run1_acc1, run1_acc2, run3_acc1, run3_acc2, run8_acc1, run8_acc2, run9_acc1, run9_acc2, run10_acc1, run10_acc2, run11_acc1, run11_acc2)
