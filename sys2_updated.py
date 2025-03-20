@@ -96,7 +96,7 @@ def runge_kutta4(f, Y0, t):
 
 # Time settings
 t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-Y0 = [DeltaDrumAil[0], -DeltaAil[0], (DeltaDrumAil[0]-DeltaDrumAil[1])/2, -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+Y0 = [DeltaDrumAil[0], -DeltaAil[0], (DeltaDrumAil[0]-DeltaDrumAil[1])/2, (DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
 # Solve using RK4
 Y_sol = runge_kutta4(system, Y0, t_values)
