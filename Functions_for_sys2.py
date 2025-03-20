@@ -95,7 +95,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
 
     # Time settings
     t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-    Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/2), -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+    Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/0.001), -(DeltaAil[0]-DeltaAil[1])/0.001]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
     # Solve using RK4
     Y_sol = runge_kutta4(system, Y0, t_values)
