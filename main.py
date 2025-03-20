@@ -3,16 +3,16 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-run_nr = 11
+run_nr = 3
 DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
 IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
 # Parametric constants (adjusted for better accuracy)
-c1 = 2.7  # Damper constant (TUNING PARAMETER)
-k1 = 8.0   # Spring constant (TUNING PARAMETER)
-kg = 0.4    # Gain (SET PARAMETER)
-Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
-c2 = 0.0000005 # Damper constant (TUNING PARAMETER)
+c1 = 1.485  # Damper constant (TUNING PARAMETER)
+k1 = 4.4   # Spring constant (TUNING PARAMETER)
+kg = 0.22    # Gain (SET PARAMETER)
+Ie = 0.0451   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.000000187 # Damper constant (TUNING PARAMETER)
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]])
@@ -20,7 +20,7 @@ B = np.array([[-kg/Ie], [0]])
 C = np.array([[c2/Ie], [0]])
 
 # Initial state [angle, velocity]
-x = np.array([[0], [DeltaAil[0]]])
+x = np.array([[0], [IservoAil[0]]])
 xlist = []
 
 # Time integration loop
