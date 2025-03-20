@@ -143,7 +143,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
     plt.xlabel("Time (s)")
     plt.ylabel("Displacement of DOF 2")
-    plt.title("MDOF System Response (RK4)")
+    plt.title(f"run{run}")
     plt.legend()
     plt.grid()
 
