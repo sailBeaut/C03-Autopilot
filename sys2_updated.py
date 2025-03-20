@@ -5,9 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Testkernels import current_smoothed_ma
 
-DeltaAil = dat_array("run3/aircraft/DeltaAil")
-DeltaDrumAil = dat_array("run3/aircraft/DeltaDrumAil")
-IservoAil = dat_array("run3/aircraft/IservoAil")
+DeltaAil = dat_array("run1/aircraft/DeltaAil")
+DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
+IservoAil = dat_array("run1/aircraft/IservoAil")
 # Gain
 k_g = 0.22
 
@@ -41,7 +41,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 15, c1: 250, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 20, c1: 250, c2: 9, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -210,3 +210,10 @@ plt.grid()
 plt.show()
 
 
+plt.plot(t_values, (-Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)), label="Linearity vs. cable slack")
+plt.xlabel("Time (s)")
+plt.ylabel("Ratio")
+plt.title("Linearity")
+plt.legend()
+plt.grid()
+plt.show()
