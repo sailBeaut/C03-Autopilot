@@ -8,8 +8,10 @@ from Testkernels import current_smoothed_ma
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
+Dynpress = dat_array("run1/aircraft/DynPress")
 # Gain
 k_g = 0.22
+a_velo = 1.225E-6
 
 # Aileron
 # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
@@ -67,7 +69,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -0.125])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
