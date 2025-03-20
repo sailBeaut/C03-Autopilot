@@ -216,7 +216,7 @@ def plot_histogram(runnr1_acc1, runnr1_acc2, runnr2_acc1, runnr2_acc2, runnr3_ac
     accuracies = [runnr1_acc1, runnr1_acc2, runnr2_acc1, runnr2_acc2, runnr3_acc1, runnr3_acc2, runnr4_acc1, runnr4_acc2, runnr5_acc1, runnr5_acc2, runnr6_acc1, runnr6_acc2]
     
     plt.figure(figsize=(8, 5))
-    plt.hist(accuracies, bins=6, edgecolor='black', alpha=0.7)
+    plt.hist(bins = 12, accuracies, edgecolor='black', alpha=0.7)
     plt.xlabel('Accuracy')
     plt.ylabel('Frequency')
     plt.title('Histogram of Accuracy Values')
