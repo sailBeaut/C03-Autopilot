@@ -41,7 +41,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 15, c1: 250, c2: 10, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 400000, k2: 10, c1: 250, c2: 4.5, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -67,7 +67,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, 0])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -0.125])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
