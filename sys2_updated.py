@@ -8,7 +8,6 @@ from Testkernels import current_smoothed_ma
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
-Dynpress = dat_array("run1/aircraft/DynPress")
 # Gain
 k_g = 0.22
 a_velo = 1.225E-6
@@ -43,7 +42,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 400000, k2: 10, c1: 250, c2: 4.5, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 15, c1: 250, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -69,7 +68,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -0.125])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -97,7 +96,7 @@ def runge_kutta4(f, Y0, t):
 
 # Time settings
 t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/2), -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+Y0 = [DeltaDrumAil[0], -DeltaAil[0], (DeltaDrumAil[0]-DeltaDrumAil[1])/2, -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
 # Solve using RK4
 Y_sol = runge_kutta4(system, Y0, t_values)
@@ -212,10 +211,3 @@ plt.grid()
 plt.show()
 
 
-plt.plot(t_values, (-Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)), label="Linearity vs. cable slack")
-plt.xlabel("Time (s)")
-plt.ylabel("Ratio")
-plt.title("Linearity")
-plt.legend()
-plt.grid()
-plt.show()
