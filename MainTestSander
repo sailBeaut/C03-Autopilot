@@ -1,15 +1,49 @@
+# RUN 1 
+c1 = 2.57   # Damper constant (TUNING PARAMETER)
+k1 = 6.19   # Spring constant (TUNING PARAMETER)
+kg = 0.4    # Gain (SET PARAMETER)
+Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.001059 # Damper constant (TUNING PARAMETER)
+
+# Run3 [78]: (96.51%)
+c1 = 4.2   # Damper constant (TUNING PARAMETER)
+k1 = 6.79   # Spring constant (TUNING PARAMETER)
+kg = 0.4    # Gain (SET PARAMETER)
+Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.001159 # Damper constant (TUNING PARAMETER)
+
+
 # Run8 [86]: (95%)
-# Parametric constants (adjusted for better accuracy)
 c1 = 2.55   # Damper constant (TUNING PARAMETER)
 k1 = 7.12   # Spring constant (TUNING PARAMETER)
 kg = 0.4    # Gain (SET PARAMETER)
 Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
 c2 = 0.00088123456789 # Damper constant (TUNING PARAMETER)
 
-# Run3 [78]: (96.51%)
-# Parametric constants (adjusted for better accuracy)
-c1 = 4.2   # Damper constant (TUNING PARAMETER)
-k1 = 6.79   # Spring constant (TUNING PARAMETER)
+#Run9
+c1 = 1.61  # Damper constant (TUNING PARAMETER)
+k1 = 6.85   # Spring constant (TUNING PARAMETER)
 kg = 0.4    # Gain (SET PARAMETER)
 Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
-c2 = 0.001159 # Damper constant (TUNING PARAMETER)
+c2 = 0.000915 # Damper constant (TUNING PARAMETER)
+
+#RUN10
+c1 = 1.7  # Damper constant (TUNING PARAMETER)
+k1 = 7.89   # Spring constant (TUNING PARAMETER)
+kg = 0.4    # Gain (SET PARAMETER)
+Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.000655 # Damper constant (TUNING PARAMETER)
+
+#RUN11
+c1 = 2.7  # Damper constant (TUNING PARAMETER)
+k1 = 8.0   # Spring constant (TUNING PARAMETER)
+kg = 0.4    # Gain (SET PARAMETER)
+Ie = 0.082   # Moment of inertia (TUNING PARAMETER)
+c2 = 0.000625 # Damper constant (TUNING PARAMETER)
+
+
+c1 = 2.555 #(Damper constant):
+k1 = 7.14 #(Spring constant):
+kg = 0.4 #(Gain):
+Ie = 0.082 #(Moment of inertia):
+c2 = 0.000882 #(Damper constant):

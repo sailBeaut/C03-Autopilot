@@ -5,9 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Testkernels import current_smoothed_ma
 
-DeltaAil = dat_array("run1/aircraft/DeltaAil")
-DeltaDrumAil = dat_array("run1/aircraft/DeltaDrumAil")
-IservoAil = dat_array("run1/aircraft/IservoAil")
+DeltaAil = dat_array("run3/aircraft/DeltaAil")
+DeltaDrumAil = dat_array("run3/aircraft/DeltaDrumAil")
+IservoAil = dat_array("run3/aircraft/IservoAil")
 # Gain
 k_g = 0.22
 
@@ -41,7 +41,7 @@ v = sp.Matrix(sp.symbols('v1 v2'))  # Velocity vector
 Y = sp.Matrix.vstack(x, v)
 
 # Convert symbolic to numerical
-subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 1000, k2: 5000, c1: 2, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
+subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: 50000, k2: 15, c1: 250, c2: 1, r1: 2.52E-2, r2: 7.9E-2}
 M_num = np.array(M.subs(subs_dict)).astype(np.float64)
 K_num = np.array(K.subs(subs_dict)).astype(np.float64)
 C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -67,7 +67,7 @@ def eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_v
 def system(Y, t):
     x = Y[:2]  # First two elements are displacements
     v = Y[2:]  # Last two elements are velocities
-    F_num = np.array([np.interp(t, t_values, current_smoothed_ma) * k_g, 0])  # Numerical force
+    F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, 0])  # Numerical force
 
     dxdt = v
     dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -95,7 +95,7 @@ def runge_kutta4(f, Y0, t):
 
 # Time settings
 t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-Y0 = [0, 0, 0, 0]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+Y0 = [DeltaDrumAil[0], -DeltaAil[0], (DeltaDrumAil[0]-DeltaDrumAil[1])/2, -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
 # Solve using RK4
 Y_sol = runge_kutta4(system, Y0, t_values)
@@ -103,18 +103,43 @@ Y_sol = runge_kutta4(system, Y0, t_values)
 print(t_values)
 eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
-# Step 4: Plot results
-#plt.plot(t_values, Y_sol[:, 0] * (180 * np.pi), label="x1 (DOF 1)")
-plt.subplot(2, 2, 1)
-plt.plot(t_values, Y_sol[:, 1], label="x2 (DOF 2)")
+#Step 5: Calc Accuracy
+absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
+absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
+
+# Compute accuracy as percentage
+error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
+accuracy1 = (1 - error_norm1) * 100
+error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(DeltaAil)
+accuracy2 = (1 - error_norm2) * 100
+
+# Print accuracy
+print(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
+print(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
+
+
+
+# Step 6: Plot results
+plt.subplot(2, 4, 1)
+plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.plot(t_values, DeltaAil, label="DeltaAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
-plt.title("MDOF System Response (RK4)")
+plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
 plt.legend()
 plt.grid()
 
-plt.subplot(2, 2, 2)
+plt.subplot(2, 4, 2)
+percentage_error_dof2 = np.abs((-Y_sol[:, 1] - DeltaAil) / DeltaAil) * 100
+plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
+plt.xlabel("Time (s)")
+plt.ylabel("Percentage Error of DOF 2 (%)")
+plt.title("Error")
+plt.legend()
+plt.grid()
+
+
+plt.subplot(2, 4, 3)
 plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 2")
@@ -122,7 +147,33 @@ plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
 
-plt.subplot(2, 2, 3)
+plt.subplot(2, 4, 4)
+plt.plot(t_values, DeltaAil, label="DeltaAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 2")
+plt.title("MDOF System Response (RK4)")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 5)
+plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement of DOF 1")
+plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 6)
+percentage_error_dof1 = np.abs((Y_sol[:, 0] - DeltaDrumAil) / DeltaDrumAil) * 100
+plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
+plt.xlabel("Time (s)")
+plt.ylabel("Percentage Error of DOF 1 (%)")
+plt.title("Error")
+plt.legend()
+plt.grid()
+
+plt.subplot(2, 4, 7)
 plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
@@ -131,7 +182,7 @@ plt.legend()
 plt.grid()
 
 
-plt.subplot(2, 2, 4)
+plt.subplot(2, 4, 8)
 plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement of DOF 1")
@@ -146,16 +197,16 @@ plt.grid()
 
 
 
-
-
 plt.show()
 
 
 plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
-plt.plot(t_values, Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
+plt.plot(t_values, -Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
 plt.title("MDOF System Response (RK4)")
 plt.legend()
 plt.grid()
 plt.show()
+
+
