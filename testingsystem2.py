@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 DeltaAil = dat_array("run1/aircraft/DeltaAil")
 IservoAil = dat_array("run1/aircraft/IservoAil")
 t_values = np.linspace(0,7000,7001)
-kg = 1
+kg = 0.22
 
 Torque = IservoAil*kg
 print(IservoAil)
