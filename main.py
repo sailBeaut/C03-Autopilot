@@ -3,16 +3,16 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-run_nr = 1
+run_nr = 3
 DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
 IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
 # Parametric constants (adjusted for better accuracy)
-c1 = 1.4135   # Damper constant (TUNING PARAMETER)
-k1 = 3.4045   # Spring constant (TUNING PARAMETER)
-kg = 0.22    # Gain (SET PARAMETER)
-Ie = 0.0451   # Moment of inertia (TUNING PARAMETER)
-c2 = 0.0000004 # Damper constant (TUNING PARAMETER)
+c1 = 1.40525   # Average Damper constant (TUNING PARAMETER)
+k1 = 3.927     # Average Spring constant (TUNING PARAMETER)
+kg = 0.22      # Gain (SET PARAMETER)
+Ie = 0.0451    # Average Moment of inertia (TUNING PARAMETER)
+c2 = 0.0000004 # Average Damper constant (TUNING PARAMETER)
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]])
