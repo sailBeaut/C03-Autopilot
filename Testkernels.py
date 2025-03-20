@@ -17,7 +17,7 @@ current_smoothed_kde = kde(current)  # Smoothed KDE values
 # Step 3: Moving Average Smoothing (Alternative)
 window_size = 13 # Adjust the window for more or less smoothing
 current_smoothed_ma = np.convolve(current, np.ones(window_size) / window_size, mode='same')
-
+'''
 # Step 4: Plot the Results
 plt.figure(figsize=(12, 6))
 plt.plot(time, current, alpha=0.5, label="Original Current (with Spikes)", color='gray')
@@ -27,4 +27,4 @@ plt.ylabel("Current (A)")
 plt.title("Smoothing Input Current Data")
 plt.legend()
 plt.show()
-
+'''
