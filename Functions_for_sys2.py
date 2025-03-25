@@ -218,7 +218,7 @@ def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
     plt.plot(accuracy_dof2_array, label="DOF2")
     plt.xlabel("Run")
     plt.ylabel("Accuracy (%)")
-    plt.title("Model Accuracy")
+    plt.title("Model Accuracy (Run 1,3,8,9,10,11)")
     plt.legend()
     plt.grid()
     plt.show()
