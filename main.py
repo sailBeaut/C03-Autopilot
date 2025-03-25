@@ -48,7 +48,6 @@ accuracy = (1 - error_norm) * 100
 
 # Print accuracy
 print(f"Model Accuracy: {accuracy:.2f}%")
-
 # Plot computed vs actual Delta Ail
 time_steps = np.linspace(0, 7000, 7001)
 plt.figure(figsize=(10, 5))
