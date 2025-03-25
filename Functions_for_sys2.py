@@ -68,7 +68,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     def system(Y, t):
         x = Y[:2]  # First two elements are displacements
         v = Y[2:]  # Last two elements are velocities
-        F_num = np.array([np.interp(t, t_values, current_smoothed_ma) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
+        F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
 
         dxdt = v
         dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
