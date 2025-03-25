@@ -22,5 +22,5 @@ def extract_relevant_data(input_file, output_file, runs=12):
 
 # Example usage
 input_hdf5 = '/Users/lennarthubbers/Desktop/processed-20250217_151129.hdf5'  # Replace with your actual input file
-output_hdf5 = 'filtered_data.hdf5'  # Replace with your desired output file
+output_hdf5 = 'filtered_data2.hdf5'  # Replace with your desired output file
 extract_relevant_data(input_hdf5, output_hdf5)
