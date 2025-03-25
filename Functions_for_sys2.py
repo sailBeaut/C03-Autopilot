@@ -42,7 +42,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     Y = sp.Matrix.vstack(x, v)
 
     # Convert symbolic to numerical
-    subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: k1_numvalue, k2: k2_numvalue, c1: c1_numvalue, c2: c2_numvalue, r1: 2.52E-2, r2: 7.9E-2}
+    subs_dict = {j1: 5.4E-5, j2: 7.97E-2, k1: k1_numvalue, k2: k2_numvalue, c1: c1_numvalue, c2: c2_numvalue, r1: 1E-2, r2: 7.9E-2}
     M_num = np.array(M.subs(subs_dict)).astype(np.float64)
     K_num = np.array(K.subs(subs_dict)).astype(np.float64)
     C_num = np.array(C.subs(subs_dict)).astype(np.float64)
@@ -105,7 +105,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
-    absolute_error1 = np.abs(Y_sol[:, 0]/2.5 - DeltaDrumAil)
+    absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
     absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
     # Compute accuracy as percentage
@@ -157,7 +157,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0]/2.5, label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
         plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
