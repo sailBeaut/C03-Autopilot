@@ -3,6 +3,7 @@ import sympy as sp
 from check_data import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
+from Testkernels import current_smoothed_ma
 
 
 def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
@@ -95,7 +96,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
 
     # Time settings
     t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-    Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/2), -(DeltaAil[0]-DeltaAil[1])/2]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+    Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/0.001), -(DeltaAil[0]-DeltaAil[1])/0.001]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
     # Solve using RK4
     Y_sol = runge_kutta4(system, Y0, t_values)
@@ -104,7 +105,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
-    absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
+    absolute_error1 = np.abs(Y_sol[:, 0]/2.5 - DeltaDrumAil)
     absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
     # Compute accuracy as percentage
@@ -156,7 +157,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0]/2.5, label="x1 (DOF 1)")
         plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
@@ -209,3 +210,15 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.legend()
         plt.grid()
         plt.show()
+    return accuracy1, accuracy2
+
+
+def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
+    plt.plot(accuracy_dof1_array, label="DOF1")
+    plt.plot(accuracy_dof2_array, label="DOF2")
+    plt.xlabel("Run")
+    plt.ylabel("Accuracy (%)")
+    plt.title("Model Accuracy Aileron (Run 1,3,8,9,10,11)")
+    plt.legend()
+    plt.grid()
+    plt.show()
