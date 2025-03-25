@@ -10,7 +10,7 @@ from Functions_for_sys2 import model2_aileron
 k1_numvalue = 400000 
 k2_numvalue = 10 
 c1_numvalue = 250
-c2_numvalue = 4.5
+c2_numvalue = 677
 k_g = 0.22
 a_velo = 1.225E-6
 extragraphs = False
