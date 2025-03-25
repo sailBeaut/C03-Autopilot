@@ -6,16 +6,16 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2_aileron, accuracy_plot
 
 #Parameters
-k1_numvalue = 400000
-k2_numvalue = 9 
+k1_numvalue = 380000
+k2_numvalue = 12 
 c1_numvalue = 350
-c2_numvalue = 3
+c2_numvalue = 4.5
 k_g = 0.22
-a_velo = 0.0000004
+a_velo = 0.0000001
 
 #On Or Off
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
 #Run the model
