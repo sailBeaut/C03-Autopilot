@@ -213,3 +213,12 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     return accuracy1, accuracy2
 
 
+def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
+    plt.plot(accuracy_dof1_array, label="DOF1")
+    plt.plot(accuracy_dof2_array, label="DOF2")
+    plt.xlabel("Run")
+    plt.ylabel("Accuracy (%)")
+    plt.title("Model Accuracy")
+    plt.legend()
+    plt.grid()
+    plt.show()
