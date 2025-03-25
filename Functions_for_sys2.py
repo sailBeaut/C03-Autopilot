@@ -3,6 +3,7 @@ import sympy as sp
 from check_data import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
+from Testkernels import current_smoothed_ma
 
 
 def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
@@ -212,3 +213,12 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
     return accuracy1, accuracy2
 
 
+def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
+    plt.plot(accuracy_dof1_array, label="DOF1")
+    plt.plot(accuracy_dof2_array, label="DOF2")
+    plt.xlabel("Run")
+    plt.ylabel("Accuracy (%)")
+    plt.title("Model Accuracy Aileron (Run 1,3,8,9,10,11)")
+    plt.legend()
+    plt.grid()
+    plt.show()
