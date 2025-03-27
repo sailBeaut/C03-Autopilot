@@ -3,21 +3,21 @@ import matplotlib.pyplot as plt
 from check_data import dat_array
 
 # Load data
-run_nr = 3
+run_nr = 1
 DeltaAil = dat_array("run" + str(run_nr) + "/aircraft/DeltaAil")
 IservoAil = dat_array("run" + str(run_nr) + "/aircraft/IservoAil")
 
-# Parametric constants (adjusted for better accuracy)
-c1 = 1.40525   # Average Damper constant (TUNING PARAMETER)
-k1 = 3.927     # Average Spring constant (TUNING PARAMETER)
+# Tuning Parameters 
+c1 = 1.37  # Damper constant (TUNING PARAMETER)
+k1 = 4.09   # Spring constant (TUNING PARAMETER)
+
+# Set Parameters
 kg = 0.22      # Gain (SET PARAMETER)
-Ie = 0.0451    # Average Moment of inertia (TUNING PARAMETER)
-c2 = 0.0000004 # Average Damper constant (TUNING PARAMETER)
+Ie = 0.0451    # Average Moment of inertia (SET PARAMETER)
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]])
 B = np.array([[-kg/Ie], [0]])
-C = np.array([[c2/Ie], [0]])
 
 # Initial state [angle, velocity]
 x = np.array([[0], [DeltaAil[0]]])
@@ -30,7 +30,7 @@ for i in range(7001):
     v = np.array([[(dat_array("run" + str(run_nr) + "/aircraft/DynPress"))[i]]])  # External force
     
     # Compute xdot = A * x + B * u + C * v
-    xdot = A @ x + B @ u + C @ v
+    xdot = A @ x + B @ u 
     x = x + xdot * dt  # Euler integration step
 
     # Store angle (first element of x)
@@ -48,6 +48,7 @@ accuracy = (1 - error_norm) * 100
 
 # Print accuracy
 print(f"Model Accuracy: {accuracy:.2f}%")
+
 # Plot computed vs actual Delta Ail
 time_steps = np.linspace(0, 7000, 7001)
 plt.figure(figsize=(10, 5))
