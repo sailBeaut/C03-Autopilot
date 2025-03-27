@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2_aileron, accuracy_plot
 
 #Parameters
-divfactor = 1.7
+divfactor = 2
 k1_numvalue = 380000
 k2_numvalue = 12
 c1_numvalue = 350
