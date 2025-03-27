@@ -7,10 +7,10 @@ from Functions_for_sys2 import model2_aileron, accuracy_plot
 
 #Parameters
 divfactor = 2
-k1_numvalue = 380000
-k2_numvalue = 10
+k1_numvalue = 400000
+k2_numvalue = 10.5
 c1_numvalue = 350
-c2_numvalue = 2.5
+c2_numvalue = 4.5
 k_g = 0.22
 a_velo = 0.0000001
 
