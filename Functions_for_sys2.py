@@ -105,7 +105,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
-    absolute_error1 = np.abs(Y_sol[:, 0]/2.5 - DeltaDrumAil)
+    absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
     absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
     # Compute accuracy as percentage
@@ -157,7 +157,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0]/2.5, label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
         plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
