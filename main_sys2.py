@@ -15,7 +15,7 @@ k_g = 0.22
 a_velo = 0.0000001
 
 #On Or Off
-extragraphs = False
+extragraphs = True
 showmainplots = False
 printeigenvalues = False
 
