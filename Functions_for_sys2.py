@@ -90,7 +90,8 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
             k4 = f(Y[i] + h * k3, t[i] + h)
 
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-
+            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
+                Y[i + 1][1] = Y[i][1]
         return Y
 
 
