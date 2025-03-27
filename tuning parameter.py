@@ -12,7 +12,7 @@ c1_numvalue = 350  # c1 is kept constant
 c2_numvalue = 4.5
 k_g = 0.22
 a_velo = 0.0000001
-divfactor = 1
+divfactor = 1.5
 
 # On Or Off
 extragraphs = False
@@ -28,7 +28,7 @@ best_accuracy = 0
 best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
 
-while best_accuracy < 82:
+while best_accuracy < 83:
     # Run the model with current parameters
     run1_acc1, run1_acc2 = model2_aileron(1, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run3_acc1, run3_acc2 = model2_aileron(3, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
