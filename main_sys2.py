@@ -15,8 +15,8 @@ k_g = 0.22
 a_velo = 0.0000001
 
 #On Or Off
-extragraphs = True
-showmainplots = False
+extragraphs = False
+showmainplots = True
 printeigenvalues = False
 
 #Run the model
