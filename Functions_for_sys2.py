@@ -217,6 +217,8 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
 def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
     avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
     avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
+    avg_acc1_wo9n11 = (sum(accuracy_dof1_array[:-1])-accuracy_dof1_array[3]) / len(accuracy_dof1_array[:-2])
+    avg_acc2_wo9n11 = (sum(accuracy_dof2_array[:-1])-accuracy_dof2_array[3]) / len(accuracy_dof2_array[:-2])
     avg_acc1_wo11 = sum(accuracy_dof1_array[:-1]) / len(accuracy_dof1_array[:-1])
     avg_acc2_wo11 = sum(accuracy_dof2_array[:-1]) / len(accuracy_dof2_array[:-1])
 
@@ -226,6 +228,8 @@ def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
     plt.axhline(y=avg_acc2, color='b', linestyle='--', label=f"Average DOF2: {avg_acc2:.2f}%")
     plt.axhline(y=avg_acc1_wo11, color='r', linestyle=':', label=f"Average DOF1 (no run11): {avg_acc1_wo11:.2f}%")
     plt.axhline(y=avg_acc2_wo11, color='b', linestyle=':', label=f"Average DOF2 (no run11): {avg_acc2_wo11:.2f}%")
+    plt.axhline(y=avg_acc1_wo9n11, color='r', linestyle='-.', label=f"Average DOF1 (no run9 and run11): {avg_acc1_wo9n11:.2f}%")
+    plt.axhline(y=avg_acc2_wo9n11, color='b', linestyle='-.', label=f"Average DOF2 (no run9 and run11): {avg_acc2_wo9n11:.2f}%")
     plt.xlabel("Run")
     plt.ylabel("Accuracy (%)")
     plt.title("Model Accuracy Aileron (Run 1,3,8,9,10,11)")
