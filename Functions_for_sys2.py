@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Testkernels import current_smoothed_ma
 
 
-def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     DeltaAil = dat_array(f"run{run}/aircraft/DeltaAil")
     DeltaDrumAil = dat_array(f"run{run}/aircraft/DeltaDrumAil")
@@ -105,7 +105,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
-    absolute_error1 = np.abs(Y_sol[:, 0] - DeltaDrumAil)
+    absolute_error1 = np.abs(Y_sol[:, 0]/divfactor - DeltaDrumAil)
     absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
 
     # Compute accuracy as percentage
@@ -157,7 +157,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
         plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
@@ -166,7 +166,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 6)
-        percentage_error_dof1 = np.abs((Y_sol[:, 0] - DeltaDrumAil) / DeltaDrumAil) * 100
+        percentage_error_dof1 = np.abs((Y_sol[:, 0]/divfactor - DeltaDrumAil) / DeltaDrumAil) * 100
         plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
         plt.xlabel("Time (s)")
         plt.ylabel("Percentage Error of DOF 1 (%)")
@@ -175,7 +175,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.grid()
 
         plt.subplot(2, 4, 7)
-        plt.plot(t_values, Y_sol[:, 0], label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.title("MDOF System Response (RK4)")
@@ -193,7 +193,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.show()
 
     if extragraphs == True:
-        plt.plot(t_values, Y_sol[:, 0]*(180*np.pi), label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0]*(180*np.pi)/divfactor, label="x1 (DOF 1)")
         plt.plot(t_values, -Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement")
@@ -203,7 +203,7 @@ def model2_aileron(run, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue,
         plt.show()
 
 
-        plt.plot(t_values, (-Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)), label="Linearity vs. cable slack")
+        plt.plot(t_values, (-Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)/divfactor), label="Linearity vs. cable slack")
         plt.xlabel("Time (s)")
         plt.ylabel("Ratio")
         plt.title("Linearity")
