@@ -27,7 +27,7 @@ best_accuracy = 0
 best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
 
-while best_accuracy < 85:
+while best_accuracy < 80:
     # Run the model with current parameters
     run1_acc1, run1_acc2 = model2_aileron(1, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run3_acc1, run3_acc2 = model2_aileron(3, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
