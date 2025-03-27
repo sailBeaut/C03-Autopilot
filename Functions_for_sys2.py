@@ -214,8 +214,13 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
 
 
 def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
-    plt.plot(accuracy_dof1_array, label="DOF1")
-    plt.plot(accuracy_dof2_array, label="DOF2")
+    avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
+    avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
+
+    plt.plot(accuracy_dof1_array, label="DOF1", color="red")
+    plt.plot(accuracy_dof2_array, label="DOF2", color="blue")
+    plt.axhline(y=avg_acc1, color='r', linestyle='--', label=f"Average DOF1: {avg_acc1:.2f}%")
+    plt.axhline(y=avg_acc2, color='b', linestyle='--', label=f"Average DOF2: {avg_acc2:.2f}%")
     plt.xlabel("Run")
     plt.ylabel("Accuracy (%)")
     plt.title("Model Accuracy Aileron (Run 1,3,8,9,10,11)")
