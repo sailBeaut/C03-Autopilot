@@ -16,7 +16,7 @@ a_velo = 0.0000001
 
 #On Or Off
 extragraphs = False
-showmainplots = False
+showmainplots = True
 printeigenvalues = False
 
 #Run the model
@@ -31,6 +31,5 @@ run11_acc1, run11_acc2 = model2_aileron(11, divfactor, k_g, k1_numvalue, k2_numv
 accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
 accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
 
-# # # Plot accuracy
-
+# Plot accuracy
 accuracy_plot(accuracy_DOF1, accuracy_DOF2)
