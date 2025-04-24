@@ -19,7 +19,7 @@ Ie = 0.0451 # Moment of inertia
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
 B = np.array([[-kg/Ie], [0]]) 
 
-x = np.array([[0], [DeltaAil[0]]]) # Initial state [angle, velocity]
+x = np.array([[0], [0]]) # Initial state [angle, velocity]
 xlist = [] # List to store state vectors
 
 # Time integration loop
