@@ -34,4 +34,3 @@ accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_a
 # # # Plot accuracy
 
 accuracy_plot(accuracy_DOF1, accuracy_DOF2)
-
