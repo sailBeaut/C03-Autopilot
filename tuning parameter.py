@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
-k1_range = range(0, 50001, 10000)  # Range for k1_numvalue
+k1_range = range(1, 50001, 10000)  # Range for k1_numvalue
 k2_range = range(10, 21, 2)        # Range for k2_numvalue
 c2_range = np.arange(4.0, 5.1, 0.2)  # Range for c2_numvalue
 divfactor_range = np.arange(1.0, 2.1, 0.1)  # Range for divfactor
