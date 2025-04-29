@@ -24,7 +24,7 @@ def calculate_average_accuracy_dof2(accuracy_DOF2):
     return np.mean(accuracy_DOF2)
 
 # Optimization loop
-best_accuracy = 0
+best_accuracy = 70
 best_params = None
 
 # Grid search over parameter ranges
