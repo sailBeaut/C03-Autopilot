@@ -18,7 +18,7 @@ a_velo_ail = 0.0000001
 flip_ail = -1
 
 #Parameters Elevator
-divfactor_elev = 2
+divfactor_elev = 5
 k1_numvalue_elev = 500000
 k2_numvalue_elev = 10.8
 c1_numvalue_elev = 350
