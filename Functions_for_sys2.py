@@ -7,6 +7,11 @@ import matplotlib.pyplot as plt
 
 def model2(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
+    Delta = []
+    DeltaDrum = []
+    Iservo = []
+    Dynpress = []
+    
     if run in (1, 3, 8, 9, 10, 11):
         Delta = dat_array(f"run{run}/aircraft/DeltaAil")
         DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumAil")
