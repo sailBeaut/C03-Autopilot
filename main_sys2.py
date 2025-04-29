@@ -24,8 +24,8 @@ k_g = 0.22
 a_velo_elev = 0.0000001
 
 #On Or Off
-aileron = True
-elevator = False
+aileron = False
+elevator = True
 extragraphs = False
 showmainplots = True
 printeigenvalues = False
@@ -55,5 +55,7 @@ for run in range(1, 14):
 
 
 # Plot accuracy
-accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
-accuracy_plot_elev(accuracy_DOF1_elev, accuracy_DOF2_elev)
+if aileron:
+    accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
+if elevator:
+    accuracy_plot_elev(accuracy_DOF1_elev, accuracy_DOF2_elev)
