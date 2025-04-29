@@ -29,7 +29,7 @@ flip_elev = 1
 aileron = False
 elevator = True
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
 #Define Accuracy lists
