@@ -101,8 +101,8 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
             k4 = f(Y[i] + h * k3, t[i] + h) # Fourth derivative at the next time step
 
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-            # if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
-            #     Y[i + 1][1] = Y[i][1]
+            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00000001):
+                Y[i + 1][1] = Y[i][1]
         return Y
 
 
