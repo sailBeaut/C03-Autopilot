@@ -11,8 +11,8 @@ for i in (1,3,8,9,10,11):
     IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoAil")
 
     # Tuning Parameters 
-    c1 = 1.37  # Damper constant 
-    k1 = 4.09   # Spring constant 
+    c1 = 1.29  # Damper constant 
+    k1 = 4.23   # Spring constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
