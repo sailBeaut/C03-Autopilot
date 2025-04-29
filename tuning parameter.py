@@ -46,14 +46,14 @@ while best_accuracy < 70:
 
     # Calculate average accuracy for DOF 2
     average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2)
-
+    print(np.mean())
     # Check if the current parameters give better accuracy for DOF 2
     if average_accuracy_dof2 > best_accuracy:
         best_accuracy = average_accuracy_dof2
         best_params = (k1_numvalue, k2_numvalue, c2_numvalue, divfactor)
 
     # Update parameters for next iteration (example: increment k1, k2, c2)
-    k1_numvalue += 10000
+    k1_numvalue += 25000
     #k2_numvalue += 1
     #c2_numvalue += 0.15
     #divfactor += 0.1
