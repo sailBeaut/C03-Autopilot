@@ -9,15 +9,16 @@ def extract_relevant_data(input_file, output_file, runs=12):
 				run_path = f'run{i}/aircraft/{dataset}'
 
 				if run_path in src:
-					data = src[run_path]  # Extract subset of data
-					dest.create_dataset(f'run{i}/aircraft/{dataset}', data=data)[4000:11000]
+					data = src[run_path][4000:11001]  # Extract subset of data
+					dest.create_dataset(f'run{i}/aircraft/{dataset}', data=data)
 				else:
 					print(f"Warning: {run_path} not found in source file.")
 			if run_path in src:
 				data = np.array(src[f'run{i}/aircraft/DeltaAil'])[4000:11001]-src[f'run{i}/aircraft/DeltaAil'][4000]
 				dest.create_dataset(f'run{i}/aircraft/DeltaAil', data=data)	
-				data = np.array(src[f'run{i}/aircraft/DeltaElev'])[4000:110001]-src[f'run{i}/aircraft/DeltaElev'][4000]
-				dest.create_dataset(f'run{i}/aircraft/DeltaElev', data=data)											
+			if run_path in src:
+				data = np.array(src[f'run{i}/aircraft/DeltaElev'])[4000:11001]-src[f'run{i}/aircraft/DeltaElev'][4000]
+				dest.create_dataset(f'run{i}/aircraft/DeltElev', data=data)											
 			servo_path = f'run{i}/servo/delta_e_t'
 			if servo_path in src:
 				data = src[servo_path]  # Extract subset of data
