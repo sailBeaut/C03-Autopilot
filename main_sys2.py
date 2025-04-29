@@ -16,30 +16,43 @@ a_velo_ail = 0.0000001
 
 #Parameters Elevator
 divfactor = 2
-k1_numvalue = 400000
-k2_numvalue = 10.8
-c1_numvalue = 350
-c2_numvalue = 4.5
+k1_numvalue_elev = 400000
+k2_numvalue_elev = 10.8
+c1_numvalue_elev = 350
+c2_numvalue_elev = 4.5
 k_g = 0.22
 a_velo_elev = 0.0000001
 
 #On Or Off
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
-#Run the model
-run1_acc1, run1_acc2 =   model2(1, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run3_acc1, run3_acc2 =   model2(3, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run8_acc1, run8_acc2 =   model2(8, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run9_acc1, run9_acc2 =   model2(9, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-run10_acc1, run10_acc2 = model2(10, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run11_acc1, run11_acc2 = model2(11, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+#Define Accuracy lists
+accuracy_DOF1_ail = []
+accuracy_DOF2_ail = []
+accuracy_DOF1_elev = []
+accuracy_DOF2_elev = []
 
-# Accuracy
-accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
-accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
+#Run the model
+for i in range(1, 14):
+    if i == 2:
+        print('There is no data for this case')
+        continue
+    else:
+        run = i
+        if run in (1, 3, 8, 9, 10, 11):
+            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, k_g, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
+            # Calculate accuracy for aileron
+            accuracy_DOF1_ail.append(acc_run_DOF1)
+            accuracy_DOF2_ail.append(acc_run_DOF2)
+        elif run in (4, 5, 6, 7, 12, 13):
+            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, k_g, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
+            # Calculate accuracy for elevator
+            accuracy_DOF1_elev.append(acc_run_DOF1)
+            accuracy_DOF2_elev.append(acc_run_DOF2)
+
 
 # Plot accuracy
-accuracy_plot_ail(accuracy_DOF1, accuracy_DOF2)
-accuracy_plot_elev(accuracy_DOF1, accuracy_DOF2)
+accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
+accuracy_plot_elev(accuracy_DOF1_elev, accuracy_DOF2_elev)
