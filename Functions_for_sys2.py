@@ -7,10 +7,17 @@ import matplotlib.pyplot as plt
 
 def model2(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
-    Delta = dat_array(f"run{run}/aircraft/DeltaAil")
-    DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumAil")
-    Iservo = dat_array(f"run{run}/aircraft/IservoAil")
-    Dynpress = dat_array(f"run{run}/aircraft/DynPress")
+    if run in (1, 3, 8, 9, 10, 11):
+        Delta = dat_array(f"run{run}/aircraft/DeltaAil")
+        DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumAil")
+        Iservo = dat_array(f"run{run}/aircraft/IservoAil")
+        Dynpress = dat_array(f"run{run}/aircraft/DynPress")
+
+    elif run in (4, 5, 6, 7, 12, 13):
+        Delta = dat_array(f"run{run}/aircraft/DeltaElev")
+        DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumElev")
+        Iservo = dat_array(f"run{run}/aircraft/IservoElev")
+        Dynpress = dat_array(f"run{run}/aircraft/DynPress")
 
     # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
     j1, j2 = sp.symbols('j1 j2')  # Masses
@@ -240,6 +247,22 @@ def accuracy_plot_ail(accuracy_dof1_array, accuracy_dof2_array):
     plt.xlabel("Run")
     plt.ylabel("Accuracy (%)")
     plt.title("Model Accuracy Aileron(Run 1,3,8,9,10,11)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+def accuracy_plot_elev(accuracy_dof1_array, accuracy_dof2_array):
+    #Plot of accuracy of DOF1 and DOF2 between runs 4,5,6,7,12,13
+    avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
+    avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
+
+    plt.plot(accuracy_dof1_array, label="DOF1", color="red")
+    plt.plot(accuracy_dof2_array, label="DOF2", color="blue")
+    plt.axhline(y=avg_acc1, color='r', linestyle='--', label=f"Average DOF1: {avg_acc1:.2f}%")
+    plt.axhline(y=avg_acc2, color='b', linestyle='--', label=f"Average DOF2: {avg_acc2:.2f}%")
+    plt.xlabel("Run")
+    plt.ylabel("Accuracy (%)")
+    plt.title("Model Accuracy Elevator(Run 4,5,6,7,12,13)")
     plt.legend()
     plt.grid()
     plt.show()
