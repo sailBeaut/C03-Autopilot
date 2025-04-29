@@ -23,7 +23,7 @@ k1_numvalue_elev = 500000
 k2_numvalue_elev = 10.8
 c1_numvalue_elev = 200
 c2_numvalue_elev = 3
-k_g_elev = 0.22
+k_g_elev = 1
 a_velo_elev = 0.0000001
 flip_elev = 1
 
