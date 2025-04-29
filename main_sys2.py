@@ -37,12 +37,11 @@ accuracy_DOF1_elev = []
 accuracy_DOF2_elev = []
 
 #Run the model
-for i in range(1, 14):
-    if i == 2:
+for run in range(1, 14):
+    if run == 2:
         print('There is no data for this case, run 2 is skipped')
         continue
     else:
-        run = i
         if run in (1, 3, 8, 9, 10, 11) and aileron == True:
             acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, k_g, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for aileron
