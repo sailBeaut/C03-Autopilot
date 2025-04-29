@@ -27,7 +27,7 @@ a_velo_elev = 0.0000001
 aileron = True
 elevator = False
 extragraphs = False
-showmainplots = False
+showmainplots = True
 printeigenvalues = False
 
 #Define Accuracy lists
