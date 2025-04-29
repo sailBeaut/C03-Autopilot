@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -86,7 +86,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         return np.hstack((dxdt, dvdt))
 
-
+    
     # Step 3: Implement RK4 for numerical integration
     def runge_kutta4(f, Y0, t):
         n = len(t)
@@ -101,17 +101,26 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
             k4 = f(Y[i] + h * k3, t[i] + h) # Fourth derivative at the next time step
 
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
-                Y[i + 1][1] = Y[i][1]
+            # if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
+            #     Y[i + 1][1] = Y[i][1]
         return Y
 
 
     # Time settings
-    t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Time in seconds, with length matching DeltaAil
-    Y0 = [DeltaDrum[0], flip * Delta[0], ((DeltaDrum[0]-DeltaDrum[1])/0.001), flip * (Delta[0]-Delta[1])/0.001]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+    t_values_high_res = np.linspace(0, len(Delta) - 1, len(Delta) * resolution) / 1000  # High-resolution time array
+    t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
 
-    # Solve using RK4
-    Y_sol = runge_kutta4(system, Y0, t_values)
+    # Initial conditions
+    Y0 = [DeltaDrum[0], flip * Delta[0], ((DeltaDrum[0] - DeltaDrum[1]) / 0.001), flip * (Delta[0] - Delta[1]) / 0.001]
+
+    # Solve using RK4 with high-resolution time steps
+    Y_sol_high_res = runge_kutta4(system, Y0, t_values_high_res)
+
+    # Interpolate the high-resolution solution back to the original time steps
+    Y_sol = np.zeros((len(t_values), Y_sol_high_res.shape[1]))
+    for i in range(Y_sol_high_res.shape[1]):
+        Y_sol[:, i] = np.interp(t_values, t_values_high_res, Y_sol_high_res[:, i])
+        
 
     if printeigenvalues == True:
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
