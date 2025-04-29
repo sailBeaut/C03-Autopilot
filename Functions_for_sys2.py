@@ -3,7 +3,6 @@ import sympy as sp
 from check_fulldata import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
-from Testkernels import current_smoothed_ma
 
 
 def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):

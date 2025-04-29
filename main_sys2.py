@@ -5,7 +5,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2_aileron, accuracy_plot
 
-#Parameters
+#Parameters Aileron
+divfactor = 2
+k1_numvalue_ail = 400000
+k2_numvalue_ail = 10.8
+c1_numvalue = 350
+c2_numvalue = 4.5
+k_g = 0.22
+a_velo = 0.0000001
+
+#Parameters Elevator'
 divfactor = 2
 k1_numvalue = 400000
 k2_numvalue = 10.8
