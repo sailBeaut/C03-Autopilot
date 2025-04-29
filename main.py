@@ -7,6 +7,7 @@ run_nr = 11
 DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltaAil")
 IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoAil")
 
+<<<<<<< Updated upstream
 # Tuning Parameters 
 c1 = 1.37  # Damper constant 
 k1 = 4.09   # Spring constant 
@@ -14,6 +15,14 @@ k1 = 4.09   # Spring constant
 # Set Parameters
 kg = 0.22 # Gain 
 Ie = 0.0451 # Moment of inertia 
+=======
+# Parametric constants (adjusted for better accuracy)
+c1 = 2.68   # Average Damper constant (TUNING PARAMETER)
+k1 = 3.927     # Average Spring constant (TUNING PARAMETER)
+kg = 0.22      # Gain (SET PARAMETER)
+Ie = 0.0451    # Average Moment of inertia (TUNING PARAMETER)
+c2 = 0.00000045 # Average Damper constant (TUNING PARAMETER)
+>>>>>>> Stashed changes
 
 # System matrices
 A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
