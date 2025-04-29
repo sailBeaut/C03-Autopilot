@@ -1,17 +1,23 @@
 
 import sympy as sp
-from check_data import dat_array
+from check_fulldata import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
-from Testkernels import current_smoothed_ma
 
 
-def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
-    DeltaAil = dat_array(f"run{run}/aircraft/DeltaAil")
-    DeltaDrumAil = dat_array(f"run{run}/aircraft/DeltaDrumAil")
-    IservoAil = dat_array(f"run{run}/aircraft/IservoAil")
-    Dynpress = dat_array(f"run{run}/aircraft/DynPress")
+    if run in (1, 3, 8, 9, 10, 11):
+        Delta = dat_array(f"run{run}/aircraft/DeltaAil")
+        DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumAil")
+        Iservo = dat_array(f"run{run}/aircraft/IservoAil")
+        Dynpress = dat_array(f"run{run}/aircraft/DynPress")
+
+    elif run in (4, 5, 6, 7, 12, 13):
+        Delta = dat_array(f"run{run}/aircraft/DeltaElev")
+        DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumElev")
+        Iservo = dat_array(f"run{run}/aircraft/IservoElev")
+        Dynpress = dat_array(f"run{run}/aircraft/DynPress")
 
     # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
     j1, j2 = sp.symbols('j1 j2')  # Masses
@@ -68,7 +74,7 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
     def system(Y, t):
         x = Y[:2]  # First two elements are displacements
         v = Y[2:]  # Last two elements are velocities
-        F_num = np.array([np.interp(t, t_values, IservoAil) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
+        F_num = np.array([np.interp(t, t_values, Iservo) * k_g, -np.interp(t, t_values, Dynpress)* a_velo])  # Numerical force
 
         dxdt = v
         dvdt = np.linalg.inv(M_num) @ (F_num - C_num @ v - K_num @ x)
@@ -84,19 +90,20 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         Y[0] = Y0
 
         for i in range(n - 1):
-            k1 = f(Y[i], t[i])
-            k2 = f(Y[i] + 0.5 * h * k1, t[i] + 0.5 * h)
-            k3 = f(Y[i] + 0.5 * h * k2, t[i] + 0.5 * h)
-            k4 = f(Y[i] + h * k3, t[i] + h)
+            k1 = f(Y[i], t[i]) # First derivative at the current time step
+            k2 = f(Y[i] + 0.5 * h * k1, t[i] + 0.5 * h) # Second derivative at the midpoint
+            k3 = f(Y[i] + 0.5 * h * k2, t[i] + 0.5 * h) # Third derivative at the midpoint
+            k4 = f(Y[i] + h * k3, t[i] + h) # Fourth derivative at the next time step
 
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-
+            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
+                Y[i + 1][1] = Y[i][1]
         return Y
 
 
     # Time settings
-    t_values = np.linspace(0, 7, 7001)  # Time from 0 to 7 sec
-    Y0 = [DeltaDrumAil[0], -DeltaAil[0], ((DeltaDrumAil[0]-DeltaDrumAil[1])/0.001), -(DeltaAil[0]-DeltaAil[1])/0.001]  # Initial conditions: x1 = x2 = v1 = v2 = 0
+    t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Time in seconds, with length matching DeltaAil
+    Y0 = [DeltaDrum[0], -Delta[0], ((DeltaDrum[0]-DeltaDrum[1])/0.001), -(Delta[0]-Delta[1])/0.001]  # Initial conditions: x1 = x2 = v1 = v2 = 0
 
     # Solve using RK4
     Y_sol = runge_kutta4(system, Y0, t_values)
@@ -105,13 +112,13 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
     #Step 5: Calc Accuracy
-    absolute_error1 = np.abs(Y_sol[:, 0]/divfactor - DeltaDrumAil)
-    absolute_error2 = np.abs(-Y_sol[:, 1] - DeltaAil)
+    absolute_error1 = np.abs(Y_sol[:, 0]/divfactor - DeltaDrum)
+    absolute_error2 = np.abs(-Y_sol[:, 1] - Delta)
 
     # Compute accuracy as percentage
-    error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrumAil)
+    error_norm1 = np.linalg.norm(absolute_error1) / np.linalg.norm(DeltaDrum)
     accuracy1 = (1 - error_norm1) * 100
-    error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(DeltaAil)
+    error_norm2 = np.linalg.norm(absolute_error2) / np.linalg.norm(Delta)
     accuracy2 = (1 - error_norm2) * 100
 
     # Print accuracy
@@ -121,17 +128,19 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
 
     if showmainplots == True:
         # Step 6: Plot results
+        #Plot of DOF2 compared to DeltaAil
         plt.subplot(2, 4, 1)
         plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
-        plt.plot(t_values, DeltaAil, label="DeltaAil")
+        plt.plot(t_values, Delta, label="DeltaAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
         plt.legend()
         plt.grid()
 
+        #Plot of DOF2' Accuracy compared to DeltaAil
         plt.subplot(2, 4, 2)
-        percentage_error_dof2 = np.abs((-Y_sol[:, 1] - DeltaAil) / DeltaAil) * 100
+        percentage_error_dof2 = np.abs((-Y_sol[:, 1] - Delta) / Delta) * 100
         plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
         plt.xlabel("Time (s)")
         plt.ylabel("Percentage Error of DOF 2 (%)")
@@ -139,7 +148,7 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.legend()
         plt.grid()
 
-
+        #Plot of DOF2 separate
         plt.subplot(2, 4, 3)
         plt.plot(t_values, -Y_sol[:, 1], label="x2 (DOF 2)")
         plt.xlabel("Time (s)")
@@ -148,25 +157,28 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.legend()
         plt.grid()
 
+        #Plot of DeltaAil separate
         plt.subplot(2, 4, 4)
-        plt.plot(t_values, DeltaAil, label="DeltaAil")
+        plt.plot(t_values, Delta, label="DeltaAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.title("MDOF System Response (RK4)")
         plt.legend()
         plt.grid()
 
+        #Plot of DOF1 compared to DeltaDrumAil
         plt.subplot(2, 4, 5)
         plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
-        plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+        plt.plot(t_values, DeltaDrum, label="DeltaDrumAil")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
         plt.legend()
         plt.grid()
 
+        #Plot of DOF1' Accuracy compared to DeltaDrumAil
         plt.subplot(2, 4, 6)
-        percentage_error_dof1 = np.abs((Y_sol[:, 0]/divfactor - DeltaDrumAil) / DeltaDrumAil) * 100
+        percentage_error_dof1 = np.abs((Y_sol[:, 0]/divfactor - DeltaDrum) / DeltaDrum) * 100
         plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
         plt.xlabel("Time (s)")
         plt.ylabel("Percentage Error of DOF 1 (%)")
@@ -174,6 +186,7 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.legend()
         plt.grid()
 
+        #Plot of DOF1 separate
         plt.subplot(2, 4, 7)
         plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
         plt.xlabel("Time (s)")
@@ -182,9 +195,9 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.legend()
         plt.grid()
 
-
+        #Plot of DeltaDrumAil separate
         plt.subplot(2, 4, 8)
-        plt.plot(t_values, DeltaDrumAil, label="DeltaDrumAil")
+        plt.plot(t_values, DeltaDrum, label="DeltaDrum")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.title("MDOF System Response (RK4)")
@@ -193,6 +206,7 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.show()
 
     if extragraphs == True:
+        #Plot of DOF1 and DOF2 in one graph
         plt.plot(t_values, Y_sol[:, 0]*(180*np.pi)/divfactor, label="x1 (DOF 1)")
         plt.plot(t_values, -Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
         plt.xlabel("Time (s)")
@@ -202,7 +216,7 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
         plt.grid()
         plt.show()
 
-
+        #Plot of the cable slack
         plt.plot(t_values, (-Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)/divfactor), label="Linearity vs. cable slack")
         plt.xlabel("Time (s)")
         plt.ylabel("Ratio")
@@ -213,7 +227,32 @@ def model2_aileron(run, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c
     return accuracy1, accuracy2
 
 
-def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
+def accuracy_plot_ail(accuracy_dof1_array, accuracy_dof2_array):
+    #Plot of accuracy of DOF1 and DOF2 between runs 1,3,8,9,10,11
+    avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
+    avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
+    avg_acc1_wo9n11 = (sum(accuracy_dof1_array[:-1])-accuracy_dof1_array[3]) / len(accuracy_dof1_array[:-2])
+    avg_acc2_wo9n11 = (sum(accuracy_dof2_array[:-1])-accuracy_dof2_array[3]) / len(accuracy_dof2_array[:-2])
+    avg_acc1_wo11 = sum(accuracy_dof1_array[:-1]) / len(accuracy_dof1_array[:-1])
+    avg_acc2_wo11 = sum(accuracy_dof2_array[:-1]) / len(accuracy_dof2_array[:-1])
+
+    plt.plot(accuracy_dof1_array, label="DOF1", color="red")
+    plt.plot(accuracy_dof2_array, label="DOF2", color="blue")
+    plt.axhline(y=avg_acc1, color='r', linestyle='--', label=f"Average DOF1: {avg_acc1:.2f}%")
+    plt.axhline(y=avg_acc2, color='b', linestyle='--', label=f"Average DOF2: {avg_acc2:.2f}%")
+    plt.axhline(y=avg_acc1_wo11, color='green', linestyle=':', label=f"Average DOF1 (no run11): {avg_acc1_wo11:.2f}%")
+    plt.axhline(y=avg_acc2_wo11, color='orange', linestyle=':', label=f"Average DOF2 (no run11): {avg_acc2_wo11:.2f}%")
+    plt.axhline(y=avg_acc1_wo9n11, color='purple', linestyle='-.', label=f"Average DOF1 (no run9 and run11): {avg_acc1_wo9n11:.2f}%")
+    plt.axhline(y=avg_acc2_wo9n11, color='yellow', linestyle='-.', label=f"Average DOF2 (no run9 and run11): {avg_acc2_wo9n11:.2f}%")
+    plt.xlabel("Run")
+    plt.ylabel("Accuracy (%)")
+    plt.title("Model Accuracy Aileron(Run 1,3,8,9,10,11)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+def accuracy_plot_elev(accuracy_dof1_array, accuracy_dof2_array):
+    #Plot of accuracy of DOF1 and DOF2 between runs 4,5,6,7,12,13
     avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
     avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
 
@@ -223,7 +262,7 @@ def accuracy_plot(accuracy_dof1_array, accuracy_dof2_array):
     plt.axhline(y=avg_acc2, color='b', linestyle='--', label=f"Average DOF2: {avg_acc2:.2f}%")
     plt.xlabel("Run")
     plt.ylabel("Accuracy (%)")
-    plt.title("Model Accuracy Aileron (Run 1,3,8,9,10,11)")
+    plt.title("Model Accuracy Elevator(Run 4,5,6,7,12,13)")
     plt.legend()
     plt.grid()
     plt.show()

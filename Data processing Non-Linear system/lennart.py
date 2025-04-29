@@ -1,95 +1,53 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from sklearn.preprocessing import PolynomialFeatures
+import pandas as pd
 from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
-# Given data
-V_knots = np.array([40, 40, 60, 60, 80, 80])
-dlist = np.array([4.455, 2.227, 4.455, 8.910, 8.910, 4.455])
-c1list = np.array([1.4135, 2.31, 1.4025, 0.8855, 0.935, 1.485])
-'''
+# Data
+data = {
+    "delta_ail_max": [-0.0525, -0.0575, -0.0423, -0.0438, -0.0422, -0.042],
+    "I_max": [0.855, 0.86, 0.848, 0.858, 0.86, 0.864],
+    "q_avg": [1.18e5, 1.46e5, 1.46e5, 1.46e5, 1.84e5, 1.82e5]
+}
 
-# Given data
-V_knots = np.array([40, 40, 60, 60, 80, 80])
-dlist = np.array([4.455, 2.227, 4.455, 8.910, 8.910, 4.455])
-k1list = np.array([3.4045, 3.7345, 3.916, 3.7675, 4.3395, 4.4])
+df = pd.DataFrame(data)
 
-# Fit a linear regression model
-X = np.column_stack((V_knots, dlist))
-y = k1list
-model = LinearRegression().fit(X, y)
+# Add squared dynamic pressure term
+df["q_sq"] = df["q_avg"]**2
 
-# Create a mesh grid for the hyperplane
-V_range = np.linspace(min(V_knots), max(V_knots), 10)
-d_range = np.linspace(min(dlist), max(dlist), 10)
-V_grid, d_grid = np.meshgrid(V_range, d_range)
-k1_grid = model.predict(np.column_stack((V_grid.ravel(), d_grid.ravel()))).reshape(V_grid.shape)
+# Features and target
+X = df[["I_max", "q_avg", "q_sq"]]
+y = df["delta_ail_max"]
 
-# Create 3D figure
-fig = plt.figure()
+# Fit polynomial regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Coefficients
+a, b, c = model.coef_
+d = model.intercept_
+
+# Print the equation
+print(f"Model:\nΔail_max = {a:.4f} * I + {b:.4e} * q + {c:.4e} * q² + {d:.4f}")
+
+# Generate prediction grid
+I_vals = np.linspace(-0.9, 0.9, 50)
+q_vals = np.linspace(1.1e5, 1.9e5, 50)
+I_mesh, q_mesh = np.meshgrid(I_vals, q_vals)
+q_sq_mesh = q_mesh ** 2
+
+# Predict using the fitted model
+delta_pred = a * I_mesh + b * q_mesh + c * q_sq_mesh + d
+
+# Plot 3D surface
+fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
-
-# Scatter plot
-ax.scatter(V_knots, dlist, k1list, c='b', marker='o', label='Data points')
-
-# Plot the hyperplane
-ax.plot_surface(V_grid, d_grid, k1_grid, color='r', alpha=0.5)
-
-# Labels and title
-ax.set_xlabel('V_knots')
-ax.set_ylabel('d')
-ax.set_zlabel('k1')
-ax.set_title('3D Scatter Plot with Regression Plane')
+ax.plot_surface(I_mesh, q_mesh, delta_pred, cmap='viridis', alpha=0.7)
+ax.scatter(df["I_max"], df["q_avg"], df["delta_ail_max"], color='red', label='Data')
+ax.set_xlabel("Input Current (I)")
+ax.set_ylabel("Dynamic Pressure (q) [Pa]")
+ax.set_zlabel("Max Aileron Deflection (rad)")
+ax.set_title("Polynomial Model: Δail_max vs I and q")
 ax.legend()
-
-# Show plot
-plt.show()
-'''
-'''
-
-poly = PolynomialFeatures(degree=2, include_bias=False)
-X_poly = poly.fit_transform(dlist.reshape(-1, 1))
-model = LinearRegression().fit(X_poly, c1list)
-
-# Create a range of d values for prediction
-d_range = np.linspace(min(dlist), max(dlist), 100).reshape(-1, 1)
-d_range_poly = poly.transform(d_range)
-c1_pred = model.predict(d_range_poly)
-
-# Create figure
-plt.figure(figsize=(8, 6))
-plt.scatter(dlist, c1list, color='b', label='Data points')
-plt.plot(d_range, c1_pred, color='r', label='Quadratic Fit')
-
-# Labels and title
-plt.xlabel('d')
-plt.ylabel('c1')
-plt.title('Quadratic Regression of c1 with d')
-plt.legend()
-
-# Show plot
-plt.show()
-'''
-
-X = dlist.reshape(-1, 1)
-y = c1list
-model = LinearRegression().fit(X, y)
-
-# Create a range of d values for prediction
-d_range = np.linspace(min(dlist), max(dlist), 100).reshape(-1, 1)
-c1_pred = model.predict(d_range)
-
-# Create figure
-plt.figure(figsize=(8, 6))
-plt.scatter(dlist, c1list, color='b', label='Data points')
-plt.plot(d_range, c1_pred, color='r', label='Linear Fit')
-
-# Labels and title
-plt.xlabel('d')
-plt.ylabel('c1')
-plt.title('Linear Regression of c1 with d')
-plt.legend()
-
-# Show plot
+plt.tight_layout()
 plt.show()
