@@ -7,16 +7,16 @@ Accuracy = []
 for i in (4,5,6,7,12,13):
     nr_of_run = i
     run_nr = nr_of_run
-    DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltaAil")
-    IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoAil")
+    DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltElev")
+    IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoElev")
 
     # Tuning Parameters 
-    c1 = 1.29  # Damper constant 
-    k1 = 4.23   # Spring constant 
+    c1 = 3  # Damper constant 3.5
+    k1 = 10   # Spring constant 52
 
     # Set Parameters
-    kg = 0.22 # Gain 
-    Ie = 0.0451 # Moment of inertia 
+    kg = -0.22 # Gain 
+    Ie = 1 # Moment of inertia  0.045
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
