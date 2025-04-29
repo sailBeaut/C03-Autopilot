@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2, accuracy_plot_ail, accuracy_plot_elev
 
 #Resolution
-resolution = 1
+resolution = 0.1
 #Parameters Aileron
 divfactor_ail = 2
 k1_numvalue_ail = 400000
