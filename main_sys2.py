@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2, accuracy_plot_ail, accuracy_plot_elev
 
 #Resolution
-resolution = 5
+resolution = 1
 #Parameters Aileron
 divfactor_ail = 2
 k1_numvalue_ail = 400000
@@ -18,12 +18,12 @@ a_velo_ail = 0.0000001
 flip_ail = -1
 
 #Parameters Elevator
-divfactor_elev = 4
+divfactor_elev = 1
 k1_numvalue_elev = 500000
 k2_numvalue_elev = 10.8
 c1_numvalue_elev = 200
 c2_numvalue_elev = 3
-k_g_elev = 0.22
+k_g_elev = 1
 a_velo_elev = 0.0000001
 flip_elev = 1
 
