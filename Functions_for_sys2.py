@@ -135,8 +135,8 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
         # Step 6: Plot results
         #Plot of DOF2 compared to DeltaAil
         plt.subplot(2, 4, 1)
-        plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)")
-        plt.plot(t_values, Delta, label="Delta")
+        plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)", color="blue")
+        plt.plot(t_values, Delta, label="Delta", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.title(f"Model Accuracy of DOF2: {accuracy2:.2f}%")
@@ -146,7 +146,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
         #Plot of DOF2' Accuracy compared to DeltaAil
         plt.subplot(2, 4, 2)
         percentage_error_dof2 = np.abs((flip * Y_sol[:, 1] - Delta) / Delta) * 100
-        plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)")
+        plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)", color = "red")
         plt.xlabel("Time (s)")
         plt.ylabel("Percentage Error of DOF 2 (%)")
         plt.title("Error")
@@ -155,7 +155,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         #Plot of DOF2 separate
         plt.subplot(2, 4, 3)
-        plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)")
+        plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)", color="blue")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.title(f"run{run}")
@@ -164,7 +164,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         #Plot of DeltaAil separate
         plt.subplot(2, 4, 4)
-        plt.plot(t_values, Delta, label="Delta")
+        plt.plot(t_values, Delta, label="Delta", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.legend()
@@ -172,8 +172,8 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         #Plot of DOF1 compared to DeltaDrumAil
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
-        plt.plot(t_values, DeltaDrum, label="DeltaDrum")
+        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue")
+        plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.title(f"Model Accuracy of DOF1: {accuracy1:.2f}%")
@@ -183,7 +183,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
         #Plot of DOF1' Accuracy compared to DeltaDrumAil
         plt.subplot(2, 4, 6)
         percentage_error_dof1 = np.abs((Y_sol[:, 0]/divfactor - DeltaDrum) / DeltaDrum) * 100
-        plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)")
+        plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)", color = "red")
         plt.xlabel("Time (s)")
         plt.ylabel("Percentage Error of DOF 1 (%)")
         plt.title("Error")
@@ -192,7 +192,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         #Plot of DOF1 separate
         plt.subplot(2, 4, 7)
-        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)")
+        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.legend()
@@ -200,7 +200,7 @@ def model2(run, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_
 
         #Plot of DeltaDrumAil separate
         plt.subplot(2, 4, 8)
-        plt.plot(t_values, DeltaDrum, label="DeltaDrum")
+        plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.legend()
