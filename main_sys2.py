@@ -43,12 +43,12 @@ for run in range(1, 14):
         continue
     else:
         if run in (1, 3, 8, 9, 10, 11) and aileron == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, k_g, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k_g, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for aileron
             accuracy_DOF1_ail.append(acc_run_DOF1)
             accuracy_DOF2_ail.append(acc_run_DOF2)
         elif run in (4, 5, 6, 7, 12, 13) and elevator == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, k_g, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k_g, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for elevator
             accuracy_DOF1_elev.append(acc_run_DOF1)
             accuracy_DOF2_elev.append(acc_run_DOF2)
