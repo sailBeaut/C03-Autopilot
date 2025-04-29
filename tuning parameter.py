@@ -33,12 +33,21 @@ for k1_numvalue in k1_range:
         for c2_numvalue in c2_range:
             for divfactor in divfactor_range:
                 # Run the model with current parameters
-                run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-                run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-                run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-                run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-                run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-                run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                try:
+                    run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                    run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                    run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                    run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
+                    run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                    run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+                except Exception as e:
+                    print(f"Error in model2 with parameters: k1={k1_numvalue}, k2={k2_numvalue}, c2={c2_numvalue}, divfactor={divfactor}. Skipping. Error: {e}")
+                    continue
+
+                # Check for NaN values
+                if any(np.isnan([run1_acc1, run1_acc2, run3_acc1, run3_acc2, run8_acc1, run8_acc2, run9_acc1, run9_acc2, run10_acc1, run10_acc2, run11_acc1, run11_acc2])):
+                    print(f"NaN detected for parameters: k1={k1_numvalue}, k2={k2_numvalue}, c2={c2_numvalue}, divfactor={divfactor}. Skipping.")
+                    continue
 
                 # Accuracy
                 accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
@@ -53,21 +62,24 @@ for k1_numvalue in k1_range:
                     best_params = (k1_numvalue, k2_numvalue, c2_numvalue, divfactor)
 
 # Use the best parameters found
-k1_numvalue, k2_numvalue, c2_numvalue, divfactor = best_params
+if best_params:
+    k1_numvalue, k2_numvalue, c2_numvalue, divfactor = best_params
 
-# Final run with best parameters
-run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    # Final run with best parameters
+    run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
+    run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
-# Accuracy
-accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
-accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
-print("Best Parameters:", best_params)
-print("Best Accuracy:", best_accuracy)
+    # Accuracy
+    accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
+    accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
+    print("Best Parameters:", best_params)
+    print("Best Accuracy:", best_accuracy)
 
-# Plot accuracy
-accuracy_plot_elev(accuracy_DOF1, accuracy_DOF2)
+    # Plot accuracy
+    accuracy_plot_elev(accuracy_DOF1, accuracy_DOF2)
+else:
+    print("No valid parameters found.")
