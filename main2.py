@@ -8,15 +8,15 @@ for i in (4,5,6,7,12,13):
     nr_of_run = i
     run_nr = nr_of_run
     DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltaAil")
-    IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoAil")
+    IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoElev")
 
     # Tuning Parameters 
-    c1 = 1.29  # Damper constant 
-    k1 = 4.23   # Spring constant 
+    c1 = 15  # Damper constant 
+    k1 = 200   # Spring constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
-    Ie = 0.0451 # Moment of inertia 
+    Ie = 80 # Moment of inertia 
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
