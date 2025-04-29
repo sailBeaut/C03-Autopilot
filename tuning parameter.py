@@ -3,10 +3,10 @@ import sympy as sp
 from check_data import dat_array, print_struc
 import numpy as np
 import matplotlib.pyplot as plt
-from Functions_for_sys2 import model2_aileron, accuracy_plot
+from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
-k1_numvalue = 300000
+k1_numvalue = 0
 k2_numvalue = 12 
 c1_numvalue = 350  # c1 is kept constant
 c2_numvalue = 4.5
@@ -30,12 +30,12 @@ best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
 while best_accuracy < 70:
     # Run the model with current parameters
-    run1_acc1, run1_acc2 = model2_aileron(1, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run3_acc1, run3_acc2 = model2_aileron(3, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run8_acc1, run8_acc2 = model2_aileron(8, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run9_acc1, run9_acc2 = model2_aileron(9, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-    run10_acc1, run10_acc2 = model2_aileron(10, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run11_acc1, run11_acc2 = model2_aileron(11, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
+    run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
     print(k1_numvalue)
 
@@ -61,16 +61,16 @@ while best_accuracy < 70:
 k1_numvalue, k2_numvalue, c2_numvalue, divfactor = best_params
 
 # Final run with best parameters
-run1_acc1, run1_acc2 = model2_aileron(1, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run3_acc1, run3_acc2 = model2_aileron(3, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run8_acc1, run8_acc2 = model2_aileron(8, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run9_acc1, run9_acc2 = model2_aileron(9, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-run10_acc1, run10_acc2 = model2_aileron(10, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run11_acc1, run11_acc2 = model2_aileron(11, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
+run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
 # Accuracy
 accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
 accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
 print(best_params)
 # Plot accuracy
-accuracy_plot(accuracy_DOF1, accuracy_DOF2)
+accuracy_plot_elev(accuracy_DOF1, accuracy_DOF2)
