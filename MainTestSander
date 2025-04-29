@@ -1,6 +1,6 @@
 #RUN 1 (94.51%)
 c1 = 1.4   # Average Damper constant (TUNING PARAMETER)
-k1 = 3.4     # Average Spring constant (TUNING PARAMETER)
+k1 = 3.4   # Average Spring constant (TUNING PARAMETER)
 
 #RUN 3 (93.78%)
 c1 = 2.3   # Damper constant (TUNING PARAMETER)
@@ -12,16 +12,16 @@ k1 = 4.2   # Spring constant (TUNING PARAMETER)
 
 #RUN 9 (86.64%)
 c1 = 0.9  # Damper constant (TUNING PARAMETER)
-k1 = 4.0   # Spring constant (TUNING PARAMETER)
+k1 = 4.0  # Spring constant (TUNING PARAMETER)
 
 #RUN 10 (93.37%)
 c1 = 0.9  # Damper constant (TUNING PARAMETER)
-k1 = 4.34   # Spring constant (TUNING PARAMETER)
+k1 = 4.34  # Spring constant (TUNING PARAMETER)
 
 #RUN 11 (93.18%)
 c1 = 1.4  # Damper constant (TUNING PARAMETER)
-k1 = 4.6   # Spring constant (TUNING PARAMETER)
+k1 = 4.6  # Spring constant (TUNING PARAMETER)
 
 #Average values
 c1_avg = 1.37   # Average Damper constant (TUNING PARAMETER)
-k1_avg = 4.09     # Average Spring constant (TUNING PARAMETER)
+k1_avg = 4.09   # Average Spring constant (TUNING PARAMETER)
