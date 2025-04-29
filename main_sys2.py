@@ -13,6 +13,7 @@ c1_numvalue_ail = 350
 c2_numvalue_ail = 4.5
 k_g = 0.22
 a_velo_ail = 0.0000001
+flip = -1
 
 #Parameters Elevator
 divfactor = 2
@@ -22,10 +23,11 @@ c1_numvalue_elev = 350
 c2_numvalue_elev = 4.5
 k_g = 0.22
 a_velo_elev = 0.0000001
+flip = 1
 
 #On Or Off
 aileron = True
-elevator = True
+elevator = False
 extragraphs = False
 showmainplots = True
 printeigenvalues = False
@@ -37,25 +39,24 @@ accuracy_DOF1_elev = []
 accuracy_DOF2_elev = []
 
 #Run the model
-for run in range(1, 14):
-    if run == 2:
+for i in range(1, 14):
+    if i == 2:
         print('There is no data for this case, run 2 is skipped')
         continue
     else:
+        run = i
         if run in (1, 3, 8, 9, 10, 11) and aileron == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k_g, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, flip, divfactor, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, k_g, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for aileron
             accuracy_DOF1_ail.append(acc_run_DOF1)
             accuracy_DOF2_ail.append(acc_run_DOF2)
         elif run in (4, 5, 6, 7, 12, 13) and elevator == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, divfactor, k_g, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, flip, divfactor, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, k_g, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for elevator
             accuracy_DOF1_elev.append(acc_run_DOF1)
             accuracy_DOF2_elev.append(acc_run_DOF2)
 
 
 # Plot accuracy
-if aileron:
-    accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
-if elevator:
-    accuracy_plot_elev(accuracy_DOF1_elev, accuracy_DOF2_elev)
+accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
+#accuracy_plot_elev(accuracy_DOF1_elev, accuracy_DOF2_elev)
