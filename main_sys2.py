@@ -1,4 +1,3 @@
-import h5py
 import sympy as sp
 from check_fulldata import dat_array, print_struc
 import numpy as np
