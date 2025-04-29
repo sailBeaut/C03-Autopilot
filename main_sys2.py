@@ -24,7 +24,7 @@ k_g = 0.22
 a_velo_elev = 0.0000001
 
 #On Or Off
-aileron = False
+aileron = True
 elevator = True
 extragraphs = False
 showmainplots = True
