@@ -1,25 +1,31 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
-from check_fulldata import dat_array
+from check_data import dat_array, print_struc
 
-# Function to smooth data
-def smooth_data(data):
-    kde = gaussian_kde(data)  # Create a Gaussian KDE
-    x = np.linspace(min(data), max(data), len(data))  # Generate points for evaluation
-    smoothed_data = kde(x)  # Evaluate the KDE at these points
-    return smoothed_data
 
-# Test with some data
-DeltaDrum = dat_array(f"run1/aircraft/DeltaDrumAil")
-smoothed_data = smooth_data(DeltaDrum)
+DeltaDrum = dat_array("run1/aircraft/DeltaDrumAil")
 
-# Optional: Plot the smoothed data
-t_values = np.linspace(0, len(DeltaDrum) - 1, len(DeltaDrum)) / 1000  # Original time array for plotting
-plt.plot(t_values, smoothed_data, label="Smoothed Data")
-plt.plot(t_values, DeltaDrum, label="Original Data", alpha=0.5)
-plt.xlabel("Time (s)")
-plt.ylabel("DeltaDrum")
+
+
+data = DeltaDrum
+time =  np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
+# Step 2: Apply Kernel Density Estimation (KDE) for Smoothing
+kde = gaussian_kde(data, bw_method=0.1)
+data_smoothed_kde = kde(data)  # Smoothed KDE values
+
+# Step 3: Moving Average Smoothing (Alternative)
+window_size = 13 # Adjust the window for more or less smoothing
+data_smoothed_ma = np.convolve(data, np.ones(window_size) / window_size, mode='same')
+  
+# Step 4: Plot the Results
+plt.figure(figsize=(10, 6))
+plt.plot(time, data, label='Original Data', alpha=0.5)  # Original data
+plt.plot(time, data_smoothed_kde, label='KDE Smoothed Data', color='orange')
+plt.plot(time, data_smoothed_ma, label='Moving Average Smoothed Data', color='green')
+plt.title('Smoothing Techniques Comparison')
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude')
 plt.legend()
 plt.grid()
 plt.show()
