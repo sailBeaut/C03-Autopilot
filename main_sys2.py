@@ -29,7 +29,7 @@ flip_elev = 1
 
 #On Or Off
 ground = True
-aileron = True
+aileron = False
 elevator = False
 array = True
 extragraphs = False
@@ -63,6 +63,10 @@ for run in range(1, 14):
 
 
 # Plot accuracy
+if ground == True:
+    print("Ground accuracy:")
+    print(f"DOF1: {acc_ground_DOF1:.2f}%")
+    print(f"DOF2: {acc_ground_DOF2:.2f}%")
 if aileron: 
     accuracy_plot_ail(accuracy_DOF1_ail, accuracy_DOF2_ail)
 if elevator:
