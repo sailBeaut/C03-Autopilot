@@ -18,3 +18,4 @@ data = np.random.normal(0, 1, 1000)  # Example data
 x, smoothed_data = smooth_data(data, bandwidth=0.1)
 
 plt.plot(x, smoothed_data)
+plt.show()
