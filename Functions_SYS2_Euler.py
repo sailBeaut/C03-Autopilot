@@ -338,7 +338,7 @@ if __name__ == "__main__":
     array = True  # Set to True to print arrays
     resolution = 1  # Example resolution
     flip = -1  # Example flip value
-    divfactor = 1  # Example division factor
+    divfactor = 2  # Example division factor
     k_g = 0.22  # Example gain value
     k1_numvalue = 500000  # Example stiffness value for DOF1
     k2_numvalue = 31  # Example stiffness value for DOF2
