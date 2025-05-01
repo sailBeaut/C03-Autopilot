@@ -3,6 +3,7 @@ import sympy as sp
 from check_fulldata import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
+from Testkernels import smooth_data
 
 
 def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
@@ -223,7 +224,7 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
 
         #Plot of DeltaDrumAil separate
         plt.subplot(2, 4, 8)
-        plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
+        plt.plot(t_values, smooth_data(DeltaDrum), label="DeltaDrum", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.legend()

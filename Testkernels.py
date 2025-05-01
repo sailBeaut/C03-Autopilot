@@ -10,4 +10,4 @@ def smooth_data(data, bandwidth=0.1):
     kde = gaussian_kde(data, bw_method=bandwidth)
     x = np.linspace(min(data), max(data), 1000)
     smoothed_data = kde(x)
-    return x, smoothed_data
+    return smoothed_data
