@@ -46,7 +46,7 @@ def extract_relevant_data(input_file, output_file, runs=12):
 			dest.create_dataset(f'data/aircraft/data/DeltaAil', data=data)	
 		if run_path in src:
 			data = np.array(src[f'data/aircraft/data/DeltaElev'])
-			dest.create_dataset(f'data/aircraft/data/DeltElev', data=data)											
+			dest.create_dataset(f'data/aircraft/data/DeltaElev', data=data)											
 		servo_path = f'data/servo/data/delta_e_t'
 		if servo_path in src:
 			data = src[servo_path]  # Extract subset of data
