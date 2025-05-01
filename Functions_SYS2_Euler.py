@@ -88,25 +88,57 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         return np.hstack((dxdt, dvdt))
 
     
-    # Step 3: Implement RK4 for numerical integration
-    def runge_kutta4(f, Y0, t):
+    # Step 3: Implement implicit euler for numerical integration
+    
+
+
+    def jacobian(f, Y, t):
+        """
+        Compute the Jacobian matrix of f with respect to Y.
+
+        Parameters:
+        - f: Function defining the system of ODEs.
+        - Y: Current state (array-like).
+        - t: Current time.
+
+        Returns:
+        - J: Jacobian matrix.
+        """
+        eps = 1e-8  # Small perturbation for numerical differentiation
+        n = len(Y)
+        J = np.zeros((n, n))
+        for i in range(n):
+            Y_perturb = Y.copy()
+            Y_perturb[i] += eps
+            J[:, i] = (f(Y_perturb, t) - f(Y, t)) / eps
+        return J
+    
+    def implicit_euler(f, Y0, t):
         n = len(t)
         h = t[1] - t[0]  # Time step
         Y = np.zeros((n, len(Y0)))  # Store results
         Y[0] = Y0
 
         for i in range(n - 1):
-            k1 = f(Y[i], t[i]) # First derivative at the current time step
-            k2 = f(Y[i] + 0.5 * h * k1, t[i] + 0.5 * h) # Second derivative at the midpoint
-            k3 = f(Y[i] + 0.5 * h * k2, t[i] + 0.5 * h) # Third derivative at the midpoint
-            k4 = f(Y[i] + h * k3, t[i] + h) # Fourth derivative at the next time step
+            # Define the implicit equation: Y[i+1] = Y[i] + h * f(Y[i+1], t[i+1])
+            # Solve for Y[i+1] using Newton's method
+            def g(Y_next):
+                return Y_next - Y[i] - h * f(Y_next, t[i + 1])
 
-            Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
-                Y[i + 1][1] = Y[i][1]
+            # Initial guess for Y_next (use the previous value as a starting point)
+            Y_next = Y[i]
+
+            # Solve the nonlinear system using Newton's method
+            for _ in range(10):  # Maximum 10 iterations
+                J = np.eye(len(Y0)) - h * jacobian(f, Y_next, t[i + 1])  # Jacobian matrix
+                delta = np.linalg.solve(J, -g(Y_next))  # Solve linear system
+                Y_next += delta
+                if np.linalg.norm(delta) < 1e-6:  # Convergence tolerance
+                    break
+
+            Y[i + 1] = Y_next
+
         return Y
-
-
     # Time settings
     t_values_high_res = np.linspace(0, (len(Delta) - 1), len(Delta) * resolution) / 1000  # High-resolution time array
     t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
@@ -127,7 +159,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
     ]
 
     # Solve using RK4 with high-resolution time steps
-    Y_sol_high_res = runge_kutta4(system, Y0, t_values_high_res)
+    Y_sol_high_res = implicit_euler(system, Y0, t_values_high_res)
 
     # Interpolate the high-resolution solution back to the original time steps
     Y_sol = np.zeros((len(t_values), Y_sol_high_res.shape[1]))
