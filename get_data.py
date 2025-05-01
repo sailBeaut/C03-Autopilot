@@ -1,6 +1,6 @@
 import h5py
 import numpy as np
-
+'''
 def extract_relevant_data(input_file, output_file, runs=12):
 	"""Extracts DeltaAil and DeltaElev data from multiple runs and saves to a new HDF5 file."""
 	with h5py.File(input_file, 'r') as src, h5py.File(output_file, 'w') as dest:
@@ -29,4 +29,32 @@ def extract_relevant_data(input_file, output_file, runs=12):
 # Example usage
 input_hdf5 = '/Users/lennarthubbers/Desktop/processed-20250217_151129.hdf5'  # Replace with your actual input file
 output_hdf5 = 'filtered_data3.hdf5'  # Replace with your desired output file
+extract_relevant_data(input_hdf5, output_hdf5)
+'''
+def extract_relevant_data(input_file, output_file, runs=12):
+	"""Extracts DeltaAil and DeltaElev data from multiple runs and saves to a new HDF5 file."""
+	with h5py.File(input_file, 'r') as src, h5py.File(output_file, 'w') as dest:
+		for dataset in ['IservoAil', 'IservoElev', 'DeltaDrumElev', 'DeltaDrumAil', 'DynPress']:
+			run_path = f'data/aircraft/data/{dataset}'
+			if run_path in src:
+				data = src[run_path]  # Extract subset of data
+				dest.create_dataset(f'data/aircraft/data/{dataset}', data=data)
+			else:
+				print(f"Warning: {run_path} not found in source file.")
+		if run_path in src:
+			data = np.array(src[f'data/aircraft/data/DeltaAil'])-src[f'data/aircraft/data/DeltaAil']
+			dest.create_dataset(f'data/aircraft/data/DeltaAil', data=data)	
+		if run_path in src:
+			data = np.array(src[f'data/aircraft/data/DeltaElev'])-src[f'data/aircraft/data/DeltaElev']
+			dest.create_dataset(f'data/aircraft/data/DeltElev', data=data)											
+		servo_path = f'data/servo/data/delta_e_t'
+		if servo_path in src:
+			data = src[servo_path]  # Extract subset of data
+			dest.create_dataset(servo_path, data=data)
+		else:
+			print(f"Warning: {servo_path} not found in source file.")
+
+# Example usage
+input_hdf5 = '/Users/lennarthubbers/Desktop/simlog-20250424_091724.hdf5'  # Replace with your actual input file
+output_hdf5 = 'new_data.hdf5'  # Replace with your desired output file
 extract_relevant_data(input_hdf5, output_hdf5)
