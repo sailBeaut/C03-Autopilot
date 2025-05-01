@@ -1,30 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
-from check_data import dat_array, print_struc
+from scipy.ndimage import gaussian_filter1d
 
+def smooth_data(data, sigma):
+    """
+    Smooth the input data using a Gaussian filter.
 
-IservoAil = dat_array("run1/aircraft/IservoAil")
+    Parameters:
+    - data (array-like): The input data to be smoothed.
+    - sigma (float): The standard deviation for the Gaussian kernel.
 
-
-
-current = IservoAil
-time = np.linspace(0, 7000, 7001)
-# Step 2: Apply Kernel Density Estimation (KDE) for Smoothing
-kde = gaussian_kde(current, bw_method=0.1)
-current_smoothed_kde = kde(current)  # Smoothed KDE values
-
-# Step 3: Moving Average Smoothing (Alternative)
-window_size = 13 # Adjust the window for more or less smoothing
-current_smoothed_ma = np.convolve(current, np.ones(window_size) / window_size, mode='same')
-'''
-# Step 4: Plot the Results
-plt.figure(figsize=(12, 6))
-plt.plot(time, current, alpha=0.5, label="Original Current (with Spikes)", color='gray')
-plt.plot(time, current_smoothed_ma, label="Smoothed (Moving Average)", color='red', linewidth=2)
-plt.xlabel("Time (s)")
-plt.ylabel("Current (A)")
-plt.title("Smoothing Input Current Data")
-plt.legend()
-plt.show()
-'''
+    Returns:
+    - data_smoothed (ndarray): The smoothed data as an array.
+    """
+    data_smoothed = gaussian_filter1d(data, sigma=sigma)
+    return data_smoothed

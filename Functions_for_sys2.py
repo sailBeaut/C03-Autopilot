@@ -3,9 +3,10 @@ import sympy as sp
 from check_fulldata import dat_array
 import numpy as np
 import matplotlib.pyplot as plt
+from Testkernels import smooth_data
 
 
-def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -114,11 +115,15 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
     dt = t_values[1] - t_values[0]
 
 # Initial conditions using 3-point forward difference for velocity
+    #Smooth data for initial conditions
+    DeltaDrum_smooth = smooth_data(DeltaDrum, 5)
+    Delta_smooth = smooth_data(Delta, 5)
+
     Y0 = [
-    DeltaDrum[0],  # Initial displacement for DOF1
+    DeltaDrum[0]*divfactor,  # Initial displacement for DOF1
     flip * Delta[0],  # Initial displacement for DOF2
-    (-3 * DeltaDrum[0] + 4 * DeltaDrum[1] - DeltaDrum[2]) / (2 * dt),  # Initial velocity for DOF1
-    flip * (-3 * Delta[0] + 4 * Delta[1] - Delta[2]) / (2 * dt)  # Initial velocity for DOF2
+    (-3 * DeltaDrum_smooth[0] + 4 *DeltaDrum_smooth[1] - DeltaDrum_smooth[2]) / (2 * dt),  # Initial velocity for DOF1
+    flip * (-3 * Delta_smooth[0] + 4 * Delta_smooth[1] - Delta_smooth[2]) / (2 * dt)  # Initial velocity for DOF2
     ]
 
     # Solve using RK4 with high-resolution time steps
@@ -147,6 +152,12 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
     print(f"Model Accuracy of DOF1 of run{run}: {accuracy1:.2f}%")
     print(f"Model Accuracy of DOF2 of run{run}: {accuracy2:.2f}%")
 
+    #Check Array
+    if array == True:
+        print("DOF1:", Y_sol[:, 0])
+        print("DeltaDrum", DeltaDrum)
+        print("DOF2", Y_sol[:, 1])
+        print("Delta", Delta)
 
     if showmainplots == True:
         # Step 6: Plot results
@@ -182,6 +193,7 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
         #Plot of DeltaAil separate
         plt.subplot(2, 4, 4)
         plt.plot(t_values, Delta, label="Delta", color="orange")
+        plt.plot(t_values, Delta_smooth, label="DeltaSmooth", color="green", marker="o")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.legend()
@@ -189,7 +201,7 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
 
         #Plot of DOF1 compared to DeltaDrumAil
         plt.subplot(2, 4, 5)
-        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue")
+        plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue", marker="x")
         plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
@@ -218,6 +230,7 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
         #Plot of DeltaDrumAil separate
         plt.subplot(2, 4, 8)
         plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
+        plt.plot(t_values, DeltaDrum_smooth, label="DeltaDrumSmooth", color="green", marker="o")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.legend()
