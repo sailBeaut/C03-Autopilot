@@ -28,6 +28,7 @@ a_velo_elev = 0.0000001
 flip_elev = 1
 
 #On Or Off
+ground = True
 aileron = True
 elevator = False
 array = True
@@ -42,6 +43,8 @@ accuracy_DOF1_elev = []
 accuracy_DOF2_elev = []
 
 #Run the model
+if ground == True:
+    acc_ground_DOF1, acc_ground_DOF2 = model2(0, array, resolution, flip_ail, divfactor_ail, k_g_ail, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
 for run in range(1, 14):
     if run == 2:
         print('There is no data for this case, run 2 is skipped')
