@@ -9,7 +9,7 @@ DeltaDrum = dat_array("run1/aircraft/DeltaDrumAil")
 
 
 data = DeltaDrum
-time =  np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
+time =  np.linspace(0, len(DeltaDrum) - 1, len(DeltaDrum)) / 1000  # Original time array for plotting
 # Step 2: Apply Kernel Density Estimation (KDE) for Smoothing
 kde = gaussian_kde(data, bw_method=0.1)
 data_smoothed_kde = kde(data)  # Smoothed KDE values
