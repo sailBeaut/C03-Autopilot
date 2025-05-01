@@ -149,10 +149,10 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
 
     #Check Array
     if array == True:
-        print(Y_sol[:, 0])
-        print(DeltaDrum)
-        print(Y_sol[:, 1])
-        print(Delta)
+        print("DOF1:", Y_sol[:, 0])
+        print("DeltaDrum", DeltaDrum)
+        print("DOF2", Y_sol[:, 1])
+        print("Delta", Delta)
 
     if showmainplots == True:
         # Step 6: Plot results
