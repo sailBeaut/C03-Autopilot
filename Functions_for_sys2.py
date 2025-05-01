@@ -110,8 +110,16 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
     t_values_high_res = np.linspace(0, len(Delta) - 1, len(Delta) * resolution) / 1000  # High-resolution time array
     t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
 
-    # Initial conditions
-    Y0 = [DeltaDrum[0], flip * Delta[0], ((DeltaDrum[0] - DeltaDrum[1]) / 0.001), flip * (Delta[0] - Delta[1]) / 0.001]
+    # Time step (assuming uniform time steps in t_values)
+    dt = t_values[1] - t_values[0]
+
+# Initial conditions using 3-point forward difference for velocity
+    Y0 = [
+    DeltaDrum[0],  # Initial displacement for DOF1
+    flip * Delta[0],  # Initial displacement for DOF2
+    (-3 * DeltaDrum[0] + 4 * DeltaDrum[1] - DeltaDrum[2]) / (2 * dt),  # Initial velocity for DOF1
+    flip * (-3 * Delta[0] + 4 * Delta[1] - Delta[2]) / (2 * dt)  # Initial velocity for DOF2
+    ]
 
     # Solve using RK4 with high-resolution time steps
     Y_sol_high_res = runge_kutta4(system, Y0, t_values_high_res)

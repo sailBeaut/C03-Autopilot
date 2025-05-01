@@ -28,8 +28,8 @@ a_velo_elev = 0.0000001
 flip_elev = 1
 
 #On Or Off
-aileron = False
-elevator = True
+aileron = True
+elevator = False
 extragraphs = False
 showmainplots = True
 printeigenvalues = False
