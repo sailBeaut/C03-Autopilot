@@ -12,6 +12,15 @@ def dat_array(dir):
 		except:
 			print("invalid directory")
 
+def dat_array_ground(dir):
+	file_path = "new_data.hdf5"
+	with h5py.File(file_path, "r") as f:
+		try:
+			data = f[str(dir)][()]
+			return data
+		except:
+			print("invalid directory")	
+
 def print_struc():
 	with h5py.File(file_path, "r") as f:
 		def print_structure(name, obj):
