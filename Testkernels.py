@@ -1,21 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
-from check_fulldata import dat_array
+from scipy.ndimage import gaussian_filter1d
 
-#Function to smooth data
+def smooth_data(data, sigma=2):
+    """
+    Smooth the input data using a Gaussian filter.
 
-def smooth_data(data, bandwidth=0.1):
-    """Smooth the data using Gaussian kernel density estimation."""
-    kde = gaussian_kde(data, bw_method=bandwidth)
-    x = np.linspace(min(data), max(data), 1000)
-    smoothed_data = kde(x)
-    return x, smoothed_data
+    Parameters:
+    - data (array-like): The input data to be smoothed.
+    - sigma (float): The standard deviation for the Gaussian kernel.
 
-#Test with some data
-DeltaDrum = dat_array(f"run1/aircraft/DeltaDrumAil")
-
-x, smoothed_data = smooth_data(DeltaDrum, bandwidth=0.1)
-
-plt.plot(x, smoothed_data)
-plt.show()
+    Returns:
+    - data_smoothed (ndarray): The smoothed data as an array.
+    """
+    data_smoothed = gaussian_filter1d(data, sigma=sigma)
+    return data_smoothed
