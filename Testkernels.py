@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
-
+from check_fulldata import dat_array
 
 #Function to smooth data
 
@@ -13,9 +13,9 @@ def smooth_data(data, bandwidth=0.1):
     return x, smoothed_data
 
 #Test with some data
+DeltaDrum = dat_array(f"run1/aircraft/DeltaDrumAil")
 
-data = np.random.normal(0, 1, 1000)  # Example data
-x, smoothed_data = smooth_data(data, bandwidth=0.1)
+x, smoothed_data = smooth_data(, bandwidth=0.1)
 
 plt.plot(x, smoothed_data)
 plt.show()
