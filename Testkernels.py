@@ -1,10 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from check_data import dat_array, print_struc
+from scipy.ndimage import gaussian_filter1d
 
+def smooth_data(data, sigma=2):
+    """
+    Smooth the input data using a Gaussian filter.
 
+    Parameters:
+    - data (array-like): The input data to be smoothed.
+    - sigma (float): The standard deviation for the Gaussian kernel.
 
-
-def smooth_data(data, window_size = 13):
-    data_smoothed_ma = np.convolve(data, np.ones(window_size) / window_size, mode='same')
-    return data_smoothed_ma
+    Returns:
+    - data_smoothed (ndarray): The smoothed data as an array.
+    """
+    data_smoothed = gaussian_filter1d(data, sigma=sigma)
+    return data_smoothed

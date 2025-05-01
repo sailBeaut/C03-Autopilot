@@ -116,8 +116,8 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
 
 # Initial conditions using 3-point forward difference for velocity
     #Smooth data for initial conditions
-    DeltaDrum_smooth = smooth_data(DeltaDrum, window_size=15)
-    Delta_smooth = smooth_data(Delta, window_size=15)
+    DeltaDrum_smooth = smooth_data(DeltaDrum, sigma=2)
+    Delta_smooth = smooth_data(Delta, sigma=2)
 
     Y0 = [
     DeltaDrum[0]*divfactor,  # Initial displacement for DOF1
