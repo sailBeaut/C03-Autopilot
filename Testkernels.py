@@ -15,7 +15,7 @@ def smooth_data(data, bandwidth=0.1):
 #Test with some data
 DeltaDrum = dat_array(f"run1/aircraft/DeltaDrumAil")
 
-x, smoothed_data = smooth_data(, bandwidth=0.1)
+x, smoothed_data = smooth_data(DeltaDrum, bandwidth=0.1)
 
 plt.plot(x, smoothed_data)
 plt.show()
