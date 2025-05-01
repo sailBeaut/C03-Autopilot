@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -147,6 +147,12 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
     print(f"Model Accuracy of DOF1 of run{run}: {accuracy1:.2f}%")
     print(f"Model Accuracy of DOF2 of run{run}: {accuracy2:.2f}%")
 
+    #Check Array
+    if array == True:
+        print(Y_sol[:, 0])
+        print(DeltaDrum)
+        print(Y_sol[:, 1])
+        print(Delta)
 
     if showmainplots == True:
         # Step 6: Plot results
