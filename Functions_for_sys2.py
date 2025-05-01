@@ -13,13 +13,13 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
     Iservo = []
     Dynpress = []
 
-    if run == 0
+    if run == 0:
         # Load data for ground run
         Delta = dat_array_ground("data/aircraft/data/DeltaAil")
         DeltaDrum = dat_array_ground("data/aircraft/data/DeltaDrumAil")
         Iservo = dat_array_ground("data/aircraft/data/IservoAil")
         Dynpress = dat_array_ground("data/aircraft/data/DynPress")
-        
+
     elif run in (1, 3, 8, 9, 10, 11):
         Delta = dat_array(f"run{run}/aircraft/DeltaAil")
         DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumAil")
