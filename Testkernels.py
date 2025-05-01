@@ -10,4 +10,11 @@ def smooth_data(data, bandwidth=0.1):
     kde = gaussian_kde(data, bw_method=bandwidth)
     x = np.linspace(min(data), max(data), 1000)
     smoothed_data = kde(x)
-    return smoothed_data
+    return x, smoothed_data
+
+#Test with some data
+
+data = np.random.normal(0, 1, 1000)  # Example data
+x, smoothed_data = smooth_data(data, bandwidth=0.1)
+
+plt.plot(x, smoothed_data)

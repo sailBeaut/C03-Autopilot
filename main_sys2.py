@@ -30,7 +30,7 @@ flip_elev = 1
 #On Or Off
 aileron = True
 elevator = False
-array = True
+array = False
 extragraphs = False
 showmainplots = True
 printeigenvalues = False
