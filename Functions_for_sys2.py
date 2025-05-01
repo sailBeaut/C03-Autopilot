@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Testkernels import smooth_data
 
 
-def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -116,8 +116,8 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
 
 # Initial conditions using 3-point forward difference for velocity
     #Smooth data for initial conditions
-    DeltaDrum_smooth = smooth_data(DeltaDrum, sigma=2)
-    Delta_smooth = smooth_data(Delta, sigma=2)
+    DeltaDrum_smooth = smooth_data(DeltaDrum, 5)
+    Delta_smooth = smooth_data(Delta, 5)
 
     Y0 = [
     DeltaDrum[0]*divfactor,  # Initial displacement for DOF1

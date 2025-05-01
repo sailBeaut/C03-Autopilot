@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter1d
 
-def smooth_data(data, sigma=2):
+def smooth_data(data, sigma):
     """
     Smooth the input data using a Gaussian filter.
 
