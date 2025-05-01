@@ -115,7 +115,7 @@ def model2(run, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_n
 
 # Initial conditions using 3-point forward difference for velocity
     Y0 = [
-    DeltaDrum[0],  # Initial displacement for DOF1
+    DeltaDrum[0]/divfactor,  # Initial displacement for DOF1
     flip * Delta[0],  # Initial displacement for DOF2
     (-3 * DeltaDrum[0] + 4 * DeltaDrum[1] - DeltaDrum[2]) / (2 * dt),  # Initial velocity for DOF1
     flip * (-3 * Delta[0] + 4 * Delta[1] - Delta[2]) / (2 * dt)  # Initial velocity for DOF2
