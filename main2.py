@@ -11,12 +11,12 @@ for i in (4,5,6,7,12,13):
     IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoElev")
 
     # Tuning Parameters 
-    c1 = 3  # Damper constant 3.5
-    k1 = 10   # Spring constant 52
+    c1 = 1.079  # Damper constant 3.5
+    k1 = 9.1   # Spring constant 52
 
     # Set Parameters
     kg = -0.22 # Gain 
-    Ie = 1 # Moment of inertia  0.045
+    Ie = 0.03 # Moment of inertia  0.045
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
@@ -52,22 +52,22 @@ for i in (4,5,6,7,12,13):
 lennart = sum(Accuracy)/len(Accuracy)
 print(lennart)
 
-# Plot computed vs actual Delta Ail over time
-time_steps = np.linspace(0, 7000, 7001)
-plt.figure(figsize=(10, 5))
-plt.plot(time_steps, xlist, color="r", label="Computed")
-plt.plot(time_steps, DeltaAil, color="b", label="Actual")
-plt.xlabel("Time Steps")
-plt.ylabel("Delta Ail")
-plt.legend()
-plt.title("Computed vs. Actual Delta Ail")
-plt.show()
+# # Plot computed vs actual Delta Ail over time
+# time_steps = np.linspace(0, 7000, 7001)
+# plt.figure(figsize=(10, 5))
+# plt.plot(time_steps, xlist, color="r", label="Computed")
+# plt.plot(time_steps, DeltaAil, color="b", label="Actual")
+# plt.xlabel("Time Steps")
+# plt.ylabel("Delta Ail")
+# plt.legend()
+# plt.title("Computed vs. Actual Delta Ail")
+# plt.show()
 
-# Plot absolute error over time
-plt.figure(figsize=(10, 5))
-plt.plot(time_steps, absolute_error, color="g", label="Absolute Error")
-plt.xlabel("Time Steps")
-plt.ylabel("Absolute Error")
-plt.legend()
-plt.title("Absolute Error Over Time")
-plt.show()
+# # Plot absolute error over time
+# plt.figure(figsize=(10, 5))
+# plt.plot(time_steps, absolute_error, color="g", label="Absolute Error")
+# plt.xlabel("Time Steps")
+# plt.ylabel("Absolute Error")
+# plt.legend()
+# plt.title("Absolute Error Over Time")
+# plt.show()
