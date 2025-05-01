@@ -108,7 +108,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
 
 
     # Time settings
-    t_values_high_res = np.linspace(0, len(Delta) - 1, len(Delta) * resolution) / 1000  # High-resolution time array
+    t_values_high_res = np.linspace(0, (len(Delta) - 1)*resolution, len(Delta) * resolution) / 1000  # High-resolution time array
     t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
 
     # Time step (assuming uniform time steps in t_values)
