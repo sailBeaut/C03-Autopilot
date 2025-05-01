@@ -193,6 +193,7 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
         #Plot of DeltaAil separate
         plt.subplot(2, 4, 4)
         plt.plot(t_values, Delta, label="Delta", color="orange")
+        plt.plot(t_values, Delta_smooth, label="DeltaSmooth", color="green")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
         plt.legend()
@@ -229,6 +230,7 @@ def model2(run,array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue
         #Plot of DeltaDrumAil separate
         plt.subplot(2, 4, 8)
         plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
+        plt.plot(t_values, DeltaDrum_smooth, label="DeltaDrumSmooth", color="green")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
         plt.legend()
