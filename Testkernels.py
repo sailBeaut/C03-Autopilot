@@ -21,7 +21,7 @@ data_smoothed_ma = np.convolve(data, np.ones(window_size) / window_size, mode='s
 # Step 4: Plot the Results
 plt.figure(figsize=(10, 6))
 plt.plot(time, data, label='Original Data', alpha=0.5)  # Original data
-plt.plot(time, data_smoothed_kde, label='KDE Smoothed Data', color='orange')
+#plt.plot(time, data_smoothed_kde, label='KDE Smoothed Data', color='orange')
 plt.plot(time, data_smoothed_ma, label='Moving Average Smoothed Data', color='green')
 plt.title('Smoothing Techniques Comparison')
 plt.xlabel('Time (s)')
