@@ -48,20 +48,23 @@ for i in (4,5,6,7,12,13):
 
     # Print accuracy
     print(f"Model Accuracy: {accuracy:.2f}%")
+    time_steps = np.linspace(0, 7000, 7001)
+    plt.figure(figsize=(10, 5))
+    plt.plot(time_steps, xlist, color="r", label="Computed")
+    plt.plot(time_steps, DeltaAil, color="b", label="Actual")
+    plt.xlabel("Time Steps")
+    plt.ylabel("Delta Ail")
+    plt.legend()
+    plt.title("Computed vs. Actual Delta Ail")
+    plt.show()
 
 lennart = sum(Accuracy)/len(Accuracy)
 print(lennart)
 
 # # Plot computed vs actual Delta Ail over time
-# time_steps = np.linspace(0, 7000, 7001)
-# plt.figure(figsize=(10, 5))
-# plt.plot(time_steps, xlist, color="r", label="Computed")
-# plt.plot(time_steps, DeltaAil, color="b", label="Actual")
-# plt.xlabel("Time Steps")
-# plt.ylabel("Delta Ail")
-# plt.legend()
-# plt.title("Computed vs. Actual Delta Ail")
-# plt.show()
+
+
+
 
 # # Plot absolute error over time
 # plt.figure(figsize=(10, 5))
