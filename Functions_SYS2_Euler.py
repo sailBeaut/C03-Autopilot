@@ -348,10 +348,10 @@ if __name__ == "__main__":
     flip = -1  # Example flip value
     divfactor = 2  # Example division factor
     k_g = 0.22  # Example gain value
-    k1_numvalue = 500000  # Example stiffness value for DOF1
-    k2_numvalue = 31  # Example stiffness value for DOF2
-    c1_numvalue = 200  # Example damping coefficient for DOF1
-    c2_numvalue = 10  # Example damping coefficient for DOF2
+    k1_numvalue = 400000  # Example stiffness value for DOF1
+    k2_numvalue = 10.8  # Example stiffness value for DOF2
+    c1_numvalue = 350  # Example damping coefficient for DOF1
+    c2_numvalue = 4.5  # Example damping coefficient for DOF2
     a_velo = 0.0000001  # Example velocity value
     extragraphs = False  # Set to True to show extra graphs
     showmainplots = True  # Set to True to show main plots
