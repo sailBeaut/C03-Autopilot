@@ -45,19 +45,17 @@ while best_accuracy < 55:
     # Calculate average accuracy for DOF 2
     average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2)
 
-    # Check if the current parameters give better accuracy for DOF 2
-    if average_accuracy_dof2 > best_accuracy:
-        best_accuracy = average_accuracy_dof2
-        best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
-
     # Update parameters for next iteration
     k1_numvalue += 20000  # Increment k1
     #k2_numvalue += 1      # Increment k2
     #c2_numvalue += 0.5    # Increment c2
 
+    print(f"Best Parameters: k1={k1_numvalue}, k2={k2_numvalue}, c2={c2_numvalue}")
+    print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.2f}%")
+
 # Use the best parameters found
 k1_numvalue, k2_numvalue, c2_numvalue = best_params
-print(f"Best Parameters: k1={k1_numvalue}, k2={k2_numvalue}, c2={c2_numvalue}")
+
 # Final run with best parameters
 run1_acc1, run1_acc2 = model2(4, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 run3_acc1, run3_acc2 = model2(5, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
