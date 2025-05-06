@@ -29,8 +29,8 @@ flip_elev = 1
 
 #On Or Off
 ground = False
-aileron = True
-elevator = False
+aileron = False
+elevator = True
 array = True
 extragraphs = False
 showmainplots = True
