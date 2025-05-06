@@ -298,7 +298,7 @@ def accuracy_plot_ail(accuracy_dof1_array, accuracy_dof2_array):
     avg_acc2_wo9n11 = (sum(accuracy_dof2_array[:-1])-accuracy_dof2_array[3]) / len(accuracy_dof2_array[:-2])
     avg_acc1_wo11 = sum(accuracy_dof1_array[:-1]) / len(accuracy_dof1_array[:-1])
     avg_acc2_wo11 = sum(accuracy_dof2_array[:-1]) / len(accuracy_dof2_array[:-1])
-
+    plt.figure(figsize=(10, 5))
     plt.plot(accuracy_dof1_array, label="DOF1", color="red")
     plt.plot(accuracy_dof2_array, label="DOF2", color="blue")
     plt.axhline(y=avg_acc1, color='r', linestyle='--', label=f"Average DOF1: {avg_acc1:.2f}%")
@@ -318,7 +318,7 @@ def accuracy_plot_elev(accuracy_dof1_array, accuracy_dof2_array):
     #Plot of accuracy of DOF1 and DOF2 between runs 4,5,6,7,12,13
     avg_acc1 = sum(accuracy_dof1_array) / len(accuracy_dof1_array)
     avg_acc2 = sum(accuracy_dof2_array) / len(accuracy_dof2_array)
-
+    plt.figure(figsize=(10, 5))
     plt.plot(accuracy_dof1_array, label="DOF1", color="red")
     plt.plot(accuracy_dof2_array, label="DOF2", color="blue")
     plt.axhline(y=avg_acc1, color='r', linestyle='--', label=f"Average DOF1: {avg_acc1:.2f}%")
