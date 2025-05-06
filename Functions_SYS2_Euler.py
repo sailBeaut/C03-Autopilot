@@ -342,7 +342,7 @@ def accuracy_plot_elev(accuracy_dof1_array, accuracy_dof2_array):
 
 if __name__ == "__main__":
     # Example usage of the model2 function
-    run = 1  # Example run number
+    run = 9  # Example run number
     array = True  # Set to True to print arrays
     resolution = 1  # Example resolution
     flip = -1  # Example flip value
