@@ -27,7 +27,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         Dynpress = dat_array(f"run{run}/aircraft/DynPress")
 
     elif run in (4, 5, 6, 7, 12, 13):
-        Delta = dat_array(f"run{run}/aircraft/DeltaElev")
+        Delta = dat_array(f"run{run}/aircraft/DeltElev")
         DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumElev")
         Iservo = dat_array(f"run{run}/aircraft/IservoElev")
         Dynpress = dat_array(f"run{run}/aircraft/DynPress")
