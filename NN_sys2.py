@@ -117,3 +117,6 @@ def model2_nn(run, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue):
 
     # Plot results
     plot_results(t_values, Delta, DeltaDrum, Y_sol)
+
+
+    model2_nn(run=1, k1_numvalue=1000, k2_numvalue=2000, c1_numvalue=10, c2_numvalue=20)
