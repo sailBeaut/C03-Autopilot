@@ -106,23 +106,23 @@ def extract_relevant_data(input_file, output_file, run_windows):
                 print(f"Warning: {servo_path} not found in source file.")
 
 # Example usage
-input_hdf5 = '/Users/lennarthubbers/Desktop/simlog-20250424_091724.hdf5'  # Replace with your actual input file
-output_hdf5 = 'new_data.hdf5'  # Replace with your desired output file
+input_hdf5 = 'extended_filtered_data2.hdf5'  # Replace with your actual input file
+output_hdf5 = 'new_filtered_data.hdf5'  # Replace with your desired output file
 
 # Define adjustable windows for each run
 run_windows = {
-    1: (4000, 11001),
-    3: (3000, 10000),
-    4: (2000, 9000),
-    5: (5000, 12000),
-    6: (6000, 13000),
-    7: (7000, 14000),
-	8: (8000, 15000),
-	9: (9000, 16000),
-	10: (10000, 17000),
-	11: (11000, 18000),
-    12: (12000, 19000),
-	13: (13000, 20000),
+    1: (3500, 16000),
+    3: (3500, 19500),
+    4: (3500, 20000),
+    5: (3500, 19500),
+    6: (3500, 19500),
+    7: (3500, 19000),
+	8: (3500, 17000),
+	9: (3500, 19000),
+	10: (3500, 16000),
+	11: (3000, 19000),
+    12: (3000, 16000),
+	13: (3000, 17000),
 # Add more runs as needed
 }
 
