@@ -31,6 +31,11 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         DeltaDrum = dat_array(f"run{run}/aircraft/DeltaDrumElev")
         Iservo = dat_array(f"run{run}/aircraft/IservoElev")
         Dynpress = dat_array(f"run{run}/aircraft/DynPress")
+    
+    Delta = Delta[:-10]
+    DeltaDrum = DeltaDrum[:-10]
+    Iservo = Iservo[:-10]
+    Dynpress = Dynpress[:-10]
 
     # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
     j1, j2 = sp.symbols('j1 j2')  # Masses
@@ -111,12 +116,15 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
             if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
                 Y[i + 1][1] = Y[i][1]
+            #if(abs(Y[i + 1][1] - Y[i][1]) >= 0.052):
+            #    Y[i + 1][1] = Y[i][1]
         return Y
 
 
     # Time settings
+
     t_values_high_res = np.linspace(0, (len(Delta) - 1), len(Delta) * resolution) / 1000  # High-resolution time array
-    t_values = np.linspace(0, len(Delta) - 1, len(Delta)) / 1000  # Original time array for plotting
+    t_values = np.linspace(0, len(Delta) - 1, len(Delta)  ) / 1000  # Original time array for plotting
 
     # Time step (assuming uniform time steps in t_values)
     dt = t_values[1] - t_values[0]
