@@ -179,7 +179,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
     if showmainplots == True:
         # Step 6: Plot results
         #Plot of DOF2 compared to DeltaAil
-        plt.subplot(2, 4, 1)
+        plt.subplot(2, 5, 1)
         plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)", color="blue")
         plt.plot(t_values, Delta, label="Delta", color="orange")
         plt.xlabel("Time (s)")
@@ -189,7 +189,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DOF2' Accuracy compared to DeltaAil
-        plt.subplot(2, 4, 2)
+        plt.subplot(2, 5, 2)
         percentage_error_dof2 = np.abs((flip * Y_sol[:, 1] - Delta) / Delta) * 100
         plt.plot(t_values, percentage_error_dof2, label="x2 (DOF 2)", color = "red")
         plt.xlabel("Time (s)")
@@ -199,7 +199,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DOF2 separate
-        plt.subplot(2, 4, 3)
+        plt.subplot(2, 5, 3)
         plt.plot(t_values, flip * Y_sol[:, 1], label="x2 (DOF 2)", color="blue")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 2")
@@ -208,7 +208,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DeltaAil separate
-        plt.subplot(2, 4, 4)
+        plt.subplot(2, 5, 4)
         plt.plot(t_values, Delta, label="Delta", color="orange")
         plt.plot(t_values, Delta_smooth, label="DeltaSmooth", color="green")
         plt.xlabel("Time (s)")
@@ -216,8 +216,17 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.legend()
         plt.grid()
 
+        #Plot of Velocity of DOF2
+        plt.subplot(2, 5, 5)
+        plt.plot(t_values, flip * Y_sol[:, 3], label="x2 (DOF 2)", color="blue")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Velocity of DOF 2")
+        plt.title("Velocity DOf2")
+        plt.legend()
+        plt.grid()
+
         #Plot of DOF1 compared to DeltaDrumAil
-        plt.subplot(2, 4, 5)
+        plt.subplot(2, 5, 6)
         plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue")
         plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
         plt.xlabel("Time (s)")
@@ -227,7 +236,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DOF1' Accuracy compared to DeltaDrumAil
-        plt.subplot(2, 4, 6)
+        plt.subplot(2, 5, 7)
         percentage_error_dof1 = np.abs((Y_sol[:, 0]/divfactor - DeltaDrum) / DeltaDrum) * 100
         plt.plot(t_values, percentage_error_dof1, label="x1 (DOF 1)", color = "red")
         plt.xlabel("Time (s)")
@@ -237,7 +246,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DOF1 separate
-        plt.subplot(2, 4, 7)
+        plt.subplot(2, 5, 8)
         plt.plot(t_values, Y_sol[:, 0]/divfactor, label="x1 (DOF 1)", color="blue")
         plt.xlabel("Time (s)")
         plt.ylabel("Displacement of DOF 1")
@@ -245,7 +254,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.grid()
 
         #Plot of DeltaDrumAil separate
-        plt.subplot(2, 4, 8)
+        plt.subplot(2, 5, 9)
         plt.plot(t_values, DeltaDrum, label="DeltaDrum", color="orange")
         plt.plot(t_values, DeltaDrum_smooth, label="DeltaDrumSmooth", color="green")
         plt.xlabel("Time (s)")
@@ -253,6 +262,15 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         plt.legend()
         plt.grid()
         plt.show()
+
+        #Plot of Velocity of DOF1
+        plt.subplot(2, 5, 10)
+        plt.plot(t_values, Y_sol[:, 2], label="x1 (DOF 1)", color="blue")
+        plt.xlabel("Time (s)")
+        plt.ylabel("Velocity of DOF 1")
+        plt.title("Velocity DOf1")
+        plt.legend()
+        plt.grid()
 
     if extragraphs == True:
         #Plot of DOF1 and DOF2 in one graph
