@@ -32,10 +32,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
         Iservo = dat_array(f"run{run}/aircraft/IservoElev")
         Dynpress = dat_array(f"run{run}/aircraft/DynPress")
     
-    Delta = Delta[:-10]
-    DeltaDrum = DeltaDrum[:-10]
-    Iservo = Iservo[:-10]
-    Dynpress = Dynpress[:-10]
+    
 
     # Step 1: Define symbolic variables for Mass (M), Damping (C), and Stiffness (K)
     j1, j2 = sp.symbols('j1 j2')  # Masses
