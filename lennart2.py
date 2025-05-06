@@ -11,12 +11,12 @@ if True:
     IservoAil = load_data("run1/IservoAil")
 
     # Tuning Parameters 
-    c1 = 1.079  # Damper constant 3.5
-    k1 = 9.1   # Spring constant 52
+    c1 = 1.29  # Damper constant 
+    k1 = 4.23   # Spring constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
-    Ie = 0.03 # Moment of inertia  0.045
+    Ie = 0.0451 # Moment of inertia
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
@@ -27,7 +27,7 @@ if True:
 
     # Time integration loop
     dt = 0.001  # Time step (1ms)
-    for i in range(3501):
+    for i in range(7001):
         u = np.array([[IservoAil[i]]]) # Control current input    
 
         xdot = A @ x + B @ u # Compute the derivative from system matrices and inputs
@@ -53,7 +53,7 @@ lennart = sum(Accuracy)/len(Accuracy)
 print(lennart)
 
 # Plot computed vs actual Delta Ail over time
-time_steps = np.linspace(0, 3500, 3501)
+time_steps = np.linspace(0, 7000, 7001)
 plt.figure(figsize=(10, 5))
 plt.plot(time_steps, xlist, color="r", label="Computed")
 plt.plot(time_steps, DeltaAil, color="b", label="Actual")
