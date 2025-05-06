@@ -27,53 +27,48 @@ def calculate_average_accuracy_dof2(accuracy_DOF2):
 
 # Optimization loop
 best_accuracy = 0
-best_params = (k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue)
-
+best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
 while best_accuracy < 70:
     # Run the model with current parameters
-    run1_acc1, run1_acc2 = model2(4,resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run1_acc1, run1_acc2 = model2(4, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run3_acc1, run3_acc2 = model2(5, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run8_acc1, run8_acc2 = model2(6, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run9_acc1, run9_acc2 = model2(7, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
+    run9_acc1, run9_acc2 = model2(7, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run10_acc1, run10_acc2 = model2(12, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run11_acc1, run11_acc2 = model2(13, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
-    print(c1_numvalue)
-
     # Accuracy
-    accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
     accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
 
     # Calculate average accuracy for DOF 2
     average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2)
-    average_acc= print(np.mean(accuracy_DOF2))
+
     # Check if the current parameters give better accuracy for DOF 2
     if average_accuracy_dof2 > best_accuracy:
         best_accuracy = average_accuracy_dof2
-        best_params = (k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, divfactor)
+        best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
-    # Update parameters for next iteration (example: increment k1, k2, c2)
-    #k1_numvalue += 100000
-    #k2_numvalue += 1
-    c1_numvalue += 50
-    #c2_numvalue += 1
-    #divfactor += 0.1
+    # Update parameters for next iteration
+    k1_numvalue += 10000  # Increment k1
+    k2_numvalue += 1      # Increment k2
+    c2_numvalue += 0.5    # Increment c2
 
 # Use the best parameters found
-k1_numvalue, k2_numvalue, c2_numvalue, divfactor = best_params
+k1_numvalue, k2_numvalue, c2_numvalue = best_params
 
 # Final run with best parameters
-run1_acc1, run1_acc2 = model2(4, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run3_acc1, run3_acc2 = model2(5, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run8_acc1, run8_acc2 = model2(6, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run9_acc1, run9_acc2 = model2(7, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)    
-run10_acc1, run10_acc2 = model2(12, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-run11_acc1, run11_acc2 = model2(13, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run1_acc1, run1_acc2 = model2(4, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run3_acc1, run3_acc2 = model2(5, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run8_acc1, run8_acc2 = model2(6, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run9_acc1, run9_acc2 = model2(7, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run10_acc1, run10_acc2 = model2(12, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+run11_acc1, run11_acc2 = model2(13, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
 # Accuracy
-accuracy_DOF1 = [run1_acc1, run3_acc1, run8_acc1, run9_acc1, run10_acc1, run11_acc1]
 accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
-print(best_params)
-# Plot accuracy
-accuracy_plot_elev(accuracy_DOF1, accuracy_DOF2)
+print(f"Best Parameters: {best_params}")
+print(f"Best Accuracy for DOF 2: {best_accuracy:.2f}%")
+
+# Plot accuracy for DOF 2
+accuracy_plot_elev([], accuracy_DOF2)
