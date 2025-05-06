@@ -129,7 +129,7 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
     # Time step (assuming uniform time steps in t_values)
     dt = t_values[1] - t_values[0]
 
-# Initial conditions using 3-point forward difference for velocity
+    # Initial conditions using 3-point forward difference for velocity
     #Smooth data for initial conditions
     DeltaDrum_smooth = smooth_data(DeltaDrum, 5)
     Delta_smooth = smooth_data(Delta, 5)
