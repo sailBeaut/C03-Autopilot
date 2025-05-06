@@ -28,8 +28,8 @@ a_velo_elev = 0.0000001
 flip_elev = 1
 
 #On Or Off
-ground = True
-aileron = False
+ground = False
+aileron = True
 elevator = False
 array = True
 extragraphs = False
