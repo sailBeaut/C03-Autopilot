@@ -7,7 +7,6 @@ def extract_relevant_data(input_file, output_file, runs=12):
 		i =1
 		minv = int(5.1517*10**5)
 		maxv = minv+7001
-		print(minv, maxv)
 		for dataset in ['IservoAil', 'IservoElev', 'DeltaDrumElev', 'DeltaDrumAil', 'DynPress']:
 			run_path = f'data/aircraft/data/{dataset}'
 			if run_path in src:
