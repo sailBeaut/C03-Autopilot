@@ -19,10 +19,10 @@ flip_ail = -1
 
 #Parameters Elevator
 divfactor_elev = 1
-k1_numvalue_elev = 550000
-k2_numvalue_elev = 22.5
+k1_numvalue_elev = 500000
+k2_numvalue_elev = 23
 c1_numvalue_elev = 50
-c2_numvalue_elev = 4.5
+c2_numvalue_elev = 4
 k_g_elev = 0.22
 a_velo_elev = 4e-7
 flip_elev = 1
@@ -30,7 +30,7 @@ flip_elev = 1
 #On Or Off
 ground = False
 aileron = True
-elevator = True
+elevator = False
 array = False
 extragraphs = False
 showmainplots = False
