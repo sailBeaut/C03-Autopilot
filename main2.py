@@ -9,6 +9,7 @@ for i in (4,5,6,7,12,13):
     run_nr = nr_of_run
     DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltElev")
     IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoElev")
+    IservoAil-=IservoAil[0]
 
     # Tuning Parameters 
     c1 = 1.079  # Damper constant 3.5
@@ -27,7 +28,7 @@ for i in (4,5,6,7,12,13):
 
     # Time integration loop
     dt = 0.001  # Time step (1ms)
-    for i in range(7001):
+    for i in range(len(DeltaAil)):
         u = np.array([[IservoAil[i]]]) # Control current input    
 
         xdot = A @ x + B @ u # Compute the derivative from system matrices and inputs
@@ -48,7 +49,7 @@ for i in (4,5,6,7,12,13):
 
     # Print accuracy
     print(f"Model Accuracy: {accuracy:.2f}%")
-    time_steps = np.linspace(0, 7000, 7001)
+    time_steps = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))
     plt.figure(figsize=(10, 5))
     plt.plot(time_steps, xlist, color="r", label="Computed")
     plt.plot(time_steps, DeltaAil, color="b", label="Actual")

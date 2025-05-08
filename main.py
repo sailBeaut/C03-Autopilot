@@ -9,6 +9,7 @@ for i in (1,3,8,9,10,11):
     run_nr = nr_of_run
     DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltaAil")
     IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoAil")
+    IservoAil-=IservoAil[0]
 
     # Tuning Parameters 
     c1 = 1.2  # Damper constant 
