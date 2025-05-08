@@ -9,12 +9,12 @@ from Functions_for_sys2 import model2, accuracy_plot_ail, accuracy_plot_elev
 resolution = 1
 #Parameters Aileron
 divfactor_ail = 2
-k1_numvalue_ail = 400000
-k2_numvalue_ail = 10.8
+k1_numvalue_ail = 360000
+k2_numvalue_ail = 11.5
 c1_numvalue_ail = 350
 c2_numvalue_ail = 4.5
 k_g_ail = 0.22
-a_velo_ail = 0.0000001
+a_velo_ail = 0.0000003
 flip_ail = -1
 
 #Parameters Elevator
