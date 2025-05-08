@@ -12,8 +12,8 @@ for i in (1,3,8,9,10,11):
     IservoAil-=IservoAil[0]
 
     # Tuning Parameters 
-    c1 = 1.2  # Damper constant 
-    k1 = 4.53   # Spring constant 
+    c1 = 0.91  # Damper constant 
+    k1 = 3.9   # Spring constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
