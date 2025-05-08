@@ -47,7 +47,7 @@ while best_accuracy < 85:
 
     # Update parameters for next iteration
     #k1_numvalue += 20000  
-    #k2_numvalue += 1     
+    k2_numvalue += 1     
     #c1_numvalue += 0.0000000001   
     #c2_numvalue += 0.25    
     #a_velo += 0.00000005

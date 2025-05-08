@@ -29,11 +29,11 @@ flip_elev = 1
 
 #On Or Off
 ground = False
-aileron = True
-elevator = False
+aileron = False
+elevator = True
 array = False
 extragraphs = False
-showmainplots = False
+showmainplots = True
 printeigenvalues = False
 
 #Define Accuracy lists
