@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
-k1_numvalue = 300000
-k2_numvalue = 31
-c1_numvalue = 200  # c1 is kept constant
-c2_numvalue = 10
+k1_numvalue = 500000
+k2_numvalue = 27.5
+c1_numvalue = 0  
+c2_numvalue = 4.5
 k_g = 0.22
-a_velo = 0.0000001
+a_velo = 5e-7  
 divfactor = 1
 flip = 1
 resolution = 1
@@ -30,7 +30,7 @@ def calculate_average_accuracy_dof2(accuracy_DOF2):
 best_accuracy = 0
 best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
-while best_accuracy < 55:
+while best_accuracy < 65:
     # Run the model with current parameters
     run1_acc1, run1_acc2 = model2(4, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
     run3_acc1, run3_acc2 = model2(5, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
@@ -46,11 +46,13 @@ while best_accuracy < 55:
     average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2)
 
     # Update parameters for next iteration
-    k1_numvalue += 20000  # Increment k1
-    #k2_numvalue += 1      # Increment k2
-    #c2_numvalue += 0.5    # Increment c2
+    #k1_numvalue += 20000  
+    #k2_numvalue += 2     
+    #c1_numvalue += 0.0000000001   
+    #c2_numvalue += 0.5    
+    #a_velo += 0.00000005
 
-    print(f"Best Parameters: k1={k1_numvalue}, k2={k2_numvalue}, c2={c2_numvalue}")
+    print(f"Best Parameters: k1={k1_numvalue}, c1 = {c1_numvalue} , k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}")
     print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.2f}%")
 
 # Use the best parameters found
