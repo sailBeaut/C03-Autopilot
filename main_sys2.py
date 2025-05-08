@@ -24,16 +24,16 @@ k2_numvalue_elev = 22.5
 c1_numvalue_elev = 50
 c2_numvalue_elev = 4.5
 k_g_elev = 0.22
-a_velo_elev = 5e-7
+a_velo_elev = 4e-7
 flip_elev = 1
 
 #On Or Off
 ground = False
 aileron = True
-elevator = False
+elevator = True
 array = False
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
 #Define Accuracy lists
