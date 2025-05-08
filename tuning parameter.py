@@ -7,11 +7,11 @@ from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
 k1_numvalue = 500000
-k2_numvalue = 23.5
+k2_numvalue = 21.8
 c1_numvalue = 50 
-c2_numvalue = 4
+c2_numvalue = 4.75
 k_g = 0.22
-a_velo = 4e-7  
+a_velo = 2.85e-07  
 divfactor = 1
 flip = 1
 resolution = 2
@@ -46,14 +46,15 @@ while best_accuracy < 85:
     average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2)
 
     # Update parameters for next iteration
-    #k1_numvalue += 20000  
-    k2_numvalue += 1     
+    k1_numvalue += 20000  
+    #k2_numvalue += 0.1    
     #c1_numvalue += 0.0000000001   
-    #c2_numvalue += 0.25    
-    #a_velo += 0.00000005
+    #c2_numvalue += 0.05    
+    #a_velo -= 0.000000005
 
-    print(f"Best Parameters: k1={k1_numvalue}, c1 = {c1_numvalue} , k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}")
     print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.2f}%")
+    print(f"Best Parameters: k1={k1_numvalue}, c1 = {c1_numvalue} , k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}")
+    
 
 # Use the best parameters found
 k1_numvalue, k2_numvalue, c2_numvalue = best_params
