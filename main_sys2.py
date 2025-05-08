@@ -20,7 +20,7 @@ flip_ail = -1
 #Parameters Elevator
 divfactor_elev = 1
 k1_numvalue_elev = 550000
-k2_numvalue_elev = 27.5
+k2_numvalue_elev = 22.5
 c1_numvalue_elev = 50
 c2_numvalue_elev = 4.5
 k_g_elev = 0.22
