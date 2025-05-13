@@ -27,11 +27,11 @@ clutch_elev = 0
 k1_numvalue_elev = 500000
 k2_numvalue_elev = 23
 c1_numvalue_elev = 50
-c2_numvalue_elev = 4.4
+c2_numvalue_elev = 3.75
 k_g_elev = 0.22
 a_velo_elev = 2.85e-7
 flip_elev = 1
-flatten_coeff_elev = 0.00001
+flatten_coeff_elev = 0.00001305
 
 #On Or Off
 ground = False
@@ -39,7 +39,7 @@ aileron = False
 elevator = True
 array = False
 extragraphs = False
-showmainplots = True
+showmainplots = False
 printeigenvalues = False
 
 #Define Accuracy lists
