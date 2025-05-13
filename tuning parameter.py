@@ -16,7 +16,7 @@ divfactor = 1
 flip = 1
 resolution = 2
 clutch = 0
-flatten = False
+flatten = True
 flatten_coeff = 0.00001
 
 # On Or Off
@@ -54,6 +54,7 @@ while best_accuracy < 85:
     #c1_numvalue += 0.0000000001   
     #c2_numvalue += 0.05    
     #a_velo -= 0.000000005
+    flatten_coeff += 0.000001
 
     print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.2f}%")
     print(f"Best Parameters: k1={k1_numvalue}, c1 = {c1_numvalue} , k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}")
