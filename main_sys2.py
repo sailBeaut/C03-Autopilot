@@ -20,17 +20,17 @@ flip_ail = -1
 #Parameters Elevator
 divfactor_elev = 1
 k1_numvalue_elev = 500000
-k2_numvalue_elev = 23
+k2_numvalue_elev = 21
 c1_numvalue_elev = 50
-c2_numvalue_elev = 4
+c2_numvalue_elev = 3.3
 k_g_elev = 0.22
 a_velo_elev = 4e-7
 flip_elev = 1
 
 #On Or Off
 ground = False
-aileron = True
-elevator = False
+aileron = False
+elevator = True
 array = False
 extragraphs = False
 showmainplots = False
