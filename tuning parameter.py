@@ -11,7 +11,7 @@ k2_numvalue = 23
 c1_numvalue = 50 
 c2_numvalue = 4.4
 k_g = 0.22
-a_velo = 2.85e-07  
+a_velo = 4.7e-07   #2.85e-07  
 divfactor = 1
 flip = 1
 resolution = 2
@@ -52,7 +52,7 @@ while best_accuracy < 85:
     #k2_numvalue += 0.1    
     #c1_numvalue += 0.0000000001   
     #c2_numvalue += 0.05    
-    #a_velo -= 0.000000005
+    a_velo += 1e-08
 
     print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.2f}%")
     print(f"Best Parameters: k1={k1_numvalue}, c1 = {c1_numvalue} , k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}")
