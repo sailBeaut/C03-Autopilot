@@ -7,7 +7,7 @@ from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
 k1_numvalue = 500000
-k2_numvalue = 21.8
+k2_numvalue = 23
 c1_numvalue = 50 
 c2_numvalue = 4.4
 k_g = 0.22
