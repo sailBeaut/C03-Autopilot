@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Testkernels import smooth_data
 
 
-def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -146,7 +146,11 @@ def model2(run, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalu
     for i in range(Y_sol_high_res.shape[1]):
         Y_sol[:, i] = np.interp(t_values, t_values_high_res, Y_sol_high_res[:, i])
         
+    # Step 4: Account for clutch slack
+    # Calculate the clutch slack
+    Y_sol[:, 1] = Y_sol[:, 1] - clutch  # Flip the sign of DOF2 displacement
 
+    #Print Eigenvalues if required
     if printeigenvalues == True:
         eigenvalues(j1_value, j2_value, k1_value, k2_value, c1_value, c2_value, r1_value, r2_value)
 
