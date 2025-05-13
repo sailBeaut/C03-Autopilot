@@ -7,14 +7,15 @@ from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
 k1_numvalue = 500000
-k2_numvalue = 21.8
+k2_numvalue = 23
 c1_numvalue = 50 
-c2_numvalue = 4.75
+c2_numvalue = 4.4
 k_g = 0.22
 a_velo = 2.85e-07  
 divfactor = 1
 flip = 1
 resolution = 2
+clutch = 0
 
 # On Or Off
 array = False
@@ -32,12 +33,12 @@ best_params = (k1_numvalue, k2_numvalue, c2_numvalue)
 
 while best_accuracy < 85:
     # Run the model with current parameters
-    run1_acc1, run1_acc2 = model2(4, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run3_acc1, run3_acc2 = model2(5, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run8_acc1, run8_acc2 = model2(6, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run9_acc1, run9_acc2 = model2(7, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run10_acc1, run10_acc2 = model2(12, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
-    run11_acc1, run11_acc2 = model2(13, array, resolution, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run1_acc1, run1_acc2 = model2(4, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run3_acc1, run3_acc2 = model2(5, array, resolution, clutch,flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run8_acc1, run8_acc2 = model2(6, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run9_acc1, run9_acc2 = model2(7, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run10_acc1, run10_acc2 = model2(12, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+    run11_acc1, run11_acc2 = model2(13, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
 
     # Accuracy
     accuracy_DOF2 = [run1_acc2, run3_acc2, run8_acc2, run9_acc2, run10_acc2, run11_acc2]
