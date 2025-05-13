@@ -25,13 +25,13 @@ flatten_elev = True
 divfactor_elev = 1
 clutch_elev = 0
 k1_numvalue_elev = 500000
-k2_numvalue_elev = 23
+k2_numvalue_elev = 21.2
 c1_numvalue_elev = 50
-c2_numvalue_elev = 3.75
+c2_numvalue_elev = 3.8
 k_g_elev = 0.22
-a_velo_elev = 2.85e-7
+a_velo_elev = 2.3e-7
 flip_elev = 1
-flatten_coeff_elev = 0.00001305
+flatten_coeff_elev = 0.0000177
 
 #On Or Off
 ground = False
