@@ -12,12 +12,12 @@ for i in (1,3,8,9,10,11):
     IservoAil-=IservoAil[0]
 
     # Tuning Parameters 
-    c1 = 0.91  # Damper constant 
-    k1 = 3.9   # Spring constant 
+    c1 = 0.94  # Damper constant 
+    k1 = 3.75   # Spring constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
-    Ie = 0.0451 # Moment of inertia 
+    Ie = 0.001 # Moment of inertia 
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 

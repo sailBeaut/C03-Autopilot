@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from Testkernels import smooth_data
 
 
-def model2(run, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, array, resolution, flatten, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -111,8 +111,9 @@ def model2(run, array, resolution, clutch, flip, divfactor, k_g, k1_numvalue, k2
             k4 = f(Y[i] + h * k3, t[i] + h) # Fourth derivative at the next time step
 
             Y[i + 1] = Y[i] + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
-            if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
-                Y[i + 1][1] = Y[i][1]
+            if flatten == True:
+                if(abs(Y[i + 1][1] - Y[i][1]) <= 0.00001):
+                    Y[i + 1][1] = Y[i][1]
             #if(abs(Y[i + 1][1] - Y[i][1]) >= 0.052):
             #    Y[i + 1][1] = Y[i][1]
         return Y
