@@ -46,7 +46,17 @@ for attempt in range(tries):
     acc_now = 0
     acc_last = 0
     acc_last_last = 0
+    continue_list = [1, 1, 1, 1]  # List to keep track of which parameters are still being tested
+    epoch_list = [0,0,0,0]  # List to keep track of epochs per parameter
     while True:
+        if sum(continue_list) == 0 and np.all(epoch_list < 5):
+            print("All parameters have been tried, exiting the loop.")
+            break
+        elif sum(continue_list) == 0 and np.all(epoch_list >= 5):
+            print("All parameters have been tried but change in parameters still apparent, continue with new random parameter.")
+            continue_list = [1, 1, 1, 1]  # Reset the continue list
+            epoch_list = [0,0,0,0] # Reset the epoch list
+        
         #Add Epoch counter
         epoch += 1
 
@@ -73,6 +83,10 @@ for attempt in range(tries):
         print(f"Used Parameters: k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}, flatten_coeff={flatten_coeff}")
         print(f"This is the accuracy of the last epoch: {acc_last:.3f}%")
         print(f"This is the accuracy of the epoch before that: {acc_last_last:.3f}%")
+        print(f"Parameter chosen: {chosen_parameter}")
+        print(f"Increment or decrement: {continue_param_inc} & {continue_param_dec}")
+        print(f"Continue parameter: {continue_param}")
+        print(f"Continue list: {continue_list}")
         print("---------------------------------------------------------------------------")
         
         #Change the parameters
@@ -94,7 +108,12 @@ for attempt in range(tries):
             # Check if the changes in accuracy are within the sensitivity range
             # If both changes are within the sensitivity range, continue with the current parameter
             continue_param_inc, continue_param_dec, continue_param = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement)
-
+            if continue_param == False:
+                continue_list[chosen_parameter] = 0
         #Save the accuracies
         acc_last = acc_now
         acc_last_last = acc_last
+
+        #Count Epochs per parameter
+        epoch_list = count_epochs_per_parameter(chosen_parameter, continue_list, epoch_list)
+       
