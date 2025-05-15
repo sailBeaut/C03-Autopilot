@@ -7,7 +7,7 @@ from Testkernels import smooth_data
 import os
 
 
-def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
+def model2(run, print_accuracy, array, resolution, flatten, flatten_coeff, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
     Delta = []
     DeltaDrum = []
@@ -167,8 +167,9 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
     accuracy2 = (1 - error_norm2) * 100
 
     # Print accuracy
-    print(f"Model Accuracy of DOF1 of run{run}: {accuracy1:.2f}%")
-    print(f"Model Accuracy of DOF2 of run{run}: {accuracy2:.2f}%")
+    if print_accuracy == True:
+        print(f"Model Accuracy of DOF1 of run{run}: {accuracy1:.2f}%")
+        print(f"Model Accuracy of DOF2 of run{run}: {accuracy2:.2f}%")
 
     #Check Array
     if array == True:

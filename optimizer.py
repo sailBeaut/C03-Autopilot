@@ -1,0 +1,92 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from Functions_for_sys2 import model2, accuracy_plot_ail, accuracy_plot_elev
+from optimizerfunctions import *
+
+#Resolution
+resolution = 2
+sensitivity = 0.1
+
+#Initial Parameters Elevator
+flatten_elev = True         #Constant for all runs
+divfactor_elev = 1          #Constant for all runs
+clutch_elev = 0             #Constant for all runs
+k1_numvalue_elev = 500000   #Constant for all runs
+k2_numvalue_elev_int = 21.2
+c1_numvalue_elev = 50       #Constant for all runs
+c2_numvalue_elev_int = 3.6
+k_g_elev = 0.22             #Constant for all runs
+a_velo_elev_int = 2.3e-7
+flip_elev = 1               #Constant for all runs
+flatten_coeff_elev_int = 0.00001810
+
+#On Or Off
+ground = False
+aileron = False
+elevator = True
+array = False
+extragraphs = False
+showmainplots = False
+printeigenvalues = False
+print_accuracy = True
+tries = 1
+
+for attempt in range(tries):
+    epoch = 0
+    k2_numvalue = k2_numvalue_elev_int
+    c2_numvalue = c2_numvalue_elev_int
+    a_velo = a_velo_elev_int
+    flatten_coeff = flatten_coeff_elev_int
+    increment = True
+    decrement = False
+    continue_parameter_inc = True
+    continue_parameter_dec = False
+    continue_parameter = True
+    increment_or_decrement_list = [0.1, 0.05, 0.000000005, 0.0000001]
+
+    while True:
+        #Add Epoch counter
+        epoch += 1
+
+
+        #Define Accuracy lists
+        accuracy_DOF1_elev = []
+        accuracy_DOF2_elev = []
+
+        #Run the model
+        for run in range(4,5,6,7,12,13):
+            acc_run_DOF1, acc_run_DOF2 = model2(run, print_accuracy, array, resolution, flatten_elev, flatten_coeff, clutch_elev, flip_elev, divfactor_elev, k_g_elev, k1_numvalue_elev, k2_numvalue, c1_numvalue_elev, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
+            # Calculate accuracy for elevator
+            accuracy_DOF1_elev.append(acc_run_DOF1)
+            accuracy_DOF2_elev.append(acc_run_DOF2)
+
+        # Calculate average accuracy for DOF 2
+        average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2_elev)
+
+        #Print the accuracies
+        print("---------------------------------------------------------------------------")
+        print(f"This is attempt number {attempt}")
+        print(f"This is epoch number {epoch}")	
+        print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.4f}%")
+        print(f"Used Parameters: k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}, flatten_coeff={flatten_coeff}")
+        print("---------------------------------------------------------------------------")
+        
+        #Change the parameters
+        if continue_parameter == False or epoch == 1 or epoch == 2:
+            choose_random_parameter = choose_random_param()
+            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(choose_random_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+       
+        #Increment or decrement the parameters
+        chosen_parameter = choose_random_parameter
+        if epoch > 2 and continue_parameter == True:
+            k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+   
+        if epoch > 2 and continue_parameter == True:
+            k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+      
+        #Compare the accuracies
+        if epoch > 2:
+            delta_acc1, delta_acc2 = calculate_accuracy_change_3step()
+            # Check if the changes in accuracy are within the sensitivity range
+            # If both changes are within the sensitivity range, continue with the current parameter
+            continue_param_inc, continue_param_dec, continue_param = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement)
