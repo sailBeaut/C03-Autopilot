@@ -276,6 +276,25 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
         plt.grid()
 
     if extragraphs == True:
+        if run == 4:
+            x_pos = 7
+            y_pos = 0.017
+        elif run == 5:
+            x_pos = 7.8
+            y_pos = -0.025
+        elif run == 6:
+            x_pos = 7.8
+            y_pos = -0.017
+        elif run == 7:  
+            x_pos = 7
+            y_pos = 0.020
+        elif run == 12:
+            x_pos = 0.05
+            y_pos = -0.011
+        elif run == 13:
+            x_pos = 0.05
+            y_pos = -0.011
+        
         plt.plot(t_values, flip * Y_sol[:, 1], label=r'$\theta_{2}$' + ": predicted by MDOF Model", color="blue")
         plt.plot(t_values, Delta, label=r'$\theta_{2}$' + ": actual data", color="orange")
         plt.xlabel("Time (s)")
@@ -286,7 +305,7 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
             plt.title(r'$\theta_{2}$' + " vs Time - Run 5 (Worst Accuracy)")
         else:
             plt.title(r'$\theta_{2}$' + f" vs Time - Run{run}")
-        plt.text(x=0.5, y=-0.016, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
+        plt.text(x=x_pos, y=y_pos, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
         plt.legend()
         plt.grid()
         plt.savefig(f"my_plot_{run}.png", dpi=300, bbox_inches='tight')
