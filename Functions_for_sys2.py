@@ -290,7 +290,7 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
         plt.legend()
         plt.grid()
         plt.savefig("my_plot.png", dpi=300, bbox_inches='tight')
-        print("Saving to:", os.path.abspath("my_plot.png"))
+        print("Saving to:", os.path.abspath(f"my_plot_{run}.png"))
         plt.show()
     return accuracy1, accuracy2
 
