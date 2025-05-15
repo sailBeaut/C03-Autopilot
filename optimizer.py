@@ -85,7 +85,7 @@ for attempt in range(tries):
         print(f"This is the accuracy of the last epoch: {acc_last:.3f}%")
         print(f"This is the accuracy of the epoch before that: {acc_last_last:.3f}%")
         print(f"Parameter chosen: {chosen_parameter}")
-        print(f"Increment or decrement: {continue_param_inc} & {continue_param_dec}")
+        print(f"Increment or decrement: {continue_parameter_inc} & {continue_parameter_dec}")
         print(f"Continue parameter: {continue_param}")
         print(f"Continue list: {continue_list}")
         print("---------------------------------------------------------------------------")
