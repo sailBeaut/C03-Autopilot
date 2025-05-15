@@ -114,8 +114,9 @@ for attempt in range(tries):
             delta_acc1, delta_acc2 = calculate_accuracy_change_3step(acc_now, acc_last, acc_last_last)
             # Check if the changes in accuracy are within the sensitivity range
             # If both changes are within the sensitivity range, continue with the current parameter
-            continue_param_inc, continue_param_dec, continue_param = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement)
-            if continue_param == False:
+            increment, decrement = continue_parameter_inc, continue_parameter_dec
+            continue_parameter_inc, continue_parameter_dec, continue_parameter = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_parameter_inc, continue_parameter_dec, continue_parameter)
+            if continue_parameter == False:
                 continue_list[chosen_parameter] = 0
         #Save the accuracies
         acc_last = acc_now

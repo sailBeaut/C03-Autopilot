@@ -69,7 +69,7 @@ def increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_
 def calculate_average_accuracy_dof2(accuracy_DOF2):
     return np.mean(accuracy_DOF2)
 
-def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement):
+def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_param_inc, continue_param_dec, continue_param):
     if increment == True:
         if delta_acc1 > 0 and delta_acc2 > 0:
             if delta_acc1 <= sensitivity and delta_acc2 <= sensitivity:
@@ -92,6 +92,9 @@ def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivit
 
     elif increment == False and decrement == False:
         continue_param = False
+        continue_param_inc = True
+        continue_param_dec = False
+    
     return continue_param_inc, continue_param_dec, continue_param
 
 def count_epochs_per_parameter(chosen_parameter, continue_list, epoch_list):
