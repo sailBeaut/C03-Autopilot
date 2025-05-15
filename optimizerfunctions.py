@@ -23,21 +23,46 @@ def increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_
     if increment == True:  
         if chosen_parameter == 0:
             k2_update = k2_numvalue + increment_or_decrement_list[0]
+            c2_update = c2_numvalue
+            a_velo_update = a_velo
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 1:
             c2_update = c2_numvalue + increment_or_decrement_list[1]
+            k2_update = k2_numvalue
+            a_velo_update = a_velo
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 2:
             a_velo_update = a_velo + increment_or_decrement_list[2]
+            k2_update = k2_numvalue
+            c2_update = c2_numvalue
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 3:
             flatten_coeff_update = flatten_coeff + increment_or_decrement_list[3]
+            k2_update = k2_numvalue
+            c2_update = c2_numvalue
+            a_velo_update = a_velo
+
     elif decrement == True:
         if chosen_parameter == 0:
             k2_update = k2_numvalue - increment_or_decrement_list[0]
+            c2_update = c2_numvalue
+            a_velo_update = a_velo
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 1:
             c2_update = c2_numvalue - increment_or_decrement_list[1]
+            k2_update = k2_numvalue
+            a_velo_update = a_velo
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 2:
             a_velo_update = a_velo - increment_or_decrement_list[2]
+            k2_update = k2_numvalue
+            c2_update = c2_numvalue
+            flatten_coeff_update = flatten_coeff
         elif chosen_parameter == 3:
             flatten_coeff_update = flatten_coeff - increment_or_decrement_list[3]
+            k2_update = k2_numvalue
+            c2_update = c2_numvalue
+            a_velo_update = a_velo
     return k2_update, c2_update, a_velo_update, flatten_coeff_update
 
 
