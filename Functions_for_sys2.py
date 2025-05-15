@@ -281,18 +281,18 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
             y_pos = 0.015
         elif run == 5:
             x_pos = 7.8
-            y_pos = -0.025
+            y_pos = -0.024
         elif run == 6:
             x_pos = 7.8
-            y_pos = -0.017
+            y_pos = -0.016
         elif run == 7:  
-            x_pos = 7
-            y_pos = 0.020
+            x_pos = 7.5
+            y_pos = 0.011
         elif run == 12:
-            x_pos = 0.05
+            x_pos = 0
             y_pos = -0.011
         elif run == 13:
-            x_pos = 0.05
+            x_pos = 0
             y_pos = -0.011
         
         plt.plot(t_values, flip * Y_sol[:, 1], label=r'$\theta_{2}$' + ": predicted by MDOF Model", color="blue")
