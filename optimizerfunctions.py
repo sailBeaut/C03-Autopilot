@@ -4,8 +4,8 @@ import random as rd
 
 
 def calculate_accuracy_change_3step(accuracy0, accuracy1, accuracy2):
-    delta_acc1 = accuracy1 - accuracy0
-    delta_acc2 = accuracy2 - accuracy1
+    delta_acc1 = accuracy0 - accuracy1
+    delta_acc2 = accuracy1 - accuracy2
     return delta_acc1, delta_acc2
 
 def increment_parameter(parameter, increment):

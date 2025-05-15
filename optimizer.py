@@ -43,7 +43,9 @@ for attempt in range(tries):
     continue_parameter_dec = False
     continue_parameter = True
     increment_or_decrement_list = [0.1, 0.05, 0.000000005, 0.0000001]
-
+    acc_now = 0
+    acc_last = 0
+    acc_last_last = 0
     while True:
         #Add Epoch counter
         epoch += 1
@@ -61,32 +63,38 @@ for attempt in range(tries):
             accuracy_DOF2_elev.append(acc_run_DOF2)
 
         # Calculate average accuracy for DOF 2
-        average_accuracy_dof2 = calculate_average_accuracy_dof2(accuracy_DOF2_elev)
+        acc_now = calculate_average_accuracy_dof2(accuracy_DOF2_elev)
 
         #Print the accuracies
         print("---------------------------------------------------------------------------")
         print(f"This is attempt number {attempt}")
         print(f"This is epoch number {epoch}")	
-        print(f"Average Accuracy for DOF 2: {average_accuracy_dof2:.4f}%")
+        print(f"Average Accuracy for DOF 2: {acc_now:.3f}%")
         print(f"Used Parameters: k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}, flatten_coeff={flatten_coeff}")
+        print(f"This is the accuracy of the last epoch: {acc_last:.3f}%")
+        print(f"This is the accuracy of the epoch before that: {acc_last_last:.3f}%")
         print("---------------------------------------------------------------------------")
         
         #Change the parameters
-        if continue_parameter == False or epoch == 1 or epoch == 2:
+        if continue_parameter == False or epoch == (1,2,3):
             choose_random_parameter = choose_random_param()
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(choose_random_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
        
         #Increment or decrement the parameters
         chosen_parameter = choose_random_parameter
-        if epoch > 2 and continue_parameter == True:
+        if epoch > 3 and continue_parameter == True:
             k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
    
-        if epoch > 2 and continue_parameter == True:
+        if epoch > 3 and continue_parameter == True:
             k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
       
         #Compare the accuracies
-        if epoch > 2:
-            delta_acc1, delta_acc2 = calculate_accuracy_change_3step()
+        if epoch > 3:
+            delta_acc1, delta_acc2 = calculate_accuracy_change_3step(acc_now, acc_last, acc_last_last)
             # Check if the changes in accuracy are within the sensitivity range
             # If both changes are within the sensitivity range, continue with the current parameter
             continue_param_inc, continue_param_dec, continue_param = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement)
+
+        #Save the accuracies
+        acc_last = acc_now
+        acc_last_last = acc_last
