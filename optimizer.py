@@ -49,6 +49,12 @@ for attempt in range(tries):
     continue_list = [1, 1, 1, 1]  # List to keep track of which parameters are still being tested
     epoch_list = [0,0,0,0]  # List to keep track of epochs per parameter
     chosen_parameter = 'Still generating sufficient Epoch Data'
+    # Initialize the parameter values
+    k2_update = 0
+    c2_update = 0
+    a_velo_update = 0
+    flatten_coeff_update = 0
+
     while True:
         if sum(continue_list) == 0 and np.all(epoch_list < 5):
             print("All parameters have been tried, exiting the loop.")
@@ -91,7 +97,7 @@ for attempt in range(tries):
         print("---------------------------------------------------------------------------")
         
         #Change the parameters
-        if continue_parameter == False or epoch == (1,2,3):
+        if continue_parameter == False or epoch == 1, epoch == 2, epoch == 3:
             chosen_parameter = choose_random_param()
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
        
