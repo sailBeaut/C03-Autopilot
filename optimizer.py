@@ -48,7 +48,7 @@ for attempt in range(tries):
     acc_last_last = 0
     continue_list = [1, 1, 1, 1]  # List to keep track of which parameters are still being tested
     epoch_list = [0,0,0,0]  # List to keep track of epochs per parameter
-    chosen_parameter = 0
+    chosen_parameter = 'Still generating sufficient Epoch Data'
     while True:
         if sum(continue_list) == 0 and np.all(epoch_list < 5):
             print("All parameters have been tried, exiting the loop.")
