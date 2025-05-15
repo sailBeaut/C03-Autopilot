@@ -94,6 +94,7 @@ for attempt in range(tries):
         print(f"Increment or decrement: {continue_parameter_inc} & {continue_parameter_dec}")
         print(f"Continue parameter: {continue_parameter}")
         print(f"Continue list: {continue_list}")
+        print(f"Epoch list: {epoch_list}")
         print("---------------------------------------------------------------------------")
         
         #Change the parameters
