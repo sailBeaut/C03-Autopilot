@@ -27,15 +27,15 @@ clutch_elev = 0
 k1_numvalue_elev = 500000
 k2_numvalue_elev = 21.2
 c1_numvalue_elev = 50
-c2_numvalue_elev = 3.8
+c2_numvalue_elev = 3.6
 k_g_elev = 0.22
 a_velo_elev = 2.3e-7
 flip_elev = 1
-flatten_coeff_elev = 0.0000177
+flatten_coeff_elev = 0.00001810
 
 #On Or Off
 ground = False
-aileron = False
+aileron = True
 elevator = True
 array = False
 extragraphs = False
