@@ -35,7 +35,7 @@ flatten_coeff_elev = 0.00001810
 
 #On Or Off
 ground = False
-aileron = False
+aileron = True
 elevator = True
 array = False
 extragraphs = False
