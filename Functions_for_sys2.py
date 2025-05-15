@@ -4,6 +4,7 @@ from check_fulldata import dat_array, dat_array_ground
 import numpy as np
 import matplotlib.pyplot as plt
 from Testkernels import smooth_data
+import os
 
 
 def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
@@ -275,22 +276,21 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
         plt.grid()
 
     if extragraphs == True:
-        #Plot of DOF1 and DOF2 in one graph
-        plt.plot(t_values, Y_sol[:, 0]*(180*np.pi)/divfactor, label="x1 (DOF 1)")
-        plt.plot(t_values, flip * Y_sol[:, 1]*(180*np.pi), label="x2 (DOF 2)")
+        plt.plot(t_values, flip * Y_sol[:, 1], label=r'$\theta_{2}$' + ": predicted by MDOF Model", color="blue")
+        plt.plot(t_values, Delta, label=r'$\theta_{2}$' + ": actual data", color="orange")
         plt.xlabel("Time (s)")
-        plt.ylabel("Displacement")
+        plt.ylabel("Displacement of " + r'$\theta_{2}$')
+        if run == 12:
+            plt.title(r'$\theta_{2}$' + " vs Time - Run 12 (Best Accuracy)")
+        elif run == 5:
+            plt.title(r'$\theta_{2}$' + " vs Time - Run 5 (Worst Accuracy)")
+        else:
+            plt.title(r'$\theta_{2}$' + f" vs Time - Run{run}")
+        plt.text(x=0.5, y=0.05, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
         plt.legend()
         plt.grid()
-        plt.show()
-
-        #Plot of the cable slack
-        plt.plot(t_values, (flip * Y_sol[:, 1]*(180*np.pi))/(Y_sol[:, 0]*(180*np.pi)/divfactor), label="Linearity vs. cable slack")
-        plt.xlabel("Time (s)")
-        plt.ylabel("Ratio")
-        plt.title("Linearity")
-        plt.legend()
-        plt.grid()
+        plt.savefig("my_plot.png", dpi=300, bbox_inches='tight')
+        print("Saving to:", os.path.abspath("my_plot.png"))
         plt.show()
     return accuracy1, accuracy2
 
@@ -342,3 +342,4 @@ def accuracy_plot_elev(accuracy_dof1_array, accuracy_dof2_array):
     plt.legend()
     plt.grid()
     plt.show()
+
