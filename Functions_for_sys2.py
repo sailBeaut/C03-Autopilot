@@ -286,7 +286,7 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
             plt.title(r'$\theta_{2}$' + " vs Time - Run 5 (Worst Accuracy)")
         else:
             plt.title(r'$\theta_{2}$' + f" vs Time - Run{run}")
-        plt.text(x=0.5, y=0, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
+        plt.text(x=0.5, y=0.01, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
         plt.legend()
         plt.grid()
         plt.savefig(f"my_plot_{run}.png", dpi=300, bbox_inches='tight')
