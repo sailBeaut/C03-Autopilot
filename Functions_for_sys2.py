@@ -278,7 +278,7 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
     if extragraphs == True:
         if run == 4:
             x_pos = 7
-            y_pos = 0.017
+            y_pos = 0.016
         elif run == 5:
             x_pos = 7.8
             y_pos = -0.025
