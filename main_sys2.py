@@ -35,10 +35,10 @@ flatten_coeff_elev = 0.00001810
 
 #On Or Off
 ground = False
-aileron = True
+aileron = False
 elevator = True
 array = False
-extragraphs = False
+extragraphs = True
 showmainplots = False
 printeigenvalues = False
 
