@@ -289,7 +289,7 @@ def model2(run, array, resolution, flatten, flatten_coeff, clutch, flip, divfact
         plt.text(x=0.5, y=0.05, s="Model accuracy of " + r'$\theta_{2}$' + f": {accuracy2:.2f}%", fontsize=10, color="black")
         plt.legend()
         plt.grid()
-        plt.savefig("my_plot.png", dpi=300, bbox_inches='tight')
+        plt.savefig(f"my_plot_{run}.png", dpi=300, bbox_inches='tight')
         print("Saving to:", os.path.abspath(f"my_plot_{run}.png"))
         plt.show()
     return accuracy1, accuracy2
