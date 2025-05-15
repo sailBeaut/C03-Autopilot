@@ -31,7 +31,7 @@ c2_numvalue_elev = 3.8
 k_g_elev = 0.22
 a_velo_elev = 2.3e-7
 flip_elev = 1
-flatten_coeff_elev = 0.0000177
+flatten_coeff_elev = 0.00001810
 
 #On Or Off
 ground = False
