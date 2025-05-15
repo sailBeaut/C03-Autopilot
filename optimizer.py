@@ -48,6 +48,7 @@ for attempt in range(tries):
     acc_last_last = 0
     continue_list = [1, 1, 1, 1]  # List to keep track of which parameters are still being tested
     epoch_list = [0,0,0,0]  # List to keep track of epochs per parameter
+    chosen_parameter
     while True:
         if sum(continue_list) == 0 and np.all(epoch_list < 5):
             print("All parameters have been tried, exiting the loop.")
@@ -66,7 +67,7 @@ for attempt in range(tries):
         accuracy_DOF2_elev = []
 
         #Run the model
-        for run in range(4,5,6,7,12,13):
+        for run in (4,5,6,7,12,13):
             acc_run_DOF1, acc_run_DOF2 = model2(run, print_accuracy, array, resolution, flatten_elev, flatten_coeff, clutch_elev, flip_elev, divfactor_elev, k_g_elev, k1_numvalue_elev, k2_numvalue, c1_numvalue_elev, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for elevator
             accuracy_DOF1_elev.append(acc_run_DOF1)
