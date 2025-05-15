@@ -7,19 +7,11 @@ from Functions_for_sys2 import model2, accuracy_plot_elev
 
 # Parameters
 k1_numvalue = 500000
-<<<<<<< HEAD
-k2_numvalue = 21.2 
-c1_numvalue = 50 
-c2_numvalue = 3.6
-k_g = 0.22
-a_velo = 2.3e-07 
-=======
 k2_numvalue = 21.2
 c1_numvalue = 50 
 c2_numvalue = 3.6
 k_g = 0.22
 a_velo = 2.3e-7 
->>>>>>> e032c5c767b0354ee0f3eba2b78e2d2519d42041
 divfactor = 1
 flip = 1
 resolution = 2
