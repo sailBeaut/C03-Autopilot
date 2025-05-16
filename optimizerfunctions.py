@@ -60,6 +60,11 @@ def increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_
             k2_update = k2_numvalue
             c2_update = c2_numvalue
             a_velo_update = a_velo
+    else:
+        k2_update = k2_numvalue
+        c2_update = c2_numvalue
+        a_velo_update = a_velo
+        flatten_coeff_update = flatten_coeff
     return k2_update, c2_update, a_velo_update, flatten_coeff_update
 
 
