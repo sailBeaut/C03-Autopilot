@@ -164,7 +164,7 @@ for attempt in range(tries):
             #Compare the accuracies
             continue_parameter_inc, continue_parameter_dec, continue_parameter = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_parameter_inc, continue_parameter_dec, continue_parameter)
             if continue_parameter == False:
-                continue_list[chosen_parameter] = 0
+                continue_list[chosen_parameter-1] = 0
             
 
         #Save the accuracies
