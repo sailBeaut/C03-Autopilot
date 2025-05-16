@@ -99,6 +99,10 @@ def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivit
             continue_param_inc = False
             continue_param_dec = False
             continue_param = False
+    else:
+        continue_param_inc = False
+        continue_param_dec = False
+        continue_param = False
 
     
     return continue_param_inc, continue_param_dec, continue_param
