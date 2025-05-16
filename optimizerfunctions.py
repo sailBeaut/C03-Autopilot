@@ -73,7 +73,7 @@ def calculate_average_accuracy_dof2(accuracy_DOF2):
 
 def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_param_inc, continue_param_dec, continue_param):
     if increment == True:
-        if delta_acc1 >= 0 and delta_acc2 >= 0:
+        if delta_acc1 > 0 and delta_acc2 > 0:
             if delta_acc1 <= sensitivity and delta_acc2 <= sensitivity:
                 continue_param_inc = False
                 continue_param_dec = True

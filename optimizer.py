@@ -65,7 +65,9 @@ for attempt in range(tries):
             continue_list = [1, 1, 1, 1]  # Reset the continue list
             epoch_list = [0,0,0,0] # Reset the epoch list
         
-       
+        if continue_parameter_dec == True:
+            acc_last = 0
+            acc_last_last = 0
 
 
         #Define Accuracy lists
