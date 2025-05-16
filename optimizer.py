@@ -54,6 +54,7 @@ for attempt in range(tries):
     c2_update = 0
     a_velo_update = 0
     flatten_coeff_update = 0
+    delta_acc1, delta_acc2 = 0, 0
 
     while True:
         if sum(continue_list) == 0 and np.all(epoch_list < 5):
@@ -88,12 +89,13 @@ for attempt in range(tries):
 
         #Print the accuracies
         print("---------------------------------------------------------------------------")
-        print(f"This is attempt number {attempt}")
+        print(f"This is attempt number {attempt+1}")
         print(f"This is epoch number {epoch}")	
         print(f"Average Accuracy for DOF 2: {acc_now:.3f}%")
         print(f"Used Parameters: k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}, flatten_coeff={flatten_coeff}")
         print(f"This is the accuracy of the last epoch: {acc_last:.3f}%")
         print(f"This is the accuracy of the epoch before that: {acc_last_last:.3f}%")
+        print(f"Change in accuracy: 0 and -1{delta_acc1:.3f}% & -1 and -2 {delta_acc2:.3f}%")
         print(f"Parameter chosen: {chosen_parameter}")
         print(f"Increment & decrement: {increment} & {decrement}")
         print(f"Increment or decrement list: {increment_or_decrement_list}")
@@ -101,6 +103,7 @@ for attempt in range(tries):
         print(f"Continue parameter: {continue_parameter}")
         print(f"Continue list: {continue_list}")
         print(f"Epoch list: {epoch_list}")
+
         print("---------------------------------------------------------------------------")
         
         #Add Epoch counter
