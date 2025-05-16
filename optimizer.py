@@ -113,17 +113,17 @@ for attempt in range(tries):
             continue_parameter = True
             chosen_parameter = choose_random_param(continue_list)
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
-        elif epoch == 2 or epoch == 3:
+        elif epoch == 2
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
         
         #Increment or decrement the parameters
-        if epoch > 3 and continue_parameter == True:
+        if epoch > 2 and continue_parameter == True:
             k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
    
     
       
         #Compare the accuracies
-        if epoch > 3:
+        if epoch > 2:
             delta_acc1, delta_acc2 = calculate_accuracy_change_3step(acc_now, acc_last, acc_last_last)
             # Check if the changes in accuracy are within the sensitivity range
             # If both changes are within the sensitivity range, continue with the current parameter
