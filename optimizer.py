@@ -100,13 +100,13 @@ for attempt in range(tries):
         #Change the parameters
         if continue_parameter == False or epoch == 1:
             chosen_parameter = choose_random_param()
-            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
         elif epoch == 2 or epoch == 3:
-            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
         
         #Increment or decrement the parameters
         if epoch > 3 and continue_parameter == True:
-            k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_numvalue, c2_numvalue, a_velo, flatten_coeff, increment_or_decrement_list)
+            k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
    
     
       
