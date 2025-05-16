@@ -126,8 +126,19 @@ for attempt in range(tries):
         #Change the parameters
         if continue_parameter == False or epoch == 1:
             continue_parameter = True
+            continue_parameter_inc = True
+            continue_parameter_dec = False
             chosen_parameter = choose_random_param(continue_list)
-            k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
+             #store the current parameter values before incrementing/decrementing
+            k2_placeholder = k2_update
+            c2_placeholder = c2_update
+            a_velo_placeholder = a_velo_update
+            flatten_coeff_placeholder = flatten_coeff_update
+            if epoch == 1:
+                k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
+            if epoch > 1:
+                k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
+           
         elif epoch == 2:
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
         
@@ -135,21 +146,16 @@ for attempt in range(tries):
         if epoch > 2 and continue_parameter == True:
             k2_update, c2_update, a_velo_update, flatten_coeff_update =  increment_or_decrement_parameter(chosen_parameter, continue_parameter_inc, continue_parameter_dec, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
    
-    
+                   
       
-        #Compare the accuracies
-        if increment == True:
-            if epoch > 0:            #store the current parameter values before incrementing/decrementing
-                k2_placeholder = k2_update
-                c2_placeholder = c2_update
-                a_velo_placeholder = a_velo_update
-                flatten_coeff_placeholder = flatten_coeff_update
+        
 
         if epoch > 2:
             delta_acc1, delta_acc2 = calculate_accuracy_change_3step(acc_now, acc_last, acc_last_last)
             # Check if the changes in accuracy are within the sensitivity range
             # If both changes are within the sensitivity range, continue with the current parameter
             increment, decrement = continue_parameter_inc, continue_parameter_dec
+            #Compare the accuracies
             continue_parameter_inc, continue_parameter_dec, continue_parameter = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_parameter_inc, continue_parameter_dec, continue_parameter)
             if continue_parameter == False:
                 continue_list[chosen_parameter] = 0
