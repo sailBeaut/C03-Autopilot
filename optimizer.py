@@ -127,9 +127,11 @@ for attempt in range(tries):
             continue_parameter_inc, continue_parameter_dec, continue_parameter = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_parameter_inc, continue_parameter_dec, continue_parameter)
             if continue_parameter == False:
                 continue_list[chosen_parameter] = 0
+        
         #Save the accuracies
-        acc_last = acc_now
         acc_last_last = acc_last
+        acc_last = acc_now
+        
 
         #Count Epochs per parameter
         epoch_list = count_epochs_per_parameter(chosen_parameter, continue_list, epoch_list)
