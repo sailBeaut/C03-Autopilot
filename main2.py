@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from check_data import dat_array as load_data
+import os
 
 # Load the data for a specific run
 Accuracy = []
-for i in (4,5,6,7,12,13):
+for i in [4,5,6,7,12,13]:
     nr_of_run = i
     run_nr = nr_of_run
     DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltElev")
@@ -46,6 +47,7 @@ for i in (4,5,6,7,12,13):
     error_norm = np.linalg.norm(absolute_error) / np.linalg.norm(DeltaAil)
     accuracy = (1 - error_norm) * 100
     Accuracy.append(accuracy)
+    print(accuracy)
 
     # Print accuracy
     '''
@@ -60,6 +62,24 @@ for i in (4,5,6,7,12,13):
     plt.title("Computed vs. Actual Delta Ail")
     plt.show()
     '''
+    '''
+    t_values = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))/1000
+    plt.plot(t_values, xlist, label=r'$\theta$' + ": predicted by SDOF Model", color="blue")
+    plt.plot(t_values, DeltaAil, label=r'$\theta$' + ": actual data", color="orange")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Displacement of " + r'$\theta$')
+    plt.title(r'$\theta$' + " vs Time - Run 13")
+    #plt.text(x=-500/1000, y=-0.008, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
+    #plt.text(x=7000/1000, y=0.011, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
+    plt.text(x=-200/1000, y=-0.011, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")    
+    plt.legend()
+    plt.grid()
+    plt.savefig("SDOF_ail_13.png", dpi=300, bbox_inches='tight')
+    print("Saving to:", os.path.abspath("SDOF_ail_13.png"))
+    plt.show()
+    '''
+    
+    
 
 lennart = sum(Accuracy)/len(Accuracy)
 print(lennart)
