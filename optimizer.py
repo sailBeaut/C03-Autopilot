@@ -71,12 +71,18 @@ for attempt in range(tries):
             epoch_list = [0,0,0,0] # Reset the epoch list
         
         if continue_parameter_dec == True:
-            acc_last = 0
-            acc_last_last = 0
-            k2_update = k2_placeholder
-            c2_update = c2_placeholder
-            a_velo_update = a_velo_placeholder
-            flatten_coeff_update = flatten_coeff_placeholder
+            wait = 0
+            
+            if wait == 1:
+                acc_last = 0
+                acc_last_last = 0
+                k2_update = k2_placeholder
+                c2_update = c2_placeholder
+                a_velo_update = a_velo_placeholder
+                flatten_coeff_update = flatten_coeff_placeholder
+                wait = 0
+            else:
+                wait += 1
 
         
 
