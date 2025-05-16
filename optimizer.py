@@ -55,6 +55,11 @@ for attempt in range(tries):
     a_velo_update = 0
     flatten_coeff_update = 0
     delta_acc1, delta_acc2 = 0, 0
+    # Initialize the placeholder for parameter values before increment/decrement
+    k2_placeholder = 0
+    c2_placeholder = 0
+    a_velo_placeholder = 0
+    flatten_coeff_placeholder = 0
 
     while True:
         if sum(continue_list) == 0 and np.all(epoch_list < 5):
@@ -68,6 +73,12 @@ for attempt in range(tries):
         if continue_parameter_dec == True:
             acc_last = 0
             acc_last_last = 0
+            k2_update = k2_placeholder
+            c2_update = c2_placeholder
+            a_velo_update = a_velo_placeholder
+            flatten_coeff_update = flatten_coeff_placeholder
+
+        
 
 
         #Define Accuracy lists
@@ -110,6 +121,8 @@ for attempt in range(tries):
         
         #Add Epoch counter
         epoch += 1
+
+        
         #Change the parameters
         if continue_parameter == False or epoch == 1:
             continue_parameter = True
@@ -125,6 +138,13 @@ for attempt in range(tries):
     
       
         #Compare the accuracies
+        if increment == True:
+            if epoch > 0:            #store the current parameter values before incrementing/decrementing
+                k2_placeholder = k2_update
+                c2_placeholder = c2_update
+                a_velo_placeholder = a_velo_update
+                flatten_coeff_placeholder = flatten_coeff_update
+
         if epoch > 2:
             delta_acc1, delta_acc2 = calculate_accuracy_change_3step(acc_now, acc_last, acc_last_last)
             # Check if the changes in accuracy are within the sensitivity range
@@ -133,7 +153,8 @@ for attempt in range(tries):
             continue_parameter_inc, continue_parameter_dec, continue_parameter = compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivity, increment, decrement, continue_parameter_inc, continue_parameter_dec, continue_parameter)
             if continue_parameter == False:
                 continue_list[chosen_parameter] = 0
-        
+            # Removed incomplete if statement to fix syntax error
+
         #Save the accuracies
         acc_last_last = acc_last
         acc_last = acc_now
