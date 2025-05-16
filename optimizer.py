@@ -113,7 +113,7 @@ for attempt in range(tries):
             continue_parameter = True
             chosen_parameter = choose_random_param(continue_list)
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list)
-        elif epoch == 2
+        elif epoch == 2:
             k2_update, c2_update, a_velo_update, flatten_coeff_update = increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_update, c2_update, a_velo_update, flatten_coeff_update, increment_or_decrement_list)
         
         #Increment or decrement the parameters
