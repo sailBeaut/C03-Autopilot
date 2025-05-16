@@ -8,11 +8,6 @@ def calculate_accuracy_change_3step(accuracy0, accuracy1, accuracy2):
     delta_acc2 = accuracy1 - accuracy2
     return delta_acc1, delta_acc2
 
-def increment_parameter(parameter, increment):
-    return parameter + increment
-
-def decrement_parameter(parameter, decrement):
-    return parameter - decrement
 
 def choose_random_param():
     parameters = [0,1,2,3]
