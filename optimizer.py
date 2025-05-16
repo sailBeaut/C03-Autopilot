@@ -108,7 +108,7 @@ for attempt in range(tries):
         print(f"Used Parameters: k2={k2_numvalue}, c2={c2_numvalue}, a_velo={a_velo}, flatten_coeff={flatten_coeff}")
         print(f"This is the accuracy of the last epoch: {acc_last:.3f}%")
         print(f"This is the accuracy of the epoch before that: {acc_last_last:.3f}%")
-        print(f"Change in accuracy: 0 and -1 {delta_acc1:.3f}% & -1 and -2 {delta_acc2:.3f}%")
+        print(f"Change in accuracy: -1 and -2 {delta_acc1:.3f}% & -2 and -3 {delta_acc2:.3f}%")
         print(f"Parameter chosen: {chosen_parameter}")
         print(f"Increment & decrement: {increment} & {decrement}")
         print(f"Increment or decrement list: {increment_or_decrement_list}")

@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import random as rd
 
 
-def calculate_accuracy_change_3step(accuracy0, accuracy1, accuracy2):
-    delta_acc1 = accuracy0 - accuracy1
-    delta_acc2 = accuracy1 - accuracy2
+def calculate_accuracy_change_3step(accuracy0, accuracy_1, accuracy_2):
+    delta_acc1 = accuracy0 - accuracy_1
+    delta_acc2 = accuracy_1 - accuracy_2
     return delta_acc1, delta_acc2
 
 
