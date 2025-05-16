@@ -9,10 +9,12 @@ def calculate_accuracy_change_3step(accuracy0, accuracy1, accuracy2):
     return delta_acc1, delta_acc2
 
 
-def choose_random_param():
-    parameters = [0,1,2,3]
+def choose_random_param(continue_list):
+    parameters = np.array([0,1,2,3])
+    continue_list = np.array(continue_list)
+    available_parameters = parameters* continue_list
     # 1 for k2_numvalue, 2 for c2_numvalue, 3 for a_velo, 4 for flatten_coeff
-    return rd.choice(parameters)
+    return rd.choice(available_parameters[available_parameters != 0])
 
 def increment_or_decrement_parameter(chosen_parameter, increment, decrement, k2_numvalue, c2_numvalue, a_velo, flatten_coeff,  increment_or_decrement_list):
     if increment == True:  
@@ -76,24 +78,23 @@ def compare_accuracies_and_choose_to_continue(delta_acc1, delta_acc2, sensitivit
             continue_param = True
         else:
             continue_param_inc = False
+            continue_param_dec = True
 
     elif decrement == True:
         if delta_acc1 > 0 and delta_acc2 > 0:
             if delta_acc1 <= sensitivity and delta_acc2 <= sensitivity:
                 continue_param_dec = False
                 continue_param_inc = False #Stop the increments
+                continue_param = False
             else:
                 continue_param_dec = True
                 continue_param_inc = False
-            continue_param = True
+                continue_param = True
         else:
+            continue_param_inc = False
             continue_param_dec = False
+            continue_param = False
 
-
-    elif increment == False and decrement == False:
-        continue_param = False
-        continue_param_inc = True
-        continue_param_dec = False
     
     return continue_param_inc, continue_param_dec, continue_param
 
