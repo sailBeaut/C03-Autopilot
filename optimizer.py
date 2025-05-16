@@ -12,13 +12,13 @@ flatten_elev = True         #Constant for all runs
 divfactor_elev = 1          #Constant for all runs
 clutch_elev = 0             #Constant for all runs
 k1_numvalue_elev = 500000   #Constant for all runs
-k2_numvalue_elev_int = 21.2
+k2_numvalue_elev_int = 18
 c1_numvalue_elev = 50       #Constant for all runs
-c2_numvalue_elev_int = 3.6
+c2_numvalue_elev_int = 4
 k_g_elev = 0.22             #Constant for all runs
-a_velo_elev_int = 2.3e-7
+a_velo_elev_int = 1e-7
 flip_elev = 1               #Constant for all runs
-flatten_coeff_elev_int = 0.00001810
+flatten_coeff_elev_int = 0.00001
 
 #On Or Off
 ground = False
@@ -62,10 +62,10 @@ for attempt in range(tries):
     flatten_coeff_placeholder = 0
 
     while True:
-        if sum(continue_list) == 0 and np.all(epoch_list < 5):
+        if sum(continue_list) == 0 and np.all(np.array(epoch_list) < 5):
             print("All parameters have been tried, exiting the loop.")
             break
-        elif sum(continue_list) == 0 and np.all(epoch_list >= 5):
+        elif sum(continue_list) == 0 and np.all(np.array(epoch_list) >= 5):
             print("All parameters have been tried but change in parameters still apparent, continue with new random parameter.")
             continue_list = [1, 1, 1, 1]  # Reset the continue list
             epoch_list = [0,0,0,0] # Reset the epoch list
