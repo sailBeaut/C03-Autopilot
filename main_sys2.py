@@ -39,7 +39,7 @@ aileron = False
 elevator = True
 array = False
 extragraphs = False
-showmainplots = False
+showmainplots = True
 printeigenvalues = False
 
 #Define Accuracy lists
