@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from check_data import dat_array as load_data
+import os
 
 # Load the data for a specific run
 Accuracy = []
-for i in (1,3,8,9,10,11):
+for i in [1,3,8,9,10,11]:
     nr_of_run = i
     run_nr = nr_of_run
     DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltaAil")
@@ -13,7 +14,7 @@ for i in (1,3,8,9,10,11):
 
     # Tuning Parameters 
     c1 = 0.94  # Damper constant 
-    k1 = 3.75   # Spring constant 
+    k1 = 3.75   # Sprin constant 
 
     # Set Parameters
     kg = 0.22 # Gain 
@@ -61,9 +62,26 @@ for i in (1,3,8,9,10,11):
     plt.title("Computed vs. Actual Delta Ail")
     plt.show()
     '''
+    '''
+    t_values = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))/1000
+    plt.plot(t_values, xlist, label=r'$\theta$' + ": predicted by SDOF Model", color="blue")
+    plt.plot(t_values, DeltaAil, label=r'$\theta$' + ": actual data", color="orange")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Displacement of " + r'$\theta$')
+    plt.title(r'$\theta$' + " vs Time - Run 9")
+    plt.text(x=7000/1000, y=-0.033, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
+    #plt.text(x=-250/1000, y=0.035, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
+    plt.legend()
+    plt.grid()
+    plt.savefig("SDOF_ail_9.png", dpi=300, bbox_inches='tight')
+    print("Saving to:", os.path.abspath("SDOF_ail_9.png"))
+    plt.show()
+    '''
+    
 
 lennart = sum(Accuracy)/len(Accuracy)
 print(lennart)
 
 # Plot computed vs actual Delta Ail over time
+
 
