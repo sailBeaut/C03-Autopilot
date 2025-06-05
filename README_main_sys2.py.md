@@ -15,6 +15,7 @@ check_fulldata.py:                  Provides data structures and print utilities
 
 2. **Adjust Parameters (Optional)**  
    At the top of the script, you can configure the initial parameters:
+   - Resolution (`Resolution`)
    - Stiffness (`k1_numvalue`, `k2_numvalue`)
    - Damping (`c1_numvalue`, `c2_numvalue`)
    - Velocity factor (`a_velo`)
@@ -33,12 +34,9 @@ check_fulldata.py:                  Provides data structures and print utilities
 
 4. **Run the Script**
 The script will:
-- Run the `model2` simulation across 6 test cases.
-- Adjust parameters to maximise the average accuracy of DOF 2.
-- Print intermediate and final best accuracy and parameters.
-- Plot the final accuracy results for DOF 2 using `accuracy_plot_elev`.
+- Run the `model2` simulation across the selected test cases.
+- Calculate the accuracies of the selected runs
 
 ## Notes
-- **Stopping Condition**: The optimisation loop stops once the average accuracy of DOF 2 exceeds 85%, or another accuracy you want it to achieve.
-- **Plotting**: The final plot displays the DOF 2 accuracy for each test case.
-- **Customization**: You can uncomment and tweak the parameter update lines to experiment with different optimization strategies, as explained in the description of the script.
+- It will take quite some times, especially when increasing the resolution
+- Some parameters are sensitive to high values and will make the system unstable
