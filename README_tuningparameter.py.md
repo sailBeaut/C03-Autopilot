@@ -30,7 +30,27 @@ The script will:
 - Plot the final accuracy results for DOF 2 using `accuracy_plot_elev`.
 
 ## Testing trial
-To make sure the code functioning is understood parameters can be tested.  
+To make sure the code functioning is understood parameters can be tested. Give a try with finding the optimisation path for (`a_velo`). Plug the following parameters initially;
+
+(`k1_numvalue`) = 500000
+(`k2_numvalue`) = 21.2
+(`c1_numvalue`) = 50 
+(`c2_numvalue`) = 3.6
+(`k_g`) = 0.22
+(`a_velo`) = 1.5e-7 
+(`divfactor`) = 1
+(`flip`) = 1
+(`resolution`) = 2
+(`clutch`) = 0
+(`flatten`) = True
+(`flatten_coeff`) = 0.00001810
+
+And in order to update ONLY (`a_velo`) edit line 57 to;
+(`flatten_coeff`) -= 0.0000001
+
+Then let it run. The accuracies for the first 3 iterations should be; 76.32%, 76.26% and 76.18%, respectively.
+
+
 
 ## Notes
 - **Stopping Condition**: The optimisation loop stops once the average accuracy of DOF 2 exceeds 85%, or another accuracy you want it to achieve.
