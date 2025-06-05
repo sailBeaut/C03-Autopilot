@@ -29,7 +29,8 @@ The script will:
 - Print intermediate and final best accuracy and parameters.
 - Plot the final accuracy results for DOF 2 using `accuracy_plot_elev`.
 
-##
+## Testing trial
+To make sure the code functioning is understood parameters can be tested.  
 
 ## Notes
 - **Stopping Condition**: The optimisation loop stops once the average accuracy of DOF 2 exceeds 85%, or another accuracy you want it to achieve.
