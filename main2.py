@@ -2,23 +2,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 from check_data import dat_array as load_data
 import os
+# import functions
 
-# Load the data for a specific run
-Accuracy = []
-for i in [4,5,6,7,12,13]:
+plot_all = True # creates plots of displacement against time
+print_accuracies = True # prints accuracies for all runs, and average
+
+
+Accuracy = [] # initalizes array for accuracies
+
+for i in [4,5,6,7,12,13]: # loop all aileron runs
     nr_of_run = i
     run_nr = nr_of_run
-    DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltElev")
+    DeltaAil = load_data("run" + str(run_nr) + "/aircraft/DeltElev") # load elevator deflection and current data
     IservoAil = load_data("run" + str(run_nr) + "/aircraft/IservoElev")
-    IservoAil-=IservoAil[0]
+    IservoAil-=IservoAil[0] # normalize current
 
     # Tuning Parameters 
-    c1 = 1.1  # Damper constant 3.5
-    k1 = 9.4   # Spring constant 52
+    c1 = 1.1  # Damper constant 
+    k1 = 9.4   # Spring constant
+    Ie = 0.03 # Moment of inertia 
 
     # Set Parameters
     kg = -0.22 # Gain 
-    Ie = 0.03 # Moment of inertia  0.045
+
 
     # System matrices
     A = np.array([[-(c1/Ie), -(k1/Ie)], [1, 0]]) 
@@ -38,62 +44,37 @@ for i in [4,5,6,7,12,13]:
         xlist.append(x[1, 0]) # Store control surface deflection
 
     # Convert xlist to NumPy array
+    # Convert xlist to NumPy array
     xlist = np.array(xlist)
 
-    # Compute absolute error
-    absolute_error = np.abs(xlist - DeltaAil)
 
-    # Compute relative error and accuracy as percentages
-    error_norm = np.linalg.norm(absolute_error) / np.linalg.norm(DeltaAil)
+    absolute_error = np.abs(xlist - DeltaAil) # Compute absolute error
+    error_norm = np.linalg.norm(absolute_error) / np.linalg.norm(DeltaAil) # Compute relative error and accuracy as percentages
     accuracy = (1 - error_norm) * 100
     Accuracy.append(accuracy)
-    print(accuracy)
+    if print_accuracies: # print accuracy if enabled
+        print(f"Run {nr_of_run} accuracy: {accuracy:.2f}%") # Print accuracy
 
-    # Print accuracy
-    '''
-    print(f"Model Accuracy: {accuracy:.2f}%")
-    time_steps = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))
-    plt.figure(figsize=(10, 5))
-    plt.plot(time_steps, xlist, color="r", label="Computed")
-    plt.plot(time_steps, DeltaAil, color="b", label="Actual")
-    plt.xlabel("Time Steps")
-    plt.ylabel("Delta Ail")
-    plt.legend()
-    plt.title("Computed vs. Actual Delta Ail")
-    plt.show()
-    '''
-    '''
-    t_values = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))/1000
-    plt.plot(t_values, xlist, label=r'$\theta$' + ": predicted by SDOF Model", color="blue")
-    plt.plot(t_values, DeltaAil, label=r'$\theta$' + ": actual data", color="orange")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Displacement of " + r'$\theta$')
-    plt.title(r'$\theta$' + " vs Time - Run 13")
-    #plt.text(x=-500/1000, y=-0.008, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
-    #plt.text(x=7000/1000, y=0.011, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")
-    plt.text(x=-200/1000, y=-0.011, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black")    
-    plt.legend()
-    plt.grid()
-    plt.savefig("SDOF_ail_13.png", dpi=300, bbox_inches='tight')
-    print("Saving to:", os.path.abspath("SDOF_ail_13.png"))
-    plt.show()
-    '''
+
+
+    if plot_all: # plot all runs if on 
+        t_values = np.linspace(0, len(DeltaAil)-1, len(DeltaAil))/1000 # create timesteps
+        plt.plot(t_values, xlist, label=r'$\theta$' + ": predicted by SDOF Model", color="blue") # plot computed displacement 
+        plt.plot(t_values, DeltaAil, label=r'$\theta$' + ": actual data", color="orange") # plot actual displacement 
+        plt.xlabel("Time (s)")
+        plt.ylabel("Displacement of " + r'$\theta$')
+        plt.title(r'$\theta$' + " vs Time for Elevator - Run "+str(nr_of_run))
+        #plt.text(x=7000/1000, y=-0.033, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black") 
+        plt.text(x=-250/1000, y=0.035, s="Model accuracy of " + r'$\theta$' + f": {accuracy:.2f}%", fontsize=10, color="black") # print accuracy in plot, can change position by uncommenting other line
+        plt.legend()
+        plt.grid()
+        plt.show() 
+
     
-    
-
-lennart = sum(Accuracy)/len(Accuracy)
-print(lennart)
-
-# # Plot computed vs actual Delta Ail over time
+if print_accuracies: # print total accuracy if turned on 
+    averageacc = sum(Accuracy)/len(Accuracy)
+    print(f"Average accuracy: {averageacc:.2f}%")
 
 
 
 
-# # Plot absolute error over time
-# plt.figure(figsize=(10, 5))
-# plt.plot(time_steps, absolute_error, color="g", label="Absolute Error")
-# plt.xlabel("Time Steps")
-# plt.ylabel("Absolute Error")
-# plt.legend()
-# plt.title("Absolute Error Over Time")
-# plt.show()
