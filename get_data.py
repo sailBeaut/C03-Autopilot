@@ -304,4 +304,4 @@ def extract_relevant_data(input_file, output_file, runs=12):
 input_hdf5 = '/Users/lennarthubbers/Desktop/simlog-20250424_091724.hdf5'  # Replace with your actual input file
 output_hdf5 = 'new_data.hdf5'  # Replace with your desired output file
 extract_relevant_data(input_hdf5, output_hdf5)
-
+'''
