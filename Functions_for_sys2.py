@@ -4,7 +4,15 @@ from check_fulldata import dat_array, dat_array_ground
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+def smooth_data(data, window_size):
+    """Smooth the data using a simple moving average."""
+    if window_size < 1:
+        raise ValueError("Window size must be at least 1")
+    if window_size > len(data):
+        raise ValueError("Window size must not be greater than the length of the data")
 
+    smoothed_data = np.convolve(data, np.ones(window_size) / window_size, mode='valid')
+    return np.concatenate((data[:window_size - 1], smoothed_data))
 
 def model2(run, print_accuracy, array, resolution, flatten, flatten_coeff, clutch, flip, divfactor, k_g, k1_numvalue, k2_numvalue, c1_numvalue, c2_numvalue, a_velo, extragraphs, showmainplots, printeigenvalues):
     # Load data
