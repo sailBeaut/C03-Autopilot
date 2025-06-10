@@ -3,7 +3,6 @@ import sympy as sp
 from check_fulldata import dat_array, dat_array_ground
 import numpy as np
 import matplotlib.pyplot as plt
-from Testkernels import smooth_data
 import os
 
 

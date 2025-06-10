@@ -31,6 +31,7 @@ check_fulldata.py:                  Provides data structures and print utilities
    - `extragraphs`         - this turns the plots about linearity on or off
    - `showmainplots`       - this turns the main plots on or off, without this on only the accuracy is printed
    - `printeigenvalues`    - this turns the print statement of the eigenvalues of the system on or off
+   - `printaccuracy`       - this turns the print statement of the accuracies of the system on or off
 
 4. **Run the Script**
 The script will:

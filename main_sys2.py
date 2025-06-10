@@ -39,8 +39,9 @@ aileron = False
 elevator = True
 array = False
 extragraphs = True
-showmainplots = False
+showmainplots = True
 printeigenvalues = False
+printaccuracy = True
 
 #Define Accuracy lists
 accuracy_DOF1_ail = []
@@ -50,19 +51,19 @@ accuracy_DOF2_elev = []
 
 #Run the model
 if ground == True:
-    acc_ground_DOF1, acc_ground_DOF2 = model2(0, array, resolution, flatten_ail, flatten_coeff_ail, clutch_ail, flip_ail, divfactor_ail, k_g_ail, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
+    acc_ground_DOF1, acc_ground_DOF2 = model2(0, printaccuracy, array, resolution, flatten_ail, flatten_coeff_ail, clutch_ail, flip_ail, divfactor_ail, k_g_ail, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
 for run in range(1, 14):
     if run == 2:
         print('There is no data for this case, run 2 is skipped')
         continue
     else:
         if run in (1, 3, 8, 9, 10, 11) and aileron == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, array, resolution, flatten_ail, flatten_coeff_ail, clutch_ail, flip_ail, divfactor_ail, k_g_elev, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, printaccuracy, array, resolution, flatten_ail, flatten_coeff_ail, clutch_ail, flip_ail, divfactor_ail, k_g_elev, k1_numvalue_ail, k2_numvalue_ail, c1_numvalue_ail, c2_numvalue_ail, a_velo_ail, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for aileron
             accuracy_DOF1_ail.append(acc_run_DOF1)
             accuracy_DOF2_ail.append(acc_run_DOF2)
         elif run in (4, 5, 6, 7, 12, 13) and elevator == True:
-            acc_run_DOF1, acc_run_DOF2 = model2(run, array, resolution, flatten_elev, flatten_coeff_elev, clutch_elev, flip_elev, divfactor_elev, k_g_elev, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
+            acc_run_DOF1, acc_run_DOF2 = model2(run, printaccuracy, array, resolution, flatten_elev, flatten_coeff_elev, clutch_elev, flip_elev, divfactor_elev, k_g_elev, k1_numvalue_elev, k2_numvalue_elev, c1_numvalue_elev, c2_numvalue_elev, a_velo_elev, extragraphs, showmainplots, printeigenvalues)
             # Calculate accuracy for elevator
             accuracy_DOF1_elev.append(acc_run_DOF1)
             accuracy_DOF2_elev.append(acc_run_DOF2)
